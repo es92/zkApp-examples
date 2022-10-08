@@ -1,5 +1,5 @@
 {
-  "name": "02a-private-inputs",
+  "name": "02-private-inputs-and-hash-functions",
   "version": "0.1.5",
   "description": "",
   "author": "",
@@ -17,7 +17,7 @@
     "build": "tsc -p tsconfig.json",
     "coverage": "node --experimental-vm-modules --experimental-wasm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js --coverage",
     "format": "prettier --write --ignore-unknown **/*",
-    "prepare": "cd .. && husky install 02a-private-inputs/.husky",
+    "prepare": "husky install",
     "test": "node --experimental-vm-modules --experimental-wasm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js",
     "testw": "node --experimental-vm-modules --experimental-wasm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js --watch",
     "lint": "npx eslint src/* --fix"

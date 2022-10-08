@@ -9,7 +9,7 @@ import {
   Permissions,
 } from 'snarkyjs';
 
-export class Square extends SmartContract {
+export class IncrementSecret extends SmartContract {
   @state(Field) x = State<Field>();
 
   deploy(args: DeployArgs) {
@@ -33,3 +33,4 @@ export class Square extends SmartContract {
   }
 
 }
+

@@ -1,4 +1,4 @@
-# Mina zkApp: 01 Hello World
+# Mina zkApp: 02 Private Inputs And Hash Functions
 
 This template uses TypeScript.
 

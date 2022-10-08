@@ -1,4 +1,4 @@
-import { Square } from './Square.js';
+import { IncrementSecret } from './IncrementSecret.js';
 import {
   isReady,
   shutdown,
@@ -7,6 +7,7 @@ import {
   PrivateKey,
   PublicKey,
   AccountUpdate,
+  Poseidon,
 } from 'snarkyjs';
 
 (async function main() {
@@ -24,55 +25,30 @@ import {
   const zkAppPrivateKey = PrivateKey.random();
   const zkAppAddress = zkAppPrivateKey.toPublicKey();
 
-  // create an instance of Square - and deploy it to zkAppAddress
-  const zkAppInstance = new Square(zkAppAddress);
+  // create an instance of IncrementSecret - and deploy it to zkAppAddress
+  const zkAppInstance = new IncrementSecret(zkAppAddress);
   const deploy_txn = await Mina.transaction(deployerAccount, () => {
     AccountUpdate.fundNewAccount(deployerAccount);
     zkAppInstance.deploy({ zkappKey: zkAppPrivateKey });
-    zkAppInstance.init();
+    zkAppInstance.init(Poseidon.hash([ Field.fromNumber(750) ]));
     zkAppInstance.sign(zkAppPrivateKey);
   });
   await deploy_txn.send().wait();
 
-  // get the initial state of Square after deployment
-  const num0 = zkAppInstance.num.get();
+  // get the initial state of IncrementSecret after deployment
+  const num0 = zkAppInstance.x.get();
   console.log('state after init:', num0.toString());
 
   // ----------------------------------------------------
 
   const txn1 = await Mina.transaction(deployerAccount, () => {
-    zkAppInstance.update(Field.fromNumber(9));
+    zkAppInstance.incrementSecret(Field.fromNumber(750));
     zkAppInstance.sign(zkAppPrivateKey);
   });
   await txn1.send().wait();
 
-  const num1 = zkAppInstance.num.get();
+  const num1 = zkAppInstance.x.get();
   console.log('state after txn1:', num1.toString());
-
-  // ----------------------------------------------------
-
-  try {
-    const txn2 = await Mina.transaction(deployerAccount, () => {
-      zkAppInstance.update(Field.fromNumber(15));
-      zkAppInstance.sign(zkAppPrivateKey);
-    });
-    await txn2.send().wait();
-  } catch (ex: any) {
-    console.log(ex.message);
-  }
-  const num2 = zkAppInstance.num.get();
-  console.log('state after txn2:', num2.toString());
-
-  // ----------------------------------------------------
-
-  const txn3 = await Mina.transaction(deployerAccount, () => {
-    zkAppInstance.update(Field.fromNumber(16));
-    zkAppInstance.sign(zkAppPrivateKey);
-  });
-  await txn3.send().wait();
-
-  const num3 = zkAppInstance.num.get();
-  console.log('state after txn3:', num3.toString());
 
   // ----------------------------------------------------
 
@@ -80,3 +56,4 @@ import {
 
   await shutdown();
 })();
+

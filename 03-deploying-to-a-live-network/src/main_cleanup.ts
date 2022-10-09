@@ -86,7 +86,7 @@ import {
   // ----------------------------------------------------
 
   const xBefore = x;
-  console.log('Found deployed zkapp, updating state', x.toString(), '->', x.mul(x).toString());
+  console.log('Found deployed zkapp, updating state', x!.toString(), '->', x!.mul(x!).toString());
   let transaction = await Mina.transaction(
     { feePayerKey: deployerAccount , fee: transactionFee },
     () => {

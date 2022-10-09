@@ -2,9 +2,9 @@ import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { Square } from '03-deploying-to-a-live-network';
+import { Square, snarkyjs } from '03-deploying-to-a-live-network';
 
-import { Mina, PublicKey, PrivateKey, isReady, fetchAccount, setGraphqlEndpoint } from 'snarkyjs';
+const { Mina, PublicKey, PrivateKey, isReady, fetchAccount, setGraphqlEndpoint } = snarkyjs;
 
 var ran_snarky = false;
 

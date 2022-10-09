@@ -115,6 +115,18 @@ import {
 
   // ----------------------------------------------------
 
+  let stateChange = false;
+
+  while (!stateChange) {
+    console.log('waiting for zkApp state to change... (current state: ', x!.toString() + ')')
+    await new Promise(resolve => setTimeout(resolve, 5000))
+    x = await zkapp.num.fetch();
+    stateChange = (x != null && x.equals(xBefore).not().toBoolean());
+  }
+  console.log('updated state!', x!.toString());
+
+  // ----------------------------------------------------
+
   console.log('Shutting down')
 
   await shutdown();

@@ -120,6 +120,8 @@ import {
     console.log('See transaction at', 'https://berkeley.minaexplorer.com/transaction/' + hash);
   }
 
+  // ----------------------------------------------------
+
   let stateChange = false;
 
   while (!stateChange) {

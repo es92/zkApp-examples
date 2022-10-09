@@ -37,6 +37,8 @@ import {
 
   let transactionFee = 100_000_000;
 
+  // ----------------------------------------------------
+
   // compile the SmartContract to get the verification key (if deploying) or cache the provers (if updating)
   console.log('Compiling smart contract...');
   let { verificationKey } = await Square.compile();
@@ -46,6 +48,8 @@ import {
   let isDeployed = (x != null && x.equals(0).not().toBoolean()); // is there a better way to check this? What if I had a zkApp that could take on any value in any of its state variables?
 
   console.log('isDeployed:', isDeployed);
+
+  // ----------------------------------------------------
 
   if (!isDeployed) {
     console.log(`Deploying zkapp for public key ${zkAppAddress.toBase58()}.`);
@@ -76,6 +80,8 @@ import {
     }
   }
 
+  // ----------------------------------------------------
+
   while (!isDeployed) {
     console.log('waiting for zkApp to be deployed...')
     await new Promise(resolve => setTimeout(resolve, 5000))
@@ -83,7 +89,7 @@ import {
     isDeployed = (x != null && x.equals(0).not().toBoolean());
   }
 
-  //// ----------------------------------------------------
+  // ----------------------------------------------------
 
   x = zkapp.num.get(); // TODO what is get vs fetch?
   const xBefore = x;

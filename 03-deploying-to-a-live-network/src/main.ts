@@ -111,7 +111,7 @@ import {
   if (hash == null) {
     console.log('error sending transaction (see above)');
   } else {
-    console.log('See deploy transaction at', 'https://berkeley.minaexplorer.com/transaction/' + hash);
+    console.log('See transaction at', 'https://berkeley.minaexplorer.com/transaction/' + hash);
   }
 
   let stateChange = false;

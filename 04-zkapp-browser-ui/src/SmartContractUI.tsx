@@ -6,11 +6,11 @@ import { Square, snarkyjs } from '03-deploying-to-a-live-network';
 
 const { Mina, Field, PublicKey, PrivateKey, isReady, fetchAccount, setGraphqlEndpoint } = snarkyjs;
 
-function SquareApp({ publicKey, privateKey, zkapp, fetchedNum, mockEffects, transactionFee }: {
+function SmartContractUI({ publicKey, privateKey, zkapp, initialState, mockEffects, transactionFee }: {
   publicKey: InstanceType<typeof PublicKey>, 
   privateKey: InstanceType<typeof PrivateKey>, 
   zkapp: InstanceType<typeof Square>, 
-  fetchedNum: InstanceType<typeof Field>,
+  initialState: InstanceType<typeof Field>,
   mockEffects: boolean,
   transactionFee: number,
 }) {
@@ -23,7 +23,7 @@ function SquareApp({ publicKey, privateKey, zkapp, fetchedNum, mockEffects, tran
       sendTransaction: { stage: Stage.NotStarted, time: null } as { stage: Stage, time: null | number },
       waitStateChange: { stage: Stage.NotStarted, time: null } as { stage: Stage, time: null | number },
     },
-    currentValue: fetchedNum,
+    currentValue: initialState,
     transaction: null, // TODO fix this type
     transactionHash: "",
   });
@@ -53,6 +53,7 @@ function SquareApp({ publicKey, privateKey, zkapp, fetchedNum, mockEffects, tran
     state.transaction = transaction;
     return state;
   });
+
   // --------------------------------------------------------------------
 
   useMakeStage('makeTransaction', 'proveTransaction', async (state) => {
@@ -143,4 +144,4 @@ function SquareApp({ publicKey, privateKey, zkapp, fetchedNum, mockEffects, tran
   </div>
 }
 
-export default SquareApp;
+export default SmartContractUI;

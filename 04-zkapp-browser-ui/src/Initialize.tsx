@@ -9,7 +9,7 @@ const { Mina, Field, PublicKey, PrivateKey, isReady, fetchAccount, setGraphqlEnd
 type OnReady = (publicKey: InstanceType<typeof PublicKey>, 
                 privateKey:  InstanceType<typeof PrivateKey>,
                 zkapp: InstanceType<typeof Square>,
-                fetchedNum: InstanceType<typeof Field>) => void
+                initialState: InstanceType<typeof Field>) => void
 
 
 function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: boolean }) {
@@ -31,7 +31,7 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
     firstCheckFoundKey: false,
     foundAccount: false,
     zkapp: null as InstanceType<typeof Square> | null,
-    fetchedNum: null as InstanceType<typeof Field> | null,
+    initialState: null as InstanceType<typeof Field> | null,
   });
 
   const useMakeStage = createUseMakeStage(state, setState)
@@ -116,7 +116,7 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
   useMakeStage('compileZKApp', 'fetchState', async (state) => {
     let num = mockEffects ? Field.fromNumber(3) : await state.zkapp!.num.fetch();
 
-    return { ...state, fetchedNum: num! }
+    return { ...state, initialState: num! }
   });
 
   // --------------------------------------------------------------------
@@ -165,12 +165,12 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
                       'Compiling smart contract',
                       () => null);
 
-  const fetchedNum = getStageComponent(
+  const initialState = getStageComponent(
                       'fetchState',
                       'Fetching current state',
                       () => {
                         return <div>
-                                  <div> Current state: { state.fetchedNum!.toString() } </div>
+                                  <div> Current state: { state.initialState!.toString() } </div>
                                   <div> Initialized. </div>
                                 </div>
 
@@ -180,7 +180,7 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
     onReady(state.publicKey!, 
             state.privateKey!, 
             state.zkapp!, 
-            state.fetchedNum!);
+            state.initialState!);
   }
 
   return (<div className="console">
@@ -189,7 +189,7 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
     { firstCheck }
     { foundAccount }
     { compiling }
-    { fetchedNum }
+    { initialState }
   </div>);
 }
 

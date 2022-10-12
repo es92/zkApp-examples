@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import { Initialize, OnReady } from './Initialize';
-import SquareApp from './SquareApp';
+import SmartContractUI from './SmartContractUI';
 
 import { Square, snarkyjs } from '03-deploying-to-a-live-network';
 
@@ -28,11 +28,11 @@ function App() {
     publicKey: null as InstanceType<typeof PublicKey> | null,
     privateKey: null as InstanceType<typeof PrivateKey> | null,
     zkapp: null as InstanceType<typeof Square> | null,
-    fetchedNum: null as InstanceType<typeof Field> | null,
+    initialState: null as InstanceType<typeof Field> | null,
   });
 
-  let onInitialized: OnReady = (publicKey, privateKey, zkapp, fetchedNum) => {
-    setState({ ...state, stage: Stage.Transition, publicKey, privateKey, zkapp, fetchedNum });
+  let onInitialized: OnReady = (publicKey, privateKey, zkapp, initialState) => {
+    setState({ ...state, stage: Stage.Transition, publicKey, privateKey, zkapp, initialState });
   }
 
   if (state.stage == Stage.Transition) {
@@ -48,7 +48,7 @@ function App() {
     </div>);
   } else {
     return (<div className="App">
-      <SquareApp publicKey={state.publicKey!} privateKey={state.privateKey!} zkapp={state.zkapp!} fetchedNum={state.fetchedNum!} mockEffects={mockEffects} transactionFee={transactionFee}/>
+      <SmartContractUI publicKey={state.publicKey!} privateKey={state.privateKey!} zkapp={state.zkapp!} initialState={state.initialState!} mockEffects={mockEffects} transactionFee={transactionFee}/>
     </div>);
   }
 

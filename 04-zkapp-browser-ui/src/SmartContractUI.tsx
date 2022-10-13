@@ -120,7 +120,9 @@ function SmartContractUI({ publicKey, privateKey, zkapp, initialState, mockEffec
                           'Sending transaction',
                           () => {
                             var href = 'https://berkeley.minaexplorer.com/transaction/' + state.transactionHash;
-                            var transactionLink = <a href={href} target="_blank">[Transaction link]</a>;
+                            var transactionLink = <a href={href}  
+                                                     target="_blank" 
+                                                     rel="noreferrer">[Transaction link]</a>;
                             return <div> See transaction at { transactionLink }</div>
                           });
 

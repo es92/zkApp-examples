@@ -13,7 +13,7 @@ let preLoadTime = Date.now();
 
 let transactionFee = 100_000_000;
 
-let mockEffects = false;
+let mockEffects = true;
 
 function App() {
 
@@ -37,7 +37,6 @@ function App() {
 
   if (state.stage == Stage.Transition) {
     (async () => {
-      await new Promise(resolve => setTimeout(resolve, 2000))
       setState({ ...state, stage: Stage.SquareApp });
     })();
   }

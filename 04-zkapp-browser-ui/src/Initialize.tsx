@@ -167,6 +167,13 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
                       'Compiling smart contract',
                       () => null);
 
+  let gotoApp = () => {
+    onReady(state.publicKey!, 
+            state.privateKey!, 
+            state.zkapp!, 
+            state.initialState!);
+  }
+
   const initialState = getStageComponent(
                       'fetchState',
                       'Fetching current state',
@@ -174,16 +181,10 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
                         return <div>
                                   <div> Current state: { state.initialState!.toString() } </div>
                                   <div> Initialized. </div>
+                                  <a href="#" onClick={gotoApp}> Start app -&gt; </a>
                                 </div>
 
                       });
-
-  if (state.stages.fetchState.stage == Stage.Done) {
-    onReady(state.publicKey!, 
-            state.privateKey!, 
-            state.zkapp!, 
-            state.initialState!);
-  }
 
   return (<div className="console">
     { loading }

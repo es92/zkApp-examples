@@ -31,6 +31,14 @@ a {
 
 }
 
-.App {
-
+body::after {
+  content: "";
+  width: 4em;
+  height: 4em;
+  margin: 1em;
+  right: 0;
+  bottom: 0;
+  background-image: url("logo.png");
+  background-size: contain;
+  position: absolute;
 }

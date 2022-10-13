@@ -57,6 +57,8 @@ function SmartContractUI({ publicKey, privateKey, zkapp, initialState, mockEffec
   // --------------------------------------------------------------------
 
   useMakeStage('makeTransaction', 'proveTransaction', async (state) => {
+    // to give UI a chance to refresh
+    await new Promise(resolve => setTimeout(resolve, 500));
     await state.transaction.prove()
     return state;
   });

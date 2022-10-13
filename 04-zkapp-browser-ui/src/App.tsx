@@ -13,7 +13,7 @@ let preLoadTime = Date.now();
 
 let transactionFee = 100_000_000;
 
-let mockEffects = true;
+let mockEffects = false;
 
 function App() {
 
@@ -44,7 +44,7 @@ function App() {
 
   if (state.stage == Stage.Initialize || state.stage == Stage.Transition) {
     return (<div className="App">
-      <Initialize onReady={ onInitialized } mockEffects />
+      <Initialize onReady={ onInitialized } mockEffects={mockEffects} />
     </div>);
   } else {
     return (<div className="App">

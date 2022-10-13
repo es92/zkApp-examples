@@ -104,6 +104,8 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
   useMakeStage('waitForAccountFunded', 'compileZKApp', async (state) => {
     var zkAppAddress = PublicKey.fromBase58('B62qqonbhsDQrrutNK2faMXpGmJ9mtrxXRtkL5fRqbmoPnHuTJd83C8');
 
+    // to give UI a chance to refresh
+    await new Promise(resolve => setTimeout(resolve, 500));
     let { verificationKey } = mockEffects ? { verificationKey: null } : await Square.compile();
 
     let zkapp = new Square(zkAppAddress);
@@ -146,7 +148,7 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
                         } else {
                           accoutState = <div> 
                                           Account does not exist. Request funds at faucet 
-                                          <a href={faucet_link} target="_blank">[link]</a>
+                                           <a href={faucet_link} target="_blank">[link]</a>
                                         </div>;
                         }
                         return accoutState

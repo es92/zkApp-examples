@@ -2,13 +2,13 @@ import React, { useEffect, useState, ReactElement,  } from 'react';
 
 import { Stage, createUseMakeStage, createGetStageComponent } from './utils'
 
-import { Square, snarkyjs } from '03-deploying-to-a-live-network';
+import { Add, snarkyjs } from '04-zkapp-browser-ui-smart-contract';
 
 const { Mina, Field, PublicKey, PrivateKey, isReady, fetchAccount, setGraphqlEndpoint } = snarkyjs;
 
 type OnReady = (publicKey: InstanceType<typeof PublicKey>, 
                 privateKey:  InstanceType<typeof PrivateKey>,
-                zkapp: InstanceType<typeof Square>,
+                zkapp: InstanceType<typeof Add>,
                 initialState: InstanceType<typeof Field>) => void
 
 
@@ -30,7 +30,7 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
     madeKey: false,
     firstCheckFoundKey: false,
     foundAccount: false,
-    zkapp: null as InstanceType<typeof Square> | null,
+    zkapp: null as InstanceType<typeof Add> | null,
     initialState: null as InstanceType<typeof Field> | null,
   });
 
@@ -102,13 +102,13 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
   // --------------------------------------------------------------------
 
   useMakeStage('waitForAccountFunded', 'compileZKApp', async (state) => {
-    var zkAppAddress = PublicKey.fromBase58('B62qqonbhsDQrrutNK2faMXpGmJ9mtrxXRtkL5fRqbmoPnHuTJd83C8');
+    var zkAppAddress = PublicKey.fromBase58('B62qkLob7sbrvnTMjTdXsxrfLTydBgENiPh1TxBc5KGSvdiX8NT7qvY');
 
     // to give UI a chance to refresh
     await new Promise(resolve => setTimeout(resolve, 500));
-    let { verificationKey } = mockEffects ? { verificationKey: null } : await Square.compile();
+    let { verificationKey } = mockEffects ? { verificationKey: null } : await Add.compile();
 
-    let zkapp = new Square(zkAppAddress);
+    let zkapp = new Add(zkAppAddress);
 
     return { ...state, zkapp }
   });
@@ -116,7 +116,7 @@ function Initialize({ onReady, mockEffects }: { onReady: OnReady, mockEffects: b
   // --------------------------------------------------------------------
 
   useMakeStage('compileZKApp', 'fetchState', async (state) => {
-    let num = mockEffects ? Field.fromNumber(3) : await state.zkapp!.num.fetch();
+    let num = mockEffects ? Field.fromNumber(1) : await state.zkapp!.num.fetch();
 
     return { ...state, initialState: num! }
   });

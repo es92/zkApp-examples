@@ -11,7 +11,7 @@
     "@types/node": "^16.11.64",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "03-deploying-to-a-live-network": "file:../03-deploying-to-a-live-network",
+    "04-zkapp-browser-ui-smart-contract": "file:../04-zkapp-browser-ui-smart-contract",
     "coi-serviceworker": "^0.1.6",
     "http-proxy-middleware": "^2.0.6",
     "react": "^18.2.0",

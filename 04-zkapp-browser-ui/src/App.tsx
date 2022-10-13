@@ -13,7 +13,7 @@ let preLoadTime = Date.now();
 
 let transactionFee = 100_000_000;
 
-let mockEffects = true;
+let mockEffects = false;
 
 function App() {
 

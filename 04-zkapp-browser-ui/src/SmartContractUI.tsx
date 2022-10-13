@@ -2,14 +2,14 @@ import React, { useEffect, useState, ReactElement,  } from 'react';
 
 import { Stage, createUseMakeStage, createGetStageComponent } from './utils'
 
-import { Square, snarkyjs } from '03-deploying-to-a-live-network';
+import { Add, snarkyjs } from '04-zkapp-browser-ui-smart-contract';
 
 const { Mina, Field, PublicKey, PrivateKey, isReady, fetchAccount, setGraphqlEndpoint } = snarkyjs;
 
 function SmartContractUI({ publicKey, privateKey, zkapp, initialState, mockEffects, transactionFee }: {
   publicKey: InstanceType<typeof PublicKey>, 
   privateKey: InstanceType<typeof PrivateKey>, 
-  zkapp: InstanceType<typeof Square>, 
+  zkapp: InstanceType<typeof Add>, 
   initialState: InstanceType<typeof Field>,
   mockEffects: boolean,
   transactionFee: number,
@@ -36,7 +36,7 @@ function SmartContractUI({ publicKey, privateKey, zkapp, initialState, mockEffec
   useMakeStage('startUpdate', 'makeTransaction', async (state) => {
     const num = state.currentValue;
     const numBefore = num;
-    const updatedValue = num!.mul(num!);
+    const updatedValue = num!.add(1);
     let transaction;
     if (mockEffects) {
       transaction = {
@@ -83,7 +83,7 @@ function SmartContractUI({ publicKey, privateKey, zkapp, initialState, mockEffec
 
     while (!stateChange) {
       console.log('waiting for zkApp state to change... (current state: ', num!.toString() + ')')
-      num = mockEffects ? num.mul(num) : (await zkapp.num.fetch())!;
+      num = mockEffects ? num.add(1) : (await zkapp.num.fetch())!;
       stateChange = num!.equals(numBefore!).not().toBoolean();
       if (!stateChange)
         await new Promise(resolve => setTimeout(resolve, 5000))
@@ -136,7 +136,7 @@ function SmartContractUI({ publicKey, privateKey, zkapp, initialState, mockEffec
   return <div>
    <div className="app">
      <div> Current State: { state.currentValue.toString() } </div> 
-     <button onClick={ updateState } disabled={state.stages.startUpdate.stage == Stage.Done}> Update State </button>
+     <button onClick={ updateState } disabled={state.stages.startUpdate.stage == Stage.Done}> Update State (add 1) </button>
    </div>
    <div className="console">
       <div>click "Update State" to update the smart contract </div>

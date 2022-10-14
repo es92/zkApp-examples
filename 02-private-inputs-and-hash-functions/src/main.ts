@@ -19,6 +19,8 @@ import {
   Mina.setActiveInstance(Local);
   const deployerAccount = Local.testAccounts[0].privateKey;
 
+  const salt = Field.random();
+
   // ----------------------------------------------------
 
   // create a destination we will deploy the smart contract to
@@ -30,7 +32,7 @@ import {
   const deploy_txn = await Mina.transaction(deployerAccount, () => {
     AccountUpdate.fundNewAccount(deployerAccount);
     zkAppInstance.deploy({ zkappKey: zkAppPrivateKey });
-    zkAppInstance.init(Poseidon.hash([ Field.fromNumber(750) ]));
+    zkAppInstance.init(Poseidon.hash([ salt, Field.fromNumber(750) ]));
     zkAppInstance.sign(zkAppPrivateKey);
   });
   await deploy_txn.send().wait();
@@ -42,7 +44,7 @@ import {
   // ----------------------------------------------------
 
   const txn1 = await Mina.transaction(deployerAccount, () => {
-    zkAppInstance.incrementSecret(Field.fromNumber(750));
+    zkAppInstance.incrementSecret(salt, Field.fromNumber(750));
     zkAppInstance.sign(zkAppPrivateKey);
   });
   await txn1.send().wait();

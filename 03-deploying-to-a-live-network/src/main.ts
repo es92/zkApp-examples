@@ -10,9 +10,9 @@ import {
   fetchAccount,
 } from 'snarkyjs';
 
-import { deploy } from './deploy.js';
-import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
+//import { deploy } from './deploy.js';
 import fs from 'fs';
+import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
 
 (async function main() {
   await isReady;
@@ -68,16 +68,15 @@ import fs from 'fs';
 
   let isZkAppAccount = true;
   let zkAppAccount = await loopUntilAccountExists(
-    deployerPrivateKey.toPublicKey(), 
+    zkAppPrivateKey.toPublicKey(), 
     () => {
       console.log('waiting for zkApp account to be deployed...');
     },
     isZkAppAccount,
   );
 
-  const allZeros = zkAppAccount.appState!.every((f) => f.equals(Field.zero).toBoolean());
-
   // TODO when available in the future, use isProved.
+  const allZeros = zkAppAccount.appState!.every((f) => f.equals(Field.zero).toBoolean());
   const needsInitialization = allZeros;
 
   if (needsInitialization) {
@@ -116,4 +115,3 @@ import fs from 'fs';
 
   await shutdown();
 })();
-

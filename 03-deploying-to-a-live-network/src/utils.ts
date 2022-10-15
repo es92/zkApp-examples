@@ -39,22 +39,21 @@ interface ToString {
 }
 
 export const makeAndSendTransaction = async <State extends ToString>(
-  deployerPrivateKey: PrivateKey,
-  zkAppAccount: PublicKey,
+  feePayerPrivateKey: PrivateKey,
+  zkAppPublicKey: PublicKey,
   mutateZkApp: () => void,
   transactionFee: number,
   getState: () => State,
   statesEqual: (state1: State, state2: State) => boolean,
 ) => {
-
   const initialState = getState();
     
-  // Why this line? It increments internal deployer account variables, such as 
+  // Why this line? It increments internal feePayer account variables, such as 
   // nonce, necessary for successfully sending a transaction
-  await fetchAccount({ publicKey: deployerPrivateKey.toPublicKey() });
+  await fetchAccount({ publicKey: feePayerPrivateKey.toPublicKey() });
 
   let transaction = await Mina.transaction(
-    { feePayerKey: deployerPrivateKey , fee: transactionFee },
+    { feePayerKey: feePayerPrivateKey , fee: transactionFee },
     () => { 
       mutateZkApp();
     }
@@ -82,7 +81,7 @@ export const makeAndSendTransaction = async <State extends ToString>(
   while (!stateChanged) {
     console.log('waiting for zkApp state to change... (current state: ', state.toString() + ')')
     await new Promise(resolve => setTimeout(resolve, 5000))
-    await fetchAccount({ publicKey: zkAppAccount });
+    await fetchAccount({ publicKey: zkAppPublicKey });
     state = await getState();
     stateChanged = !statesEqual(initialState, state);
   }

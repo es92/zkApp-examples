@@ -14,10 +14,14 @@ import {
 export const loopUntilAccountExists = async (
   account: PublicKey,
   eachTimeNotExist: () => void,
+  isZkAppAccount: boolean = false,
 ) => {
   for (;;) {
     let response = await fetchAccount({ publicKey: account });
     let accountExists = response.error == null;
+    if (isZkAppAccount) {
+      accountExists = accountExists && response.account!.appState != null;
+    }
     if (!accountExists) {
       await eachTimeNotExist();
       await new Promise(resolve => setTimeout(resolve, 5000))

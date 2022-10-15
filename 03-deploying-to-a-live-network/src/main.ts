@@ -66,11 +66,13 @@ import fs from 'fs';
 
   // ----------------------------------------------------
 
+  let isZkAppAccount = true;
   let zkAppAccount = await loopUntilAccountExists(
     deployerPrivateKey.toPublicKey(), 
     () => {
-      console.log('waiting for zkApp to be deployed...');
+      console.log('waiting for zkApp account to be deployed...');
     },
+    isZkAppAccount,
   );
 
   const allZeros = zkAppAccount.appState!.every((f) => f.equals(Field.zero).toBoolean());

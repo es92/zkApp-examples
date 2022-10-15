@@ -10,6 +10,10 @@ import {
   fetchAccount,
 } from 'snarkyjs';
 
+import { deploy } from './deploy.js';
+import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
+import fs from 'fs';
+
 (async function main() {
   await isReady;
 
@@ -24,106 +28,85 @@ import {
 
   let transactionFee = 100_000_000;
 
-  const deployerAccount = PrivateKey.fromBase58(process.argv[2]);
-  const zkAppPrivateKey = PrivateKey.fromBase58(process.argv[3]);
+  const configName = process.argv[2];
 
-  console.log('using deployer private key with public key', deployerAccount.toPublicKey().toBase58());
-  console.log('using zkApp private key with public key', zkAppPrivateKey.toPublicKey().toBase58());
+  const deployerKeysFileContents = fs.readFileSync('keys/' + configName + '.json', 'utf8')
+  const deployerPrivateKeyBase58 = JSON.parse(deployerKeysFileContents).privateKey;
+  const deployerPrivateKey = PrivateKey.fromBase58(deployerPrivateKeyBase58);
+
+  const zkAppPrivateKey = deployerPrivateKey;
 
   // ----------------------------------------------------
 
-  let response = await fetchAccount({ publicKey: deployerAccount.toPublicKey() });
-  if (response.error) throw Error(response.error.statusText);
-  let { nonce, balance } = response.account;
-  console.log(`Using fee payer account with nonce ${nonce}, balance ${balance}`);
+  let account = await loopUntilAccountExists(
+    deployerPrivateKey.toPublicKey(), 
+    () => {
+      console.log('Deployer account does not exist. ' + 
+                  'Request funds at faucet ' + 
+                  'https://faucet.minaprotocol.com/?address=' + deployerPrivateKey.toPublicKey().toBase58()
+                 );
+    },
+  );
+  console.log(`Using fee payer account with nonce ${account.nonce}, balance ${account.balance}`);
 
   // ----------------------------------------------------
 
   console.log('Compiling smart contract...');
   let { verificationKey } = await Square.compile();
 
-  const zkAppAddress = zkAppPrivateKey.toPublicKey();
-  let zkapp = new Square(zkAppAddress);
-  let x = await zkapp.num.fetch();
-  let isDeployed = (x != null && x.equals(0).not().toBoolean()); // This will change in a future version of SnarkyJS
+  const zkAppPublicKey = zkAppPrivateKey.toPublicKey();
+  let zkapp = new Square(zkAppPublicKey);
 
-  console.log('isDeployed:', isDeployed);
-
-  // ----------------------------------------------------
-
-  if (!isDeployed) {
-    console.log(`Deploying zkapp for public key ${zkAppAddress.toBase58()}.`);
-    let transaction = await Mina.transaction(
-      { feePayerKey: deployerAccount, fee: transactionFee },
-      () => {
-        AccountUpdate.fundNewAccount(deployerAccount);
-        zkapp.init();
-        zkapp.deploy({ zkappKey: zkAppPrivateKey, verificationKey });
-      }
-    );
-    // if you want to inspect the transaction, you can print it out:
-    //console.log(transaction.toGraphqlQuery());
-
-    console.log('Sending the deploy transaction...');
-    const res = await transaction.send();
-    const hash = await res.hash(); // This will change in a future version of SnarkyJS
-    if (hash == null) {
-      console.log('error sending transaction (see above)');
-    } else {
-      console.log('See deploy transaction at', 'https://berkeley.minaexplorer.com/transaction/' + hash);
-    }
-  }
+  // Programmatic deploy:
+  //   Besides the CLI, you can also create accounts programmatically. This is useful if you need
+  //   more custom account creation - say deploying a zkApp to a different key than the fee payer
+  //   key, programmatically parameterizing a zkApp before initializing it, or creating Smart
+  //   Contracts programmatically for users as part of an application.
+  //await deploy(deployerPrivateKey, zkAppPrivateKey, zkAppPublicKey, zkapp, verificationKey)
 
   // ----------------------------------------------------
 
-  while (!isDeployed) {
-    console.log('waiting for zkApp to be deployed...')
-    await new Promise(resolve => setTimeout(resolve, 5000))
-    x = await zkapp.num.fetch();
-    isDeployed = (x != null && x.equals(0).not().toBoolean()); // This will change in a future version of SnarkyJS
-  }
-
-  // ----------------------------------------------------
-
-  const xBefore = x;
-  console.log('Found deployed zkapp, updating state', x!.toString(), '->', x!.mul(x!).toString());
-  let transaction = await Mina.transaction(
-    { feePayerKey: deployerAccount , fee: transactionFee },
+  let zkAppAccount = await loopUntilAccountExists(
+    deployerPrivateKey.toPublicKey(), 
     () => {
-      zkapp.update(x!.mul(x!));
-    }
+      console.log('waiting for zkApp to be deployed...');
+    },
   );
 
-  // fill in the proof - this can take a while...
-  console.log('Creating an execution proof...');
-  const time0 = Date.now();
-  await transaction.prove();
-  const time1 = Date.now();
-  console.log('creating proof took', (time1 - time0)/1e3, 'seconds')
+  const allZeros = zkAppAccount.appState!.every((f) => f.equals(Field.zero).toBoolean());
 
-  // if you want to inspect the transaction, you can print it out:
-  // console.log(transaction.toGraphqlQuery());
+  // TODO when available in the future, use isProved.
+  const needsInitialization = allZeros;
 
-  console.log('Sending the transaction...');
-  const res = await transaction.send();
-  const hash = await res.hash(); // This will change in a future version of SnarkyJS
-  if (hash == null) {
-    console.log('error sending transaction (see above)');
-  } else {
-    console.log('See transaction at', 'https://berkeley.minaexplorer.com/transaction/' + hash);
+  if (needsInitialization) {
+    console.log('initializing smart contract');
+    await makeAndSendTransaction(
+      deployerPrivateKey,
+      zkAppPublicKey,
+      () => zkapp.init(),
+      transactionFee,
+      () => zkapp.num.get(),
+      (num1, num2) => num1.equals(num2).toBoolean()
+    );
+
+    console.log('updated state!', zkapp.num.get().toString());
   }
+
+  let num = (await zkapp.num.get())!;
+  console.log('current value of num is', num.toString());
 
   // ----------------------------------------------------
 
-  let stateChange = false;
+  await makeAndSendTransaction(
+    deployerPrivateKey,
+    zkAppPublicKey,
+    () => zkapp.update(num.mul(num)),
+    transactionFee,
+    () => zkapp.num.get(),
+    (num1, num2) => num1.equals(num2).toBoolean()
+  );
 
-  while (!stateChange) {
-    console.log('waiting for zkApp state to change... (current state: ', x!.toString() + ')')
-    await new Promise(resolve => setTimeout(resolve, 5000))
-    x = await zkapp.num.fetch();
-    stateChange = (x != null && x.equals(xBefore!).not().toBoolean());
-  }
-  console.log('updated state!', x!.toString());
+  console.log('updated state!', zkapp.num.get().toString());
 
   // ----------------------------------------------------
 

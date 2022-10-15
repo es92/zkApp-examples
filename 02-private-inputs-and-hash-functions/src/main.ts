@@ -32,7 +32,7 @@ import {
   const deploy_txn = await Mina.transaction(deployerAccount, () => {
     AccountUpdate.fundNewAccount(deployerAccount);
     zkAppInstance.deploy({ zkappKey: zkAppPrivateKey });
-    zkAppInstance.init(Poseidon.hash([ salt, Field.fromNumber(750) ]));
+    zkAppInstance.init(salt, Field.fromNumber(750));
     zkAppInstance.sign(zkAppPrivateKey);
   });
   await deploy_txn.send().wait();

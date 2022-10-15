@@ -20,8 +20,8 @@ export class IncrementSecret extends SmartContract {
     });
   }
 
-  @method init(firstSecret: Field) {
-    this.x.set(firstSecret);
+  @method init(salt: Field, firstSecret: Field) {
+    this.x.set(Poseidon.hash([ salt, firstSecret ]));
   }
 
   @method incrementSecret(salt: Field, secret: Field) {

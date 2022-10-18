@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
-import { Initialize, OnReady } from './Initialize';
-import SmartContractUI from './SmartContractUI';
+import { Initialize, OnReady } from "./Initialize";
+import SmartContractUI from "./SmartContractUI";
 
-import { Square, snarkyjs } from '03-deploying-to-a-live-network';
+import { Square, snarkyjs } from "03-deploying-to-a-live-network";
 
-const { Mina, Field, PublicKey, PrivateKey, isReady, fetchAccount, setGraphqlEndpoint } = snarkyjs;
+const {
+  Mina,
+  Field,
+  PublicKey,
+  PrivateKey,
+  isReady,
+  fetchAccount,
+  setGraphqlEndpoint,
+} = snarkyjs;
 
 let preLoadTime = Date.now();
 
@@ -16,11 +24,10 @@ let transactionFee = 100_000_000;
 let mockEffects = false;
 
 function App() {
-
   enum Stage {
     Initialize,
     Transition,
-    SquareApp
+    SquareApp,
   }
 
   let [state, setState] = useState({
@@ -32,8 +39,15 @@ function App() {
   });
 
   let onInitialized: OnReady = (publicKey, privateKey, zkapp, initialState) => {
-    setState({ ...state, stage: Stage.Transition, publicKey, privateKey, zkapp, initialState });
-  }
+    setState({
+      ...state,
+      stage: Stage.Transition,
+      publicKey,
+      privateKey,
+      zkapp,
+      initialState,
+    });
+  };
 
   if (state.stage == Stage.Transition) {
     (async () => {
@@ -42,15 +56,25 @@ function App() {
   }
 
   if (state.stage == Stage.Initialize || state.stage == Stage.Transition) {
-    return (<div className="App">
-      <Initialize onReady={ onInitialized } mockEffects={mockEffects} />
-    </div>);
+    return (
+      <div className="App">
+        <Initialize onReady={onInitialized} mockEffects={mockEffects} />
+      </div>
+    );
   } else {
-    return (<div className="App">
-      <SmartContractUI publicKey={state.publicKey!} privateKey={state.privateKey!} zkapp={state.zkapp!} initialState={state.initialState!} mockEffects={mockEffects} transactionFee={transactionFee}/>
-    </div>);
+    return (
+      <div className="App">
+        <SmartContractUI
+          publicKey={state.publicKey!}
+          privateKey={state.privateKey!}
+          zkapp={state.zkapp!}
+          initialState={state.initialState!}
+          mockEffects={mockEffects}
+          transactionFee={transactionFee}
+        />
+      </div>
+    );
   }
-
 }
 
 export default App;

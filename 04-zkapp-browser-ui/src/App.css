@@ -1,6 +1,3 @@
-
-
-
 body {
   background: #444;
 }
@@ -15,7 +12,7 @@ body {
 button {
   margin-top: 1em;
   font-size: 1em;
-  padding: .25em;
+  padding: 0.25em;
 }
 
 .console {
@@ -28,7 +25,6 @@ button {
 
 a {
   color: white;
-
 }
 
 body::after {

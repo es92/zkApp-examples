@@ -12,7 +12,7 @@ import {
 (async function main() {
   await isReady;
 
-  console.log('SnarkyJS loaded')
+  console.log('SnarkyJS loaded');
 
   const Local = Mina.LocalBlockchain();
   Mina.setActiveInstance(Local);
@@ -76,7 +76,7 @@ import {
 
   // ----------------------------------------------------
 
-  console.log('Shutting down')
+  console.log('Shutting down');
 
   await shutdown();
 })();

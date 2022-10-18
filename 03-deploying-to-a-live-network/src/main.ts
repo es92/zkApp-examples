@@ -17,7 +17,7 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
 (async function main() {
   await isReady;
 
-  console.log('SnarkyJS loaded')
+  console.log('SnarkyJS loaded');
 
   // ----------------------------------------------------
 
@@ -30,8 +30,13 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
 
   const configName = process.argv[2];
 
-  const deployerKeysFileContents = fs.readFileSync('keys/' + configName + '.json', 'utf8')
-  const deployerPrivateKeyBase58 = JSON.parse(deployerKeysFileContents).privateKey;
+  const deployerKeysFileContents = fs.readFileSync(
+    'keys/' + configName + '.json',
+    'utf8'
+  );
+  const deployerPrivateKeyBase58 = JSON.parse(
+    deployerKeysFileContents
+  ).privateKey;
   const deployerPrivateKey = PrivateKey.fromBase58(deployerPrivateKeyBase58);
 
   const zkAppPrivateKey = deployerPrivateKey;
@@ -39,15 +44,19 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
   // ----------------------------------------------------
 
   let account = await loopUntilAccountExists(
-    deployerPrivateKey.toPublicKey(), 
+    deployerPrivateKey.toPublicKey(),
     () => {
-      console.log('Deployer account does not exist. ' + 
-                  'Request funds at faucet ' + 
-                  'https://faucet.minaprotocol.com/?address=' + deployerPrivateKey.toPublicKey().toBase58()
-                 );
-    },
+      console.log(
+        'Deployer account does not exist. ' +
+          'Request funds at faucet ' +
+          'https://faucet.minaprotocol.com/?address=' +
+          deployerPrivateKey.toPublicKey().toBase58()
+      );
+    }
   );
-  console.log(`Using fee payer account with nonce ${account.nonce}, balance ${account.balance}`);
+  console.log(
+    `Using fee payer account with nonce ${account.nonce}, balance ${account.balance}`
+  );
 
   // ----------------------------------------------------
 
@@ -68,15 +77,17 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
 
   let isZkAppAccount = true;
   let zkAppAccount = await loopUntilAccountExists(
-    zkAppPrivateKey.toPublicKey(), 
+    zkAppPrivateKey.toPublicKey(),
     () => {
       console.log('waiting for zkApp account to be deployed...');
     },
-    isZkAppAccount,
+    isZkAppAccount
   );
 
   // TODO when available in the future, use isProved.
-  const allZeros = zkAppAccount.appState!.every((f) => f.equals(Field.zero).toBoolean());
+  const allZeros = zkAppAccount.appState!.every((f) =>
+    f.equals(Field.zero).toBoolean()
+  );
   const needsInitialization = allZeros;
 
   if (needsInitialization) {
@@ -111,7 +122,7 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
 
   // ----------------------------------------------------
 
-  console.log('Shutting down')
+  console.log('Shutting down');
 
   await shutdown();
 })();

@@ -1,8 +1,4 @@
-import {
-  PrivateKey,
-  isReady,
-  shutdown
-} from 'snarkyjs';
+import { PrivateKey, isReady, shutdown } from 'snarkyjs';
 
 await isReady;
 

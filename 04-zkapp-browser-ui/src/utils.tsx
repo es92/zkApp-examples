@@ -6,8 +6,17 @@ enum Stage {
   Done
 }
 
+type StageTracker = { stage: Stage, time: null | number };
+
+interface StateWithStages {
+  stages: { [key: string]: StageTracker };
+}
+
 // TODO fix these types
-let createUseMakeStage = (state: any, setState: any) => {
+let createUseMakeStage = <T extends StateWithStages>(
+  state: T, 
+  setState: React.Dispatch<React.SetStateAction<T>>
+) => {
   type State = typeof state;
 
   const useMakeStage = ((priorStageName: keyof typeof state.stages | null, 
@@ -36,9 +45,8 @@ let createUseMakeStage = (state: any, setState: any) => {
   return useMakeStage;
 }
 
-// TODO fix these types
-let createGetStageComponent = (state: any) => {
-  let getStageComponent = (stage: keyof typeof state.stages, text: string, ifDone: () => ReactElement | null) => {
+let createGetStageComponent = <T extends StateWithStages>(state: T) => {
+  let getStageComponent = (stage: string, text: string, ifDone: () => ReactElement | null) => {
     var component = null;
     if (state.stages[stage].stage == Stage.Started) {
       component = <div> { text }... </div>
@@ -54,3 +62,4 @@ let createGetStageComponent = (state: any) => {
 }
 
 export { Stage, createUseMakeStage, createGetStageComponent }
+export type { StageTracker }

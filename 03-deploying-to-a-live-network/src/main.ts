@@ -2,13 +2,8 @@ import { Square } from './Square.js';
 import {
   isReady,
   shutdown,
-  Field,
   Mina,
   PrivateKey,
-  PublicKey,
-  AccountUpdate,
-  fetchAccount,
-  Account,
 } from 'snarkyjs';
 
 //import { deploy } from './deploy.js';

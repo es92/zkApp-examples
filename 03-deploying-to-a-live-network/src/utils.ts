@@ -1,11 +1,8 @@
 import {
-  isReady,
-  shutdown,
   Field,
   Mina,
   PrivateKey,
   PublicKey,
-  AccountUpdate,
   fetchAccount,
 } from 'snarkyjs';
 

@@ -8,11 +8,12 @@ import {
   PublicKey,
   AccountUpdate,
   fetchAccount,
+  Account,
 } from 'snarkyjs';
 
 //import { deploy } from './deploy.js';
 import fs from 'fs';
-import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
+import { loopUntilAccountExists, makeAndSendTransaction, zkAppNeedsInitialization } from './utils.js';
 
 (async function main() {
   await isReady;
@@ -34,26 +35,30 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
     'keys/' + configName + '.json',
     'utf8'
   );
+
   const deployerPrivateKeyBase58 = JSON.parse(
     deployerKeysFileContents
   ).privateKey;
+
   const deployerPrivateKey = PrivateKey.fromBase58(deployerPrivateKeyBase58);
 
   const zkAppPrivateKey = deployerPrivateKey;
 
   // ----------------------------------------------------
 
-  let account = await loopUntilAccountExists(
-    deployerPrivateKey.toPublicKey(),
-    () => {
+  let account = await loopUntilAccountExists({
+    account: deployerPrivateKey.toPublicKey(),
+    eachTimeNotExist: () => {
       console.log(
         'Deployer account does not exist. ' +
           'Request funds at faucet ' +
           'https://faucet.minaprotocol.com/?address=' +
           deployerPrivateKey.toPublicKey().toBase58()
       );
-    }
-  );
+    },
+    isZkAppAccount: false,
+  });
+
   console.log(
     `Using fee payer account with nonce ${account.nonce}, balance ${account.balance}`
   );
@@ -75,31 +80,24 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
 
   // ----------------------------------------------------
 
-  let isZkAppAccount = true;
-  let zkAppAccount = await loopUntilAccountExists(
-    zkAppPrivateKey.toPublicKey(),
-    () => {
-      console.log('waiting for zkApp account to be deployed...');
-    },
-    isZkAppAccount
-  );
+  let zkAppAccount = await loopUntilAccountExists({
+    account: zkAppPrivateKey.toPublicKey(),
+    eachTimeNotExist: () => console.log('waiting for zkApp account to be deployed...'),
+    isZkAppAccount: true
+  });
 
-  // TODO when available in the future, use isProved.
-  const allZeros = zkAppAccount.appState!.every((f) =>
-    f.equals(Field.zero).toBoolean()
-  );
-  const needsInitialization = allZeros;
+  const needsInitialization = await zkAppNeedsInitialization({ zkAppAccount });
 
   if (needsInitialization) {
     console.log('initializing smart contract');
-    await makeAndSendTransaction(
-      deployerPrivateKey,
-      zkAppPublicKey,
-      () => zkapp.init(),
-      transactionFee,
-      () => zkapp.num.get(),
-      (num1, num2) => num1.equals(num2).toBoolean()
-    );
+    await makeAndSendTransaction({
+      feePayerPrivateKey: deployerPrivateKey,
+      zkAppPublicKey: zkAppPublicKey,
+      mutateZkApp: () => zkapp.init(),
+      transactionFee: transactionFee,
+      getState: () => zkapp.num.get(),
+      statesEqual: (num1, num2) => num1.equals(num2).toBoolean()
+    });
 
     console.log('updated state!', zkapp.num.get().toString());
   }
@@ -109,14 +107,14 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
 
   // ----------------------------------------------------
 
-  await makeAndSendTransaction(
-    deployerPrivateKey,
-    zkAppPublicKey,
-    () => zkapp.update(num.mul(num)),
-    transactionFee,
-    () => zkapp.num.get(),
-    (num1, num2) => num1.equals(num2).toBoolean()
-  );
+  await makeAndSendTransaction({
+    feePayerPrivateKey: deployerPrivateKey,
+    zkAppPublicKey: zkAppPublicKey,
+    mutateZkApp: () => zkapp.update(num.mul(num)),
+    transactionFee: transactionFee,
+    getState: () => zkapp.num.get(),
+    statesEqual: (num1, num2) => num1.equals(num2).toBoolean()
+  });
 
   console.log('updated state!', zkapp.num.get().toString());
 

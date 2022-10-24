@@ -12,9 +12,14 @@ import {
 // ========================================================
 
 export const loopUntilAccountExists = async (
-  account: PublicKey,
-  eachTimeNotExist: () => void,
-  isZkAppAccount: boolean = false
+  { account,
+    eachTimeNotExist,
+    isZkAppAccount
+  }:
+  { account: PublicKey,
+    eachTimeNotExist: () => void,
+    isZkAppAccount: boolean
+  }
 ) => {
   for (;;) {
     let response = await fetchAccount({ publicKey: account });
@@ -38,14 +43,24 @@ interface ToString {
   toString: () => string;
 }
 
-export const makeAndSendTransaction = async <State extends ToString>(
+type FetchedAccountResponse = Awaited<ReturnType<typeof fetchAccount>>
+type FetchedAccount =  NonNullable<FetchedAccountResponse["account"]>
+
+export const makeAndSendTransaction = async <State extends ToString>({ 
+  feePayerPrivateKey,
+  zkAppPublicKey,
+  mutateZkApp,
+  transactionFee,
+  getState,
+  statesEqual
+}: { 
   feePayerPrivateKey: PrivateKey,
   zkAppPublicKey: PublicKey,
   mutateZkApp: () => void,
   transactionFee: number,
   getState: () => State,
   statesEqual: (state1: State, state2: State) => boolean
-) => {
+}) => {
   const initialState = getState();
 
   // Why this line? It increments internal feePayer account variables, such as
@@ -92,5 +107,19 @@ export const makeAndSendTransaction = async <State extends ToString>(
     stateChanged = !statesEqual(initialState, state);
   }
 };
+
+// ========================================================
+
+export const zkAppNeedsInitialization = async (
+  { zkAppAccount }: 
+  { zkAppAccount: FetchedAccount }
+) => {
+  // TODO when available in the future, use isProved.
+  const allZeros = zkAppAccount.appState!.every((f: Field) =>
+    f.equals(Field.zero).toBoolean()
+  );
+  const needsInitialization = allZeros;
+  return needsInitialization;
+}
 
 // ========================================================

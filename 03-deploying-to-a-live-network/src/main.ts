@@ -24,10 +24,10 @@ import { loopUntilAccountExists, makeAndSendTransaction, zkAppNeedsInitializatio
 
   let transactionFee = 100_000_000;
 
-  const configName = process.argv[2];
+  const deployAlias = process.argv[2];
 
   const deployerKeysFileContents = fs.readFileSync(
-    'keys/' + configName + '.json',
+    'keys/' + deployAlias + '.json',
     'utf8'
   );
 

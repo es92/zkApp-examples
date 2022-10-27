@@ -100,6 +100,8 @@ export default function App() {
   const onSendTransaction = async () => {
     console.log('sending a transaction...');
 
+    await fetchAccount({ publicKey: state.publicKey! })
+
     const transaction = await Mina.transaction(
       { feePayerKey: state.privateKey!, fee: transactionFee },
       () => {

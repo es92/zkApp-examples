@@ -115,8 +115,7 @@ export default function App() {
     const transactionHash = await txn_res!.hash();
 
     console.log(
-      'See transaction at',
-      'https://berkeley.minaexplorer.com/transaction/' + transactionHash
+      'See transaction at https://berkeley.minaexplorer.com/transaction/' + transactionHash
     );
 
     setState({ ...state, transactionHash });
@@ -137,45 +136,30 @@ export default function App() {
   // -------------------------------------------------------
   // Create UI elements
 
-  let setup;
-  if (!state.hasBeenSetup) {
-    setup = <div> Setting up SnarkyJS... </div>
-  } else {
-    setup = <div> SnarkyJS Ready </div>
-  }
+  let setupText = state.hasBeenSetup ? 'SnarkyJS Ready' : 'Setting up SnarkyJS...';
+  let setup = <div> { setupText } </div>
 
   let accountDoesNotExist;
   if (state.hasBeenSetup && !state.accountExists) {
-    const faucetLink =
-      "https://faucet.minaprotocol.com/?address=" +
-      state.publicKey!.toBase58();
+    const faucetLink = "https://faucet.minaprotocol.com/?address=" + state.publicKey!.toBase58();
     accountDoesNotExist = <div>
       Account does not exist. Please visit the faucet to fund this account
       <a href={faucetLink} target="_blank" rel="noreferrer"> [Link] </a>
     </div>
-
   }
 
-  let sendTransaction;
+  let mainContent;
   if (state.hasBeenSetup && state.accountExists) {
-    sendTransaction = <button onClick={onSendTransaction}> Send Transaction </button>
-  }
-
-  let currentNum;
-  if (state.currentNum != null) {
-    currentNum = <div> Current Number in zkApp: { state.currentNum.toString() } </div>
-  }
-
-  let refreshCurrentNum;
-  if (state.hasBeenSetup && state.accountExists) {
-    refreshCurrentNum = <button onClick={onRefreshCurrentNum}> Get Latest State </button>
+    mainContent = <div>
+      <button onClick={onSendTransaction}> Send Transaction </button>
+      <div> Current Number in zkApp: { state.currentNum!.toString() } </div>
+      <button onClick={onRefreshCurrentNum}> Get Latest State </button>
+    </div>
   }
 
   return <div>
    { setup }
    { accountDoesNotExist }
-   { sendTransaction }
-   { currentNum }
-   { refreshCurrentNum }
+   { mainContent }
   </div>
 }

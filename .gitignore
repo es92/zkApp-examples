@@ -13,3 +13,5 @@ coverage
 keys
 
 *.swp
+
+old/

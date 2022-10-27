@@ -1,4 +1,7 @@
 /** @type {import('next').NextConfig} */
+
+const isProd = process.env.NODE_ENV === 'production'
+
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
@@ -28,7 +31,12 @@ const nextConfig = {
         ],
       },
     ];
-  }
+  },
+  images: {
+    unoptimized: true,
+  },
+  basePath: isProd ? '/zkApp-examples' : undefined,
+  assetPrefix: isProd ? '/zkApp-examples/' : undefined
 };
 
 module.exports = nextConfig

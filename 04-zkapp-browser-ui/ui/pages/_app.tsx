@@ -10,8 +10,7 @@ import {
   fetchAccount,
 } from 'snarkyjs'
 
-//import type { Add } from '../../contracts/src/Add';
-import { Add } from './AddLocal';
+import type { Add } from '../../contracts/src/Add';
 
 let transactionFee = 100_000_000;
 
@@ -51,7 +50,7 @@ export default function App() {
 
         console.log('using key', publicKey.toBase58());
 
-        //const { Add } = await import('../../contracts/build/src/Add.js');
+        const { Add } = await import('../../contracts/build/src/Add.js');
         console.log('compiling zkApp');
         await Add.compile();
         console.log('zkApp compiled');

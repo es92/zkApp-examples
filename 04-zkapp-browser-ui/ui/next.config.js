@@ -11,6 +11,8 @@ const nextConfig = {
       ...config.resolve.alias,
       snarkyjs: require('path').resolve('./node_modules/snarkyjs'),
     }
+    config.optimization.minimize = false;
+    config.optimization.minimizer = [];
     return config;
   },
   // To enable SnarkyJS for the web, we must set the COOP and COEP headers.
@@ -36,7 +38,7 @@ const nextConfig = {
     unoptimized: true,
   },
   basePath: isProd ? '/zkApp-examples' : undefined,
-  assetPrefix: isProd ? '/zkApp-examples/' : undefined
+  assetPrefix: isProd ? '/zkApp-examples/' : undefined,
 };
 
 module.exports = nextConfig

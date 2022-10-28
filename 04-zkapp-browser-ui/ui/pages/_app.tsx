@@ -1,11 +1,17 @@
 import '../styles/globals.css'
+import dynamic from 'next/dynamic'
 import React, { useEffect, useState } from "react";
+
+const coi = dynamic(() => require('coi-serviceworker'), {
+  ssr: false
+})
 
 import {
   Mina,
   isReady,
   PublicKey,
   PrivateKey,
+
   Field,
   fetchAccount,
 } from 'snarkyjs'
@@ -52,7 +58,7 @@ export default function App() {
 
         const { Add } = await import('../../contracts/build/src/Add.js');
         console.log('compiling zkApp');
-        await Add.compile();
+        //await Add.compile();
         console.log('zkApp compiled');
 
         console.log('checking if account exists...');

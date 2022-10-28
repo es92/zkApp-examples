@@ -1,10 +1,11 @@
 import '../styles/globals.css'
-import dynamic from 'next/dynamic'
 import React, { useEffect, useState } from "react";
 
-const coi = dynamic(() => require('coi-serviceworker'), {
-  ssr: false
-})
+if (typeof window !== 'undefined') {
+  const coi = window.document.createElement('script');
+  coi.setAttribute('src','/zkApp-examples/coi-serviceworker.min.js');
+  window.document.head.appendChild(coi);
+}
 
 import {
   Mina,
@@ -58,7 +59,7 @@ export default function App() {
 
         const { Add } = await import('../../contracts/build/src/Add.js');
         console.log('compiling zkApp');
-        //await Add.compile();
+        await Add.compile();
         console.log('zkApp compiled');
 
         console.log('checking if account exists...');

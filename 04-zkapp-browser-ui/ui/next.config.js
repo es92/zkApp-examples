@@ -1,7 +1,5 @@
 /** @type {import('next').NextConfig} */
 
-const isProd = process.env.NODE_ENV === 'production'
-
 const nextConfig = {
   reactStrictMode: false,
   swcMinify: true,
@@ -11,7 +9,6 @@ const nextConfig = {
       ...config.resolve.alias,
       snarkyjs: require('path').resolve('./node_modules/snarkyjs'),
     }
-    config.optimization.minimize = false;
     config.optimization.minimizer = [];
     return config;
   },
@@ -37,8 +34,8 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  basePath: isProd ? '/zkApp-examples' : undefined,
-  assetPrefix: isProd ? '/zkApp-examples/' : undefined,
+  basePath: process.env.NODE_ENV === 'production' ? '/zkApp-examples' : undefined,
+  assetPrefix: process.env.NODE_ENV === 'production' ? '/zkApp-examples/' : undefined,
 };
 
 module.exports = nextConfig

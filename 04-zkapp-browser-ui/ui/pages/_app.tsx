@@ -1,15 +1,13 @@
 import '../styles/globals.css'
 import React, { useEffect, useState } from "react";
+import { loadCOISerivceWorker } from './reactCOIServiceWorker';
 
-if (typeof window !== 'undefined') {
-  const coi = window.document.createElement('script');
-  coi.setAttribute('src','/zkApp-examples/coi-serviceworker.min.js');
-  window.document.head.appendChild(coi);
-}
+import ZkappWorkerClient from './zkappWorkerClient';
+
+loadCOISerivceWorker();
 
 import {
   Mina,
-  isReady,
   PublicKey,
   PrivateKey,
 
@@ -24,14 +22,15 @@ let transactionFee = 100_000_000;
 export default function App() {
 
   let [state, setState] = useState({
+    zkappWorkerClient: null as null | ZkappWorkerClient,
     hasBeenSetup: false,
     accountExists: false,
     currentNum: null as null | Field,
     privateKey: null as null | PrivateKey,
     publicKey: null as null | PublicKey,
     zkappPublicKey: null as null | PublicKey,
-    zkapp: null as null | Add,
     transactionHash: '',
+    creatingTransaction: false,
   });
 
   // -------------------------------------------------------
@@ -40,13 +39,13 @@ export default function App() {
   useEffect(() => {
     (async () => {
       if (!state.hasBeenSetup) {
+        const zkappWorkerClient = new ZkappWorkerClient();
+        
         console.log('Loading SnarkyJS...');
-        await isReady;
+        await zkappWorkerClient.loadSnarkyJS();
+        console.log('done');
 
-        const Berkeley = Mina.BerkeleyQANet(
-          "https://proxy.berkeley.minaexplorer.com/graphql"
-        );
-        Mina.setActiveInstance(Berkeley);
+        await zkappWorkerClient.setActiveInstanceToBerkeley();
 
         if (localStorage.privateKey == null) {
           localStorage.privateKey = PrivateKey.random().toBase58();
@@ -57,25 +56,36 @@ export default function App() {
 
         console.log('using key', publicKey.toBase58());
 
-        const { Add } = await import('../../contracts/build/src/Add.js');
+        await zkappWorkerClient.loadContract();
+
         console.log('compiling zkApp');
-        await Add.compile();
+        await zkappWorkerClient.compileContract();
         console.log('zkApp compiled');
 
         console.log('checking if account exists...');
-        const res = await fetchAccount({ publicKey: publicKey! })
+        const res = await zkappWorkerClient.fetchAccount({ publicKey: publicKey! });
         const accountExists = res.error == null;
+        console.log(accountExists, res);
 
         const zkappPublicKey = PublicKey.fromBase58('B62qrBBEARoG78KLD1bmYZeEirUfpNXoMPYQboTwqmGLtfqAGLXdWpU');
 
-        const zkapp = new Add(zkappPublicKey);
+        await zkappWorkerClient.initZkapp(zkappPublicKey);
 
         console.log('getting zkApp state...');
-        await fetchAccount({ publicKey: zkappPublicKey })
-        const currentNum = await zkapp.num.get();
+        await zkappWorkerClient.fetchAccount({ publicKey: zkappPublicKey })
+        const currentNum = await zkappWorkerClient.getNum();
         console.log('current state:', currentNum.toString());
 
-        setState({ ...state, hasBeenSetup: true, publicKey, privateKey, zkappPublicKey, accountExists, zkapp, currentNum });
+        setState({ 
+            ...state, 
+            zkappWorkerClient, 
+            hasBeenSetup: true, 
+            publicKey, 
+            privateKey, 
+            zkappPublicKey, 
+            accountExists, 
+            currentNum
+        });
       }
     })();
   }, []);
@@ -88,7 +98,7 @@ export default function App() {
       if (state.hasBeenSetup && !state.accountExists) {
         for (;;) {
           console.log('checking if account exists...');
-          const res = await fetchAccount({ publicKey: state.publicKey! })
+          const res = await state.zkappWorkerClient!.fetchAccount({ publicKey: state.publicKey! })
           const accountExists = res.error == null;
           if (accountExists) {
             break;
@@ -104,28 +114,23 @@ export default function App() {
   // Send a transaction
 
   const onSendTransaction = async () => {
+    setState({ ...state, creatingTransaction: true });
     console.log('sending a transaction...');
 
-    await fetchAccount({ publicKey: state.publicKey! })
+    await state.zkappWorkerClient!.fetchAccount({ publicKey: state.publicKey! });
 
-    const transaction = await Mina.transaction(
-      { feePayerKey: state.privateKey!, fee: transactionFee },
-      () => {
-        state.zkapp!.update();
-      }
-    );
+    await state.zkappWorkerClient!.createUpdateTransaction(state.privateKey!, transactionFee);
 
     console.log('creating proof...');
-    await transaction!.prove();
+    await state.zkappWorkerClient!.proveUpdateTransaction();
 
-    var txn_res = await transaction!.send();
-    const transactionHash = await txn_res!.hash();
+    const transactionHash = await state.zkappWorkerClient!.sendUpdateTransaction();
 
     console.log(
       'See transaction at https://berkeley.minaexplorer.com/transaction/' + transactionHash
     );
 
-    setState({ ...state, transactionHash });
+    setState({ ...state, transactionHash, creatingTransaction: false });
   }
 
   // -------------------------------------------------------
@@ -133,8 +138,8 @@ export default function App() {
 
   const onRefreshCurrentNum = async () => {
     console.log('getting zkApp state...');
-    await fetchAccount({ publicKey: state.zkappPublicKey! })
-    const currentNum = await state.zkapp!.num.get();
+    await state.zkappWorkerClient!.fetchAccount({ publicKey: state.zkappPublicKey! })
+    const currentNum = await state.zkappWorkerClient!.getNum();
     console.log('current state:', currentNum.toString());
 
     setState({ ...state, currentNum });
@@ -158,7 +163,7 @@ export default function App() {
   let mainContent;
   if (state.hasBeenSetup && state.accountExists) {
     mainContent = <div>
-      <button onClick={onSendTransaction}> Send Transaction </button>
+      <button onClick={onSendTransaction} disabled={state.creatingTransaction}> Send Transaction </button>
       <div> Current Number in zkApp: { state.currentNum!.toString() } </div>
       <button onClick={onRefreshCurrentNum}> Get Latest State </button>
     </div>

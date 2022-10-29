@@ -84,14 +84,14 @@ export type ZkappWorkerReponse = {
   id: number,
   data: any
 }
+if (process.browser) {
+  addEventListener('message', async (event: MessageEvent<ZkappWorkerRequest>) => {
+    const returnData = await functions[event.data.fn](event.data.args);
 
-addEventListener('message', async (event: MessageEvent<ZkappWorkerRequest>) => {
-
-  const returnData = await functions[event.data.fn](event.data.args);
-
-  const message: ZkappWorkerReponse = {
-    id: event.data.id,
-    data: returnData,
-  }
-  postMessage(message)
-});
+    const message: ZkappWorkerReponse = {
+      id: event.data.id,
+      data: returnData,
+    }
+    postMessage(message)
+  });
+}

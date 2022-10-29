@@ -57,7 +57,6 @@ export default function App() {
         console.log('checking if account exists...');
         const res = await zkappWorkerClient.fetchAccount({ publicKey: publicKey! });
         const accountExists = res.error == null;
-        console.log(accountExists, res);
 
         const zkappPublicKey = PublicKey.fromBase58('B62qrBBEARoG78KLD1bmYZeEirUfpNXoMPYQboTwqmGLtfqAGLXdWpU');
 

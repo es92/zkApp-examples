@@ -1,21 +1,14 @@
 import '../styles/globals.css'
 import React, { useEffect, useState } from "react";
-import { loadCOISerivceWorker } from './reactCOIServiceWorker';
+import './reactCOIServiceWorker';
 
 import ZkappWorkerClient from './zkappWorkerClient';
 
-loadCOISerivceWorker();
-
 import {
-  Mina,
   PublicKey,
   PrivateKey,
-
   Field,
-  fetchAccount,
 } from 'snarkyjs'
-
-import type { Add } from '../../contracts/src/Add';
 
 let transactionFee = 100_000_000;
 
@@ -29,7 +22,6 @@ export default function App() {
     privateKey: null as null | PrivateKey,
     publicKey: null as null | PublicKey,
     zkappPublicKey: null as null | PublicKey,
-    transactionHash: '',
     creatingTransaction: false,
   });
 
@@ -130,7 +122,7 @@ export default function App() {
       'See transaction at https://berkeley.minaexplorer.com/transaction/' + transactionHash
     );
 
-    setState({ ...state, transactionHash, creatingTransaction: false });
+    setState({ ...state, creatingTransaction: false });
   }
 
   // -------------------------------------------------------

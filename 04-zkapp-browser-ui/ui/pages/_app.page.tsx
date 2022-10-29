@@ -48,19 +48,19 @@ export default function App() {
 
         console.log('using key', publicKey.toBase58());
 
+        console.log('checking if account exists...');
+        const res = await zkappWorkerClient.fetchAccount({ publicKey: publicKey! });
+        const accountExists = res.error == null;
+
         await zkappWorkerClient.loadContract();
 
         console.log('compiling zkApp');
         await zkappWorkerClient.compileContract();
         console.log('zkApp compiled');
 
-        console.log('checking if account exists...');
-        const res = await zkappWorkerClient.fetchAccount({ publicKey: publicKey! });
-        const accountExists = res.error == null;
-
         const zkappPublicKey = PublicKey.fromBase58('B62qrBBEARoG78KLD1bmYZeEirUfpNXoMPYQboTwqmGLtfqAGLXdWpU');
 
-        await zkappWorkerClient.initZkapp(zkappPublicKey);
+        await zkappWorkerClient.initZkappInstance(zkappPublicKey);
 
         console.log('getting zkApp state...');
         await zkappWorkerClient.fetchAccount({ publicKey: zkappPublicKey })

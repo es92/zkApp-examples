@@ -1,3 +1,3 @@
-import { Add } from './Add.js';
+import { LedgerContract } from './LedgerContract.js';
 
-export { Add };
+export { LedgerContract };

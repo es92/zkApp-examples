@@ -1,4 +1,4 @@
-import { SignedMessageBoard } from './SignedMessageBoard.js';
+import { NumberTreeContract } from './NumberTreeContract.js';
 import { OffChainStorage, MerkleWitness8 } from 'zkapp-offchain-storage';
 
 import {
@@ -11,6 +11,7 @@ import {
   Character,
   CircuitString,
   Signature,
+  Field,
   Bool,
   shutdown,
 } from 'snarkyjs';
@@ -36,7 +37,7 @@ async function main() {
   const zkappPrivateKey = PrivateKey.random();
   const zkappPublicKey = zkappPrivateKey.toPublicKey();
 
-  const zkapp = new SignedMessageBoard(zkappPublicKey);
+  const zkapp = new NumberTreeContract(zkappPublicKey);
 
   // ----------------------------------------
   // deploy and initialize the smart contract
@@ -59,79 +60,76 @@ async function main() {
   // ----------------------------------------
   // update the smart contract
 
-  const idx = 7;
-  const messageStr = 'hi';
+  const height = 8;
 
-  // get the existing tree
-  const treeRoot = await zkapp.storageTreeRoot.get();
-  const idx2fields = await OffChainStorage.get(
-    storageServerAddress,
-    zkappPublicKey,
-    treeHeight,
-    treeRoot,
-    NodeXMLHttpRequest
-  );
+  async function updateTree() {
 
-  const tree = OffChainStorage.mapToTree(treeHeight, idx2fields);
-  const leafWitness = new MerkleWitness8(tree.getWitness(BigInt(idx)));
+    const index = Math.floor(Math.random() * 4);
 
-  // get the prior leaf
-  const priorLeafIsEmpty = !idx2fields.has(idx);
-  let priorLeafMessage = CircuitString.fromString('');
-  let priorLeafSigner = PrivateKey.random().toPublicKey();
-  if (!priorLeafIsEmpty) {
-    const fields = idx2fields.get(idx)!;
-
-    const publicKeyFields = fields.slice(0, 2);
-    priorLeafSigner = PublicKey.fromGroup(
-      new Group(publicKeyFields[0], publicKeyFields[1])
-    );
-
-    const messageFields = fields.slice(2);
-    const messageChars = messageFields.map((f) => new Character(f));
-    priorLeafMessage = CircuitString.fromCharacters(messageChars);
-  }
-
-  // update the leaf
-  const message = CircuitString.fromString(messageStr);
-  const publicKey = feePayerKey.toPublicKey();
-  const newLeaf = publicKey.toFields().concat(message.toFields());
-  idx2fields.set(idx, newLeaf);
-
-  // sign the update with the public key we're using
-  const signature = Signature.create(feePayerKey, newLeaf);
-
-  const [storedNewStorageNumber, storedNewStorageSignature] =
-    await OffChainStorage.requestStore(
+    // get the existing tree
+    const treeRoot = await zkapp.storageTreeRoot.get();
+    const idx2fields = await OffChainStorage.get(
       storageServerAddress,
       zkappPublicKey,
       treeHeight,
-      idx2fields,
+      treeRoot,
       NodeXMLHttpRequest
     );
 
-  // update the smart contract
-  const updateTransaction = await Mina.transaction(
-    { feePayerKey, fee: transactionFee },
-    () => {
-      zkapp!.update(
-        priorLeafMessage,
-        priorLeafSigner,
-        Bool(priorLeafIsEmpty),
-        leafWitness,
-        message,
-        publicKey,
-        signature,
-        storedNewStorageNumber,
-        storedNewStorageSignature
-      );
-      zkapp.sign(zkappPrivateKey);
+    const tree = OffChainStorage.mapToTree(treeHeight, idx2fields);
+    const leafWitness = new MerkleWitness8(tree.getWitness(BigInt(index)));
+
+    // get the prior leaf
+    const priorLeafIsEmpty = !idx2fields.has(index);
+    let priorLeafNumber: Field;
+    let newLeafNumber: Field;
+    if (!priorLeafIsEmpty) {
+      priorLeafNumber = idx2fields.get(index)![0];
+      newLeafNumber = priorLeafNumber.add(3);
+    } else {
+      priorLeafNumber = Field.zero;
+      newLeafNumber = Field.one;
     }
-  );
 
-  await updateTransaction.send().wait();
+    // update the leaf, and save it in the storage server
+    idx2fields.set(index, [ newLeafNumber ]);
 
-  console.log('root updated to', zkapp.storageTreeRoot.get().toString());
+    const [storedNewStorageNumber, storedNewStorageSignature] =
+      await OffChainStorage.requestStore(
+        storageServerAddress,
+        zkappPublicKey,
+        treeHeight,
+        idx2fields,
+        NodeXMLHttpRequest
+      );
+
+    console.log('changing index', index, 'from',  priorLeafNumber.toString(), 'to', newLeafNumber.toString());
+
+    // update the smart contract
+    const updateTransaction = await Mina.transaction(
+      { feePayerKey, fee: transactionFee },
+      () => {
+        zkapp!.update(
+          Bool(priorLeafIsEmpty),
+          priorLeafNumber,
+          newLeafNumber,
+          leafWitness,
+          storedNewStorageNumber,
+          storedNewStorageSignature
+        );
+        zkapp.sign(zkappPrivateKey);
+      }
+    );
+
+    await updateTransaction.send().wait();
+
+    console.log('root updated to', zkapp.storageTreeRoot.get().toString());
+
+  }
+
+  for (;;) {
+    await updateTree();
+  }
 
   //---------------------------
 

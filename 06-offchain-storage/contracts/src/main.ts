@@ -23,7 +23,7 @@ import XMLHttpRequestTs from 'xmlhttprequest-ts';
 const NodeXMLHttpRequest =
   XMLHttpRequestTs.XMLHttpRequest as any as typeof XMLHttpRequest;
 
-const useLocal = false;
+const useLocal = true;
 
 async function main() {
   await isReady;

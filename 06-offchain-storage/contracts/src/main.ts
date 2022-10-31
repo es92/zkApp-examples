@@ -177,6 +177,7 @@ async function main() {
       const updateTransaction = await Mina.transaction(
         { feePayerKey, fee: transactionFee },
         () => {
+          doUpdate();
           zkapp.sign(zkappPrivateKey);
         }
       );

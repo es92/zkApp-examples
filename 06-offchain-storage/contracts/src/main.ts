@@ -105,7 +105,7 @@ async function main() {
         mutateZkApp: () => zkapp.init(serverPublicKey),
         transactionFee: transactionFee,
         getState: () => zkapp.storageServerPublicKey.get().toFields(),
-        statesEqual: (pk1, pk2) => pk1.equals(pk2).toBoolean()
+        statesEqual: (pk1, pk2) => pk1.every((f1, idx) => f1.equals(pk2[idx]).toBoolean())
       });
 
       console.log('updated state!');
@@ -163,7 +163,7 @@ async function main() {
     // update the smart contract
 
     const doUpdate = () => {
-      zkapp!.update(
+      zkapp.update(
         Bool(priorLeafIsEmpty),
         priorLeafNumber,
         newLeafNumber,

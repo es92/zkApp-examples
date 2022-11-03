@@ -95,9 +95,9 @@ class MerkleWitness20 extends Experimental.MerkleWitness(20) {}
   const mint_txn = await Mina.transaction(deployerAccount, () => {
     AccountUpdate.fundNewAccount(deployerAccount);
     contract.mint(zkAppAddress, mintAmount, mintSignature);
-    //if (signOnly) {
+    if (signOnly) {
       contract.sign(zkAppPrivateKey);
-    //}
+    }
   });
   if (!signOnly) {
     await mint_txn.prove();

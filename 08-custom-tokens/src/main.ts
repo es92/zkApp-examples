@@ -78,25 +78,29 @@ import {
   const mintAmount = UInt64.from(10);
 
   const mintSignature = Signature.create(
-    zkAppPrivateKey, 
+    zkAppPrivateKey,
     mintAmount.toFields().concat(zkAppAddress.toFields())
   );
 
   const mint_txn = await Mina.transaction(deployerAccount, () => {
     AccountUpdate.fundNewAccount(deployerAccount);
     contract.mint(zkAppAddress, mintAmount, mintSignature);
-    //if (signOnly) {
+    if (signOnly) {
       contract.sign(zkAppPrivateKey);
-    //}
+    }
   });
   if (!signOnly) {
     await mint_txn.prove();
   }
   await mint_txn.send().wait();
-  
+
   console.log('minted');
 
-  console.log(contract.totalAmountInCirculation.get() + ' ' + Mina.getAccount(zkAppAddress).tokenSymbol);
+  console.log(
+    contract.totalAmountInCirculation.get() +
+      ' ' +
+      Mina.getAccount(zkAppAddress).tokenSymbol
+  );
 
   // ----------------------------------------------------
 
@@ -107,22 +111,27 @@ import {
   const send_txn = await Mina.transaction(deployerAccount, () => {
     AccountUpdate.fundNewAccount(deployerAccount);
     contract.sendTokens(
-      zkAppAddress, 
+      zkAppAddress,
       deployerAccount.toPublicKey(),
-      sendAmount);
+      sendAmount
+    );
     if (signOnly) {
       contract.sign(zkAppPrivateKey);
     }
   });
-  send_txn.sign([ zkAppPrivateKey ]);
+  send_txn.sign([zkAppPrivateKey]);
   if (!signOnly) {
     await send_txn.prove();
   }
   await send_txn.send().wait();
-  
+
   console.log('sent');
 
-  console.log(contract.totalAmountInCirculation.get() + ' ' + Mina.getAccount(zkAppAddress).tokenSymbol);
+  console.log(
+    contract.totalAmountInCirculation.get() +
+      ' ' +
+      Mina.getAccount(zkAppAddress).tokenSymbol
+  );
 
   // ----------------------------------------------------
 
@@ -141,7 +150,6 @@ import {
       contract.experimental.token.id
     ).value.toBigInt()
   );
-
 
   // ----------------------------------------------------
 

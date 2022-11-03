@@ -19,15 +19,15 @@ export class BasicTokenContract extends SmartContract {
   deploy(args: DeployArgs) {
     super.deploy(args);
 
-    //const permissionToEdit = Permissions.proofOrSignature();
+    // const permissionToEdit = Permissions.proofOrSignature();
     const permissionToEdit = Permissions.proof();
 
     this.setPermissions({
       ...Permissions.default(),
       editState: permissionToEdit,
       setTokenSymbol: permissionToEdit,
-      send: permissionToEdit,
-      receive: permissionToEdit,
+      send: Permissions.proof(),
+      receive: Permissions.proof(),
     });
   }
 

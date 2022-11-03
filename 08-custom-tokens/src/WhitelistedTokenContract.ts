@@ -31,6 +31,8 @@ export class WhitelistedTokenContract extends SmartContract {
       ...Permissions.default(),
       editState: permissionToEdit,
       setTokenSymbol: permissionToEdit,
+      send: permissionToEdit,
+      receive: permissionToEdit,
     });
   }
 

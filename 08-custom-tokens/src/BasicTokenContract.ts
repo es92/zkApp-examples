@@ -26,8 +26,8 @@ export class BasicTokenContract extends SmartContract {
       ...Permissions.default(),
       editState: permissionToEdit,
       setTokenSymbol: permissionToEdit,
-      send: Permissions.proof(),
-      receive: Permissions.proof(),
+      send: permissionToEdit,
+      receive: permissionToEdit,
     });
   }
 

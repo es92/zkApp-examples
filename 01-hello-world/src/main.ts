@@ -5,7 +5,6 @@ import {
   Field,
   Mina,
   PrivateKey,
-  PublicKey,
   AccountUpdate,
 } from 'snarkyjs';
 

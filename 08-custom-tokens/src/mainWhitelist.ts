@@ -100,7 +100,7 @@ class MerkleWitness20 extends Experimental.MerkleWitness(20) {}
     //}
   });
   if (!signOnly) {
-    await init_txn.prove();
+    await mint_txn.prove();
   }
   await mint_txn.send().wait();
   
@@ -129,7 +129,7 @@ class MerkleWitness20 extends Experimental.MerkleWitness(20) {}
   });
   send_txn.sign([ zkAppPrivateKey ]);
   if (!signOnly) {
-    await init_txn.prove();
+    await send_txn.prove();
   }
   await send_txn.send().wait();
   

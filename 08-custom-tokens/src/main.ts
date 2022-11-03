@@ -25,7 +25,7 @@ import {
   const zkAppPrivateKey = PrivateKey.random();
   const zkAppAddress = zkAppPrivateKey.toPublicKey();
 
-  const signOnly = true;
+  const signOnly = false;
 
   console.log('compiling...');
 

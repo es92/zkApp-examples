@@ -119,7 +119,7 @@ async function main() {
 
   async function updateTree() {
 
-    const index = Math.floor(Math.random() * 4);
+    const index = BigInt(Math.floor(Math.random() * 4));
 
     // get the existing tree
     const treeRoot = await zkapp.storageTreeRoot.get();

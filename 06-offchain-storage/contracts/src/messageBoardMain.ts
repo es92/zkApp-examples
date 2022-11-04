@@ -59,7 +59,7 @@ async function main() {
   // ----------------------------------------
   // update the smart contract
 
-  const idx = 7;
+  const idx = BigInt(7);
   const messageStr = 'hi';
 
   // get the existing tree

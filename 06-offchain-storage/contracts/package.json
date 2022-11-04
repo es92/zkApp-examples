@@ -47,7 +47,7 @@
     "snarkyjs": "^0.6.0"
   },
   "dependencies": {
-    "xmlhttprequest-ts": "^1.0.1",
-    "zkapp-offchain-storage": "^0.1.0"
+    "experimental-zkapp-offchain-storage": "^0.1.1",
+    "xmlhttprequest-ts": "^1.0.1"
   }
 }

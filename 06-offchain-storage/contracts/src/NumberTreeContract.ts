@@ -16,7 +16,7 @@ import {
   OffChainStorage,
   Update,
   MerkleWitness8,
-} from 'zkapp-offchain-storage';
+} from 'experimental-zkapp-offchain-storage';
 
 export class NumberTreeContract extends SmartContract {
   @state(PublicKey) storageServerPublicKey = State<PublicKey>();

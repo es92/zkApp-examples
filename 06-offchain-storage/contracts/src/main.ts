@@ -1,5 +1,5 @@
 import { NumberTreeContract } from './NumberTreeContract.js';
-import { OffChainStorage, MerkleWitness8 } from 'zkapp-offchain-storage';
+import { OffChainStorage, MerkleWitness8 } from 'experimental-zkapp-offchain-storage';
 import fs from 'fs';
 
 import {

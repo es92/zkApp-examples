@@ -30,8 +30,8 @@ async function main() {
 
   // --------------------------------------
 
-  const num1 = UInt32.fromNumber(40);
-  const num2 = UInt64.fromNumber(40);
+  const num1 = UInt32.from(40);
+  const num2 = UInt64.from(40);
 
   const num1EqualsNum2: Bool = num1.toUInt64().equals(num2);
 
@@ -40,8 +40,8 @@ async function main() {
 
   // --------------------------------------
 
-  const signedNum1 = Int64.fromNumber(-3);
-  const signedNum2 = Int64.fromNumber(45);
+  const signedNum1 = Int64.from(-3);
+  const signedNum2 = Int64.from(45);
 
   const signedNumSum = signedNum1.add(signedNum2);
 
@@ -109,25 +109,23 @@ async function main() {
   console.log(`pointSum Fields: ${pointSum.toFields().map((p) => p.toString())}`);
 
   class Points8 extends CircuitValue {
-    points: Point[];
+    @arrayProp(Point, 8) points: Point[];
 
     constructor(points: Point[]) {
       super();
       this.points = points;
     }
   }
-  // arrays are declared outside the usual @prop decorator, with more arguments as seen below:
-  arrayProp(Point, 8)(Points8.prototype, 'points');
 
   const pointsArray = new Array(8).fill(null).map((_, i) => Point.fromField(Field(i), Field(i*10)));
   const points8 = new Points8(pointsArray);
 
-  console.log(`points8 Fields: ${points8.toFields().map((p) => p.toString())}`);
+  console.log(`points8 Fields: ${JSON.stringify(points8)}`);
 
   // --------------------------------------
 
-  const input1 = Int64.fromNumber(10);
-  const input2 = Int64.fromNumber(-15);
+  const input1 = Int64.from(10);
+  const input2 = Int64.from(-15);
 
   const inputSum = input1.add(input2);
 
@@ -136,7 +134,7 @@ async function main() {
   console.log(`inputSum: ${inputSum.toString()}`);
   console.log(`inputSumAbs: ${inputSumAbs.toString()}`);
 
-  const input3 = Int64.fromNumber(22);
+  const input3 = Int64.from(22);
 
   const input1largest = input1.sub(input2).isPositive().and(input1.sub(input3).isPositive());
   const input2largest = input2.sub(input1).isPositive().and(input2.sub(input3).isPositive());
@@ -166,19 +164,19 @@ async function main() {
     const tree = new Experimental.MerkleTree(height);
     class MerkleWitness extends Experimental.MerkleWitness(height) {}
 
-    const deploy_txn = await Mina.transaction(deployerAccount, () => {
+    const deployTxn = await Mina.transaction(deployerAccount, () => {
       AccountUpdate.fundNewAccount(deployerAccount);
       zkapp.deploy({ zkappKey: basicTreeZkAppPrivateKey });
       zkapp.init(tree.getRoot());
       zkapp.sign(basicTreeZkAppPrivateKey);
     });
-    await deploy_txn.send().wait();
+    await deployTxn.send().wait();
 
-    const senderAccount = 522
+    const incrementIndex = 522;
     const incrementAmount = Field(9);
 
-    const witness = new MerkleWitness(tree.getWitness(BigInt(senderAccount)));
-    tree.setLeaf(BigInt(senderAccount), incrementAmount);
+    const witness = new MerkleWitness(tree.getWitness(BigInt(incrementIndex)));
+    tree.setLeaf(BigInt(incrementIndex), incrementAmount);
 
     const txn1 = await Mina.transaction(deployerAccount, () => {
       zkapp.update(
@@ -229,13 +227,13 @@ async function main() {
       Poseidon.hash([ recipientInitialBalance, Poseidon.hash(recipientPublicKey.toFields()) ])
     );
 
-    const deploy_txn = await Mina.transaction(deployerAccount, () => {
+    const deployTxn = await Mina.transaction(deployerAccount, () => {
       AccountUpdate.fundNewAccount(deployerAccount);
       zkapp.deploy({ zkappKey: ledgerZkAppPrivateKey });
       zkapp.init(tree.getRoot());
       zkapp.sign(ledgerZkAppPrivateKey);
     });
-    await deploy_txn.send().wait();
+    await deployTxn.send().wait();
 
     // --------------------------------------
     // send from the sender to the recipient

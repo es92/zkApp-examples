@@ -48,7 +48,7 @@ const functions = {
   },
   getNum: async (args: {}) => {
     const currentNum = await state.zkapp!.num.get();
-    return currentNum.toString();
+    return JSON.stringify(currentNum.toJSON());
   },
   createUpdateTransaction: async (args: { feePayerPrivateKey58: string, transactionFee: number }) => {
     const feePayerKey = PrivateKey.fromBase58(args.feePayerPrivateKey58);

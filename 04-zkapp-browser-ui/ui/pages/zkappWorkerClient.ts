@@ -38,7 +38,7 @@ export default class ZkappWorkerClient {
 
   async getNum(): Promise<Field> {
     const result = await this._call('getNum', {});
-    return Field.fromString(result as string);
+    return Field.fromJSON(JSON.parse(result as string));
   }
 
   createUpdateTransaction(feePayerPrivateKey: PrivateKey, transactionFee: number) {

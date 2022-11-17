@@ -17,7 +17,7 @@ import {
   shutdown,
 } from 'snarkyjs';
 
-import { zkAppNeedsInitialization, makeAndSendTransaction, loopUntilAccountExists } from './utils.js';
+import { makeAndSendTransaction, loopUntilAccountExists } from './utils.js';
 
 import XMLHttpRequestTs from 'xmlhttprequest-ts';
 const NodeXMLHttpRequest =
@@ -79,37 +79,24 @@ async function main() {
     await NumberTreeContract.compile();
   }
 
+  
+  NumberTreeContract.storageServerPublicKey = serverPublicKey;
   const zkapp = new NumberTreeContract(zkappPublicKey);
 
   if (useLocal) {
     const transaction = await Mina.transaction(feePayerKey, () => {
       AccountUpdate.fundNewAccount(feePayerKey);
       zkapp.deploy({ zkappKey: zkappPrivateKey });
-      zkapp.init(serverPublicKey);
       zkapp.sign(zkappPrivateKey);
     });
 
-    await transaction.send().wait();
+    await transaction.send();
   } else {
     let zkAppAccount = await loopUntilAccountExists({
       account: zkappPrivateKey.toPublicKey(),
       eachTimeNotExist: () => console.log('waiting for zkApp account to be deployed...'),
       isZkAppAccount: true
     });
-
-    if (await zkAppNeedsInitialization({ zkAppAccount })) {
-      console.log('initializing smart contract');
-      await makeAndSendTransaction({
-        feePayerPrivateKey: feePayerKey,
-        zkAppPublicKey: zkappPublicKey,
-        mutateZkApp: () => zkapp.init(serverPublicKey),
-        transactionFee: transactionFee,
-        getState: () => zkapp.storageServerPublicKey.get().toFields(),
-        statesEqual: (pk1, pk2) => pk1.every((f1, idx) => f1.equals(pk2[idx]).toBoolean())
-      });
-
-      console.log('updated state!');
-    }
   }
 
   // ----------------------------------------
@@ -182,7 +169,7 @@ async function main() {
         }
       );
 
-      await updateTransaction.send().wait();
+      await updateTransaction.send();
     } else {
       await makeAndSendTransaction({
         feePayerPrivateKey: feePayerKey,

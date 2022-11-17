@@ -1,7 +1,7 @@
 import {
   SmartContract,
   Field,
-  Experimental,
+  MerkleTree,
   state,
   State,
   method,
@@ -23,6 +23,8 @@ export class NumberTreeContract extends SmartContract {
   @state(Field) storageNumber = State<Field>();
   @state(Field) storageTreeRoot = State<Field>();
 
+  static storageServerPublicKey: PublicKey;
+
   // TODO should I be doing my init things inside deploy? does that assert them?
   deploy(args: DeployArgs) {
     super.deploy(args);
@@ -30,13 +32,10 @@ export class NumberTreeContract extends SmartContract {
       ...Permissions.default(),
       editState: Permissions.proofOrSignature(),
     });
-  }
-
-  @method init(storageServerPublicKey: PublicKey) {
-    this.storageServerPublicKey.set(storageServerPublicKey);
+    this.storageServerPublicKey.set(NumberTreeContract.storageServerPublicKey);
     this.storageNumber.set(Field.zero);
 
-    const emptyTreeRoot = new Experimental.MerkleTree(8).getRoot();
+    const emptyTreeRoot = new MerkleTree(8).getRoot();
     this.storageTreeRoot.set(emptyTreeRoot);
   }
 

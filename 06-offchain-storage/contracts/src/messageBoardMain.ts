@@ -36,8 +36,6 @@ async function main() {
   const zkappPrivateKey = PrivateKey.random();
   const zkappPublicKey = zkappPrivateKey.toPublicKey();
 
-  const zkapp = new SignedMessageBoard(zkappPublicKey);
-
   // ----------------------------------------
   // deploy and initialize the smart contract
 
@@ -47,14 +45,16 @@ async function main() {
     NodeXMLHttpRequest
   );
 
+  SignedMessageBoard.storageServerPublicKey = serverPublicKey;
+  const zkapp = new SignedMessageBoard(zkappPublicKey);
+
   const transaction = await Mina.transaction(feePayerKey, () => {
     AccountUpdate.fundNewAccount(feePayerKey);
     zkapp.deploy({ zkappKey: zkappPrivateKey });
-    zkapp.init(serverPublicKey);
     zkapp.sign(zkappPrivateKey);
   });
 
-  await transaction.send().wait();
+  await transaction.send();
 
   // ----------------------------------------
   // update the smart contract
@@ -129,7 +129,7 @@ async function main() {
     }
   );
 
-  await updateTransaction.send().wait();
+  await updateTransaction.send();
 
   console.log('root updated to', zkapp.storageTreeRoot.get().toString());
 

@@ -6,7 +6,7 @@ import {
   method,
   DeployArgs,
   Permissions,
-  Experimental,
+  MerkleTree,
   CircuitString,
   PublicKey,
   Signature,
@@ -24,19 +24,19 @@ export class SignedMessageBoard extends SmartContract {
   @state(Field) storageNumber = State<Field>();
   @state(Field) storageTreeRoot = State<Field>();
 
+  static storageServerPublicKey: PublicKey;
+
+
   deploy(args: DeployArgs) {
     super.deploy(args);
     this.setPermissions({
       ...Permissions.default(),
       editState: Permissions.proofOrSignature(),
     });
-  }
-
-  @method init(storageServerPublicKey: PublicKey) {
-    this.storageServerPublicKey.set(storageServerPublicKey);
+    this.storageServerPublicKey.set(SignedMessageBoard.storageServerPublicKey);
     this.storageNumber.set(Field.zero);
 
-    const emptyTreeRoot = new Experimental.MerkleTree(8).getRoot();
+    const emptyTreeRoot = new MerkleTree(8).getRoot();
     this.storageTreeRoot.set(emptyTreeRoot);
   }
 

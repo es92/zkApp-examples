@@ -1,5 +1,4 @@
 import {
-  Field,
   SmartContract,
   state,
   State,
@@ -19,7 +18,6 @@ export class BasicTokenContract extends SmartContract {
   deploy(args: DeployArgs) {
     super.deploy(args);
 
-    // const permissionToEdit = Permissions.proofOrSignature();
     const permissionToEdit = Permissions.proof();
 
     this.setPermissions({
@@ -32,13 +30,14 @@ export class BasicTokenContract extends SmartContract {
   }
 
   @method init() {
+    super.init();
     this.tokenSymbol.set(tokenSymbol);
     this.totalAmountInCirculation.set(UInt64.zero);
   }
 
   @method mint(
-    receiverAddress: PublicKey, 
-    amount: UInt64, 
+    receiverAddress: PublicKey,
+    amount: UInt64,
     adminSignature: Signature
   ) {
     let totalAmountInCirculation = this.totalAmountInCirculation.get();
@@ -46,12 +45,14 @@ export class BasicTokenContract extends SmartContract {
 
     let newTotalAmountInCirculation = totalAmountInCirculation.add(amount);
 
-    adminSignature.verify(
-      this.address, 
-      amount.toFields().concat(receiverAddress.toFields())
-    ).assertTrue();
+    adminSignature
+      .verify(
+        this.address,
+        amount.toFields().concat(receiverAddress.toFields())
+      )
+      .assertTrue();
 
-    this.experimental.token.mint({
+    this.token.mint({
       address: receiverAddress,
       amount,
     });
@@ -64,11 +65,10 @@ export class BasicTokenContract extends SmartContract {
     receiverAddress: PublicKey,
     amount: UInt64
   ) {
-    this.experimental.token.send({
+    this.token.send({
       from: senderAddress,
       to: receiverAddress,
       amount,
     });
   }
 }
-

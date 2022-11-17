@@ -9,11 +9,11 @@ import {
   UInt64,
   PublicKey,
   Signature,
-  Experimental,
   Poseidon,
+  MerkleWitness,
 } from 'snarkyjs';
 
-class MerkleWitness20 extends Experimental.MerkleWitness(20) {}
+class MerkleWitness20 extends MerkleWitness(20) {}
 
 const tokenSymbol = 'MYTKN';
 
@@ -25,7 +25,6 @@ export class WhitelistedTokenContract extends SmartContract {
     super.deploy(args);
 
     const permissionToEdit = Permissions.proofOrSignature();
-    //const permissionToEdit = Permissions.proof();
 
     this.setPermissions({
       ...Permissions.default(),
@@ -36,28 +35,34 @@ export class WhitelistedTokenContract extends SmartContract {
     });
   }
 
-  @method init(whitelistTreeRoot: Field) {
+  @method init() {
+    super.init();
     this.tokenSymbol.set(tokenSymbol);
     this.totalAmountInCirculation.set(UInt64.zero);
+  }
+
+  @method initState(whitelistTreeRoot: Field) {
     this.whitelistTreeRoot.set(whitelistTreeRoot);
   }
 
   @method mint(
-    receiverAddress: PublicKey, 
-    amount: UInt64, 
-    adminSignature: Signature,
+    receiverAddress: PublicKey,
+    amount: UInt64,
+    adminSignature: Signature
   ) {
     let totalAmountInCirculation = this.totalAmountInCirculation.get();
     this.totalAmountInCirculation.assertEquals(totalAmountInCirculation);
 
     let newTotalAmountInCirculation = totalAmountInCirculation.add(amount);
 
-    adminSignature.verify(
-      this.address, 
-      amount.toFields().concat(receiverAddress.toFields())
-    ).assertTrue();
+    adminSignature
+      .verify(
+        this.address,
+        amount.toFields().concat(receiverAddress.toFields())
+      )
+      .assertTrue();
 
-    this.experimental.token.mint({
+    this.token.mint({
       address: receiverAddress,
       amount,
     });
@@ -74,18 +79,15 @@ export class WhitelistedTokenContract extends SmartContract {
     const whitelistTreeRoot = this.whitelistTreeRoot.get();
     this.whitelistTreeRoot.assertEquals(whitelistTreeRoot);
 
-    adminSignature.verify(
-      this.address, 
-      [ newWhitelistRoot ]
-    ).assertTrue();
+    adminSignature.verify(this.address, [newWhitelistRoot]).assertTrue();
 
     // check leaf was empty
     whitelistWitness.calculateRoot(Field.zero).assertEquals(whitelistTreeRoot);
 
     // check its the new root
-    whitelistWitness.calculateRoot(
-      Poseidon.hash(receiverAddress.toFields())
-    ).assertEquals(newWhitelistRoot);
+    whitelistWitness
+      .calculateRoot(Poseidon.hash(receiverAddress.toFields()))
+      .assertEquals(newWhitelistRoot);
 
     this.whitelistTreeRoot.set(newWhitelistRoot);
   }
@@ -94,21 +96,19 @@ export class WhitelistedTokenContract extends SmartContract {
     senderAddress: PublicKey,
     receiverAddress: PublicKey,
     amount: UInt64,
-    whitelistWitness: MerkleWitness20,
+    whitelistWitness: MerkleWitness20
   ) {
     const whitelistTreeRoot = this.whitelistTreeRoot.get();
     this.whitelistTreeRoot.assertEquals(whitelistTreeRoot);
 
-    whitelistWitness.calculateRoot(
-      Poseidon.hash(receiverAddress.toFields())
-    ).assertEquals(whitelistTreeRoot);
+    whitelistWitness
+      .calculateRoot(Poseidon.hash(receiverAddress.toFields()))
+      .assertEquals(whitelistTreeRoot);
 
-    this.experimental.token.send({
+    this.token.send({
       from: senderAddress,
       to: receiverAddress,
       amount,
     });
   }
 }
-
-

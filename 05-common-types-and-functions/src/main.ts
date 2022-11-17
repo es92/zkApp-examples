@@ -18,7 +18,8 @@ import {
   prop,
   arrayProp,
   Circuit,
-  Experimental,
+  MerkleWitness,
+  MerkleTree,
   AccountUpdate
 } from 'snarkyjs'
 
@@ -158,24 +159,23 @@ async function main() {
     const basicTreeZkAppPrivateKey = PrivateKey.random();
     const basicTreeZkAppAddress = basicTreeZkAppPrivateKey.toPublicKey();
 
-    const zkapp = new BasicMerkleTreeContract(basicTreeZkAppAddress);
-
     const height = 20;
-    const tree = new Experimental.MerkleTree(height);
-    class MerkleWitness extends Experimental.MerkleWitness(height) {}
+    const tree = new MerkleTree(height);
+    class MerkleWitness20 extends MerkleWitness(height) {}
+
+    const zkapp = new BasicMerkleTreeContract(basicTreeZkAppAddress, tree.getRoot());
 
     const deployTxn = await Mina.transaction(deployerAccount, () => {
       AccountUpdate.fundNewAccount(deployerAccount);
       zkapp.deploy({ zkappKey: basicTreeZkAppPrivateKey });
-      zkapp.init(tree.getRoot());
       zkapp.sign(basicTreeZkAppPrivateKey);
     });
-    await deployTxn.send().wait();
+    await deployTxn.send();
 
     const incrementIndex = 522;
     const incrementAmount = Field(9);
 
-    const witness = new MerkleWitness(tree.getWitness(BigInt(incrementIndex)));
+    const witness = new MerkleWitness20(tree.getWitness(BigInt(incrementIndex)));
     tree.setLeaf(BigInt(incrementIndex), incrementAmount);
 
     const txn1 = await Mina.transaction(deployerAccount, () => {
@@ -185,7 +185,7 @@ async function main() {
         incrementAmount);
       zkapp.sign(basicTreeZkAppPrivateKey);
     });
-    await txn1.send().wait();
+    await txn1.send();
 
     console.log(`BasicMerkleTree: local tree root hash after send1: ${tree.getRoot()}`);
     console.log(`BasicMerkleTree: smart contract root hash after send1: ${zkapp.treeRoot.get()}`);
@@ -200,11 +200,9 @@ async function main() {
     const ledgerZkAppPrivateKey = PrivateKey.random();
     const ledgerZkAppAddress = ledgerZkAppPrivateKey.toPublicKey();
 
-    const zkapp = new LedgerContract(ledgerZkAppAddress);
-
     const height = 20;
-    const tree = new Experimental.MerkleTree(height);
-    class MerkleWitness extends Experimental.MerkleWitness(height) {}
+    const tree = new MerkleTree(height);
+    class MerkleWitness20 extends MerkleWitness(height) {}
 
     const senderInitialBalance = Field(100);
     const recipientInitialBalance = Field(7);
@@ -227,13 +225,14 @@ async function main() {
       Poseidon.hash([ recipientInitialBalance, Poseidon.hash(recipientPublicKey.toFields()) ])
     );
 
+    const zkapp = new LedgerContract(ledgerZkAppAddress, tree.getRoot());
+
     const deployTxn = await Mina.transaction(deployerAccount, () => {
       AccountUpdate.fundNewAccount(deployerAccount);
       zkapp.deploy({ zkappKey: ledgerZkAppPrivateKey });
-      zkapp.init(tree.getRoot());
       zkapp.sign(ledgerZkAppPrivateKey);
     });
-    await deployTxn.send().wait();
+    await deployTxn.send();
 
     // --------------------------------------
     // send from the sender to the recipient
@@ -242,12 +241,12 @@ async function main() {
 
     const newSenderBalance = senderInitialBalance.sub(amount)
 
-    const sendWitness1 = new MerkleWitness(tree.getWitness(BigInt(senderAccount)));
+    const sendWitness1 = new MerkleWitness20(tree.getWitness(BigInt(senderAccount)));
     tree.setLeaf(
       BigInt(senderAccount), 
       Poseidon.hash([ newSenderBalance, Poseidon.hash(senderPublicKey.toFields()) ])
     );
-    const recipientWitness1 = new MerkleWitness(tree.getWitness(BigInt(recipientAccount)));
+    const recipientWitness1 = new MerkleWitness20(tree.getWitness(BigInt(recipientAccount)));
 
     tree.setLeaf(
       BigInt(recipientAccount), 
@@ -271,7 +270,7 @@ async function main() {
         amount);
       zkapp.sign(ledgerZkAppPrivateKey);
     });
-    await txn1.send().wait();
+    await txn1.send();
 
     console.log(`LedgerContract: local tree root hash after send1: ${tree.getRoot()}`);
     console.log(`LedgerContract: smart contract root hash after send1: ${zkapp.ledgerRoot.get()}`);
@@ -282,9 +281,9 @@ async function main() {
     const newRecipientPublicKey = PrivateKey.random().toPublicKey();
     const newRecipientAccount = 10000;
 
-    const sendWitness2 = new MerkleWitness(tree.getWitness(BigInt(senderAccount)));
+    const sendWitness2 = new MerkleWitness20(tree.getWitness(BigInt(senderAccount)));
     tree.setLeaf(BigInt(senderAccount), Poseidon.hash([ newSenderBalance.sub(amount), Poseidon.hash(senderPublicKey.toFields()) ]));
-    const recipientWitness2 = new MerkleWitness(tree.getWitness(BigInt(newRecipientAccount)));
+    const recipientWitness2 = new MerkleWitness20(tree.getWitness(BigInt(newRecipientAccount)));
 
     tree.setLeaf(BigInt(newRecipientAccount), Poseidon.hash([ amount, Poseidon.hash(newRecipientPublicKey.toFields()) ]));
 
@@ -305,7 +304,7 @@ async function main() {
         amount);
       zkapp.sign(ledgerZkAppPrivateKey);
     });
-    await txn2.send().wait();
+    await txn2.send();
 
     console.log(`LedgerContract: local tree root hash after send2: ${tree.getRoot()}`);
     console.log(`LedgerContract: smart contract root hash after send2: ${zkapp.ledgerRoot.get()}`);

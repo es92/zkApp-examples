@@ -6,26 +6,24 @@ import {
   method,
   DeployArgs,
   Permissions,
-  Experimental,
+  MerkleWitness,
   Poseidon,
   PublicKey,
   Signature,
   Circuit,
 } from 'snarkyjs';
 
-class MerkleWitness20 extends Experimental.MerkleWitness(20) {}
+class MerkleWitness20 extends MerkleWitness(20) {}
 
-/**
- * Basic Example
- * See https://docs.minaprotocol.com/zkapps for more info.
- *
- * The MerkleTree contract initializes the state variable 'num' to be a Field(1) value by default when deployed.
- * When the 'update' method is called, the LedgerContract contract adds Field(2) to its 'num' contract state.
- * 
- * This file is safe to delete and replace with your own contract.
- */
 export class LedgerContract extends SmartContract {
   @state(Field) ledgerRoot = State<Field>();
+
+  initialLedgerRoot: Field;
+
+  constructor(zkAppAddress: PublicKey, initialLedgerRoot: Field) {
+    super(zkAppAddress);
+    this.initialLedgerRoot = initialLedgerRoot;
+  }
 
   deploy(args: DeployArgs) {
     super.deploy(args);
@@ -33,10 +31,7 @@ export class LedgerContract extends SmartContract {
       ...Permissions.default(),
       editState: Permissions.proofOrSignature(),
     });
-  }
-
-  @method init(initialLedgerRoot: Field) {
-    this.ledgerRoot.set(initialLedgerRoot);
+    this.ledgerRoot.set(this.initialLedgerRoot);
   }
 
   @method sendBalance(

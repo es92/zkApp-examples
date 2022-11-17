@@ -6,17 +6,24 @@ import {
   method,
   DeployArgs,
   Permissions,
-  Experimental,
+  MerkleWitness,
   Poseidon,
   PublicKey,
   Signature,
   Circuit,
 } from 'snarkyjs';
 
-class MerkleWitness20 extends Experimental.MerkleWitness(20) {}
+class MerkleWitness20 extends MerkleWitness(20) {}
 
 export class BasicMerkleTreeContract extends SmartContract {
   @state(Field) treeRoot = State<Field>();
+
+  initialRoot: Field;
+
+  constructor(zkAppAddress: PublicKey, initialRoot: Field) {
+    super(zkAppAddress);
+    this.initialRoot = initialRoot;
+  }
 
   deploy(args: DeployArgs) {
     super.deploy(args);
@@ -24,10 +31,7 @@ export class BasicMerkleTreeContract extends SmartContract {
       ...Permissions.default(),
       editState: Permissions.proofOrSignature(),
     });
-  }
-
-  @method init(initialRoot: Field) {
-    this.treeRoot.set(initialRoot);
+    this.treeRoot.set(this.initialRoot);
   }
 
   @method update(

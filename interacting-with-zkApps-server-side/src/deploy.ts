@@ -46,7 +46,6 @@ export const deploy = async (
       { feePayerKey: deployerPrivateKey, fee: transactionFee },
       () => {
         AccountUpdate.fundNewAccount(deployerPrivateKey);
-        zkapp.init();
         zkapp.deploy({ zkappKey: zkAppPrivateKey, verificationKey });
       }
     );

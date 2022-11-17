@@ -8,7 +8,7 @@ import {
 
 //import { deploy } from './deploy.js';
 import fs from 'fs';
-import { loopUntilAccountExists, makeAndSendTransaction, zkAppNeedsInitialization } from './utils.js';
+import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
 
 (async function main() {
   await isReady;
@@ -80,22 +80,6 @@ import { loopUntilAccountExists, makeAndSendTransaction, zkAppNeedsInitializatio
     eachTimeNotExist: () => console.log('waiting for zkApp account to be deployed...'),
     isZkAppAccount: true
   });
-
-  const needsInitialization = await zkAppNeedsInitialization({ zkAppAccount });
-
-  if (needsInitialization) {
-    console.log('initializing smart contract');
-    await makeAndSendTransaction({
-      feePayerPrivateKey: deployerPrivateKey,
-      zkAppPublicKey: zkAppPublicKey,
-      mutateZkApp: () => zkapp.init(),
-      transactionFee: transactionFee,
-      getState: () => zkapp.num.get(),
-      statesEqual: (num1, num2) => num1.equals(num2).toBoolean()
-    });
-
-    console.log('updated state!', zkapp.num.get().toString());
-  }
 
   let num = (await zkapp.num.get())!;
   console.log('current value of num is', num.toString());

@@ -163,7 +163,8 @@ async function main() {
     const tree = new MerkleTree(height);
     class MerkleWitness20 extends MerkleWitness(height) {}
 
-    const zkapp = new BasicMerkleTreeContract(basicTreeZkAppAddress, tree.getRoot());
+    BasicMerkleTreeContract.initialRoot = tree.getRoot();
+    const zkapp = new BasicMerkleTreeContract(basicTreeZkAppAddress);
 
     const deployTxn = await Mina.transaction(deployerAccount, () => {
       AccountUpdate.fundNewAccount(deployerAccount);
@@ -225,7 +226,8 @@ async function main() {
       Poseidon.hash([ recipientInitialBalance, Poseidon.hash(recipientPublicKey.toFields()) ])
     );
 
-    const zkapp = new LedgerContract(ledgerZkAppAddress, tree.getRoot());
+    LedgerContract.initialLedgerRoot = tree.getRoot()
+    const zkapp = new LedgerContract(ledgerZkAppAddress);
 
     const deployTxn = await Mina.transaction(deployerAccount, () => {
       AccountUpdate.fundNewAccount(deployerAccount);

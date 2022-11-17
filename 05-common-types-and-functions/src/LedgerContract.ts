@@ -18,12 +18,7 @@ class MerkleWitness20 extends MerkleWitness(20) {}
 export class LedgerContract extends SmartContract {
   @state(Field) ledgerRoot = State<Field>();
 
-  initialLedgerRoot: Field;
-
-  constructor(zkAppAddress: PublicKey, initialLedgerRoot: Field) {
-    super(zkAppAddress);
-    this.initialLedgerRoot = initialLedgerRoot;
-  }
+  static initialLedgerRoot: Field;
 
   deploy(args: DeployArgs) {
     super.deploy(args);
@@ -31,7 +26,7 @@ export class LedgerContract extends SmartContract {
       ...Permissions.default(),
       editState: Permissions.proofOrSignature(),
     });
-    this.ledgerRoot.set(this.initialLedgerRoot);
+    this.ledgerRoot.set(LedgerContract.initialLedgerRoot);
   }
 
   @method sendBalance(

@@ -17,6 +17,12 @@ import {
   Mina.setActiveInstance(Local);
   const deployerAccount = Local.testAccounts[0].privateKey;
 
+  const useProof = false;
+
+  if (useProof) {
+    Square.compile();
+  }
+
   // ----------------------------------------------------
 
   // create a destination we will deploy the smart contract to
@@ -65,8 +71,13 @@ import {
 
   const txn3 = await Mina.transaction(deployerAccount, () => {
     zkAppInstance.update(Field(81));
-    zkAppInstance.sign(zkAppPrivateKey);
+    if (!useProof) {
+      zkAppInstance.sign(zkAppPrivateKey);
+    }
   });
+  if (useProof) {
+    await txn3.prove();
+  }
   await txn3.send();
 
   const num3 = zkAppInstance.num.get();

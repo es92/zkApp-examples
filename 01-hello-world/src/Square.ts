@@ -17,10 +17,6 @@ export class Square extends SmartContract {
       ...Permissions.default(),
       editState: Permissions.proofOrSignature(),
     });
-  }
-
-  @method init() {
-    super.init()
     this.num.set(Field(3));
   }
 

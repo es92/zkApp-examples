@@ -18,15 +18,16 @@ class MerkleWitness20 extends MerkleWitness(20) {}
 export class BasicMerkleTreeContract extends SmartContract {
   @state(Field) treeRoot = State<Field>();
 
-  static initialRoot: Field;
-
   deploy(args: DeployArgs) {
     super.deploy(args);
     this.setPermissions({
       ...Permissions.default(),
       editState: Permissions.proofOrSignature(),
     });
-    this.treeRoot.set(BasicMerkleTreeContract.initialRoot);
+  }
+
+  @method initState(initialRoot: Field) {
+    this.treeRoot.set(initialRoot);
   }
 
   @method update(

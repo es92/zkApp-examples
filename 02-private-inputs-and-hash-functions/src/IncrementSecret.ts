@@ -7,10 +7,20 @@ import {
   DeployArgs,
   Poseidon,
   Permissions,
+  PublicKey
 } from 'snarkyjs';
 
 export class IncrementSecret extends SmartContract {
   @state(Field) x = State<Field>();
+
+  salt: Field;
+  firstSecret: Field;
+
+  constructor(zkAppAddress: PublicKey, salt: Field, firstSecret: Field) {
+    super(zkAppAddress);
+    this.salt = salt;
+    this.firstSecret = firstSecret
+  }
 
   deploy(args: DeployArgs) {
     super.deploy(args);
@@ -18,10 +28,7 @@ export class IncrementSecret extends SmartContract {
       ...Permissions.default(),
       editState: Permissions.proofOrSignature(),
     });
-  }
-
-  @method init(salt: Field, firstSecret: Field) {
-    this.x.set(Poseidon.hash([salt, firstSecret]));
+    this.x.set(Poseidon.hash([this.salt, this.firstSecret]));
   }
 
   @method incrementSecret(salt: Field, secret: Field) {

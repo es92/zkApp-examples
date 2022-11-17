@@ -1,4 +1,4 @@
-import WhitelistedTokenContract.ts from './WhitelistedTokenContract.ts';
+import WhitelistedTokenContracts from './WhitelistedTokenContract.js';
 
 describe('WhitelistedTokenContract.ts.js', () => {
   describe('WhitelistedTokenContract.ts()', () => {

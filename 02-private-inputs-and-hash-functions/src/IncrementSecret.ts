@@ -7,14 +7,12 @@ import {
   DeployArgs,
   Poseidon,
   Permissions,
-  PublicKey
+  PublicKey,
+  PrivateKey,
 } from 'snarkyjs';
 
 export class IncrementSecret extends SmartContract {
   @state(Field) x = State<Field>();
-
-  static salt: Field;
-  static firstSecret: Field;
 
   deploy(args: DeployArgs) {
     super.deploy(args);
@@ -22,7 +20,10 @@ export class IncrementSecret extends SmartContract {
       ...Permissions.default(),
       editState: Permissions.proofOrSignature(),
     });
-    this.x.set(Poseidon.hash([IncrementSecret.salt, IncrementSecret.firstSecret]));
+  }
+
+  @method initState(salt: Field, firstSecret: Field) {
+    this.x.set(Poseidon.hash([salt, firstSecret]));
   }
 
   @method incrementSecret(salt: Field, secret: Field) {

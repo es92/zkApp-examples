@@ -27,14 +27,11 @@ import {
   const zkAppPrivateKey = PrivateKey.random();
   const zkAppAddress = zkAppPrivateKey.toPublicKey();
 
-  // create an instance of IncrementSecret - and deploy it to zkAppAddress
-  IncrementSecret.salt = salt;
-  IncrementSecret.firstSecret = Field(750);
-
   const zkAppInstance = new IncrementSecret(zkAppAddress);
   const deploy_txn = await Mina.transaction(deployerAccount, () => {
     AccountUpdate.fundNewAccount(deployerAccount);
     zkAppInstance.deploy({ zkappKey: zkAppPrivateKey });
+    zkAppInstance.initState(salt, Field(750))
     zkAppInstance.sign(zkAppPrivateKey);
   });
   await deploy_txn.send();

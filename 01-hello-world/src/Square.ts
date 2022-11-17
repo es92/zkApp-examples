@@ -20,6 +20,7 @@ export class Square extends SmartContract {
   }
 
   @method init() {
+    super.init()
     this.num.set(Field(3));
   }
 

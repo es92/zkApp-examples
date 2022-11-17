@@ -53,11 +53,9 @@ import {
   const init_txn = await Mina.transaction(deployerAccount, () => {
     contract.init();
   });
-  if (!proofsEnabled) {
-    await init_txn.prove();
-  } else {
-    init_txn.sign([zkAppPrivateKey]);
-  }
+
+  await init_txn.prove();
+  init_txn.sign([zkAppPrivateKey]);
   await init_txn.send();
 
   console.log('initialized');
@@ -77,11 +75,9 @@ import {
     AccountUpdate.fundNewAccount(deployerAccount);
     contract.mint(zkAppAddress, mintAmount, mintSignature);
   });
-  if (!proofsEnabled) {
-    await mint_txn.prove();
-  } else {
-    mint_txn.sign([zkAppPrivateKey]);
-  }
+
+  await mint_txn.prove();
+  mint_txn.sign([zkAppPrivateKey]);
   await mint_txn.send();
 
   console.log('minted');
@@ -106,10 +102,8 @@ import {
       sendAmount
     );
   });
+  await send_txn.prove();
   send_txn.sign([zkAppPrivateKey]);
-  if (!proofsEnabled) {
-    await send_txn.prove();
-  }
   await send_txn.send();
 
   console.log('sent');

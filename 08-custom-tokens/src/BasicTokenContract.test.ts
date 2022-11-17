@@ -1,4 +1,4 @@
-import BasicTokenContract.ts from './BasicTokenContract.ts';
+import BasicTokenContract from './BasicTokenContract.js';
 
 describe('BasicTokenContract.ts.js', () => {
   describe('BasicTokenContract.ts()', () => {

@@ -13,14 +13,8 @@ import {
 export class IncrementSecret extends SmartContract {
   @state(Field) x = State<Field>();
 
-  salt: Field;
-  firstSecret: Field;
-
-  constructor(zkAppAddress: PublicKey, salt: Field, firstSecret: Field) {
-    super(zkAppAddress);
-    this.salt = salt;
-    this.firstSecret = firstSecret
-  }
+  static salt: Field;
+  static firstSecret: Field;
 
   deploy(args: DeployArgs) {
     super.deploy(args);
@@ -28,7 +22,7 @@ export class IncrementSecret extends SmartContract {
       ...Permissions.default(),
       editState: Permissions.proofOrSignature(),
     });
-    this.x.set(Poseidon.hash([this.salt, this.firstSecret]));
+    this.x.set(Poseidon.hash([IncrementSecret.salt, IncrementSecret.firstSecret]));
   }
 
   @method incrementSecret(salt: Field, secret: Field) {

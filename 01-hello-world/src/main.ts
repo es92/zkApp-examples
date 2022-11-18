@@ -60,12 +60,14 @@ import {
   try {
     const txn2 = await Mina.transaction(deployerAccount, () => {
       zkAppInstance.update(Field(75));
-      zkAppInstance.sign(zkAppPrivateKey);
     });
+
+    await txn2.prove();
     await txn2.send();
   } catch (ex: any) {
     console.log(ex.message);
   }
+
   const num2 = zkAppInstance.num.get();
   console.log('state after txn2:', num2.toString());
 

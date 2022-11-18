@@ -45,12 +45,12 @@ async function main() {
     NodeXMLHttpRequest
   );
 
-  SignedMessageBoard.storageServerPublicKey = serverPublicKey;
   const zkapp = new SignedMessageBoard(zkappPublicKey);
 
   const transaction = await Mina.transaction(feePayerKey, () => {
     AccountUpdate.fundNewAccount(feePayerKey);
     zkapp.deploy({ zkappKey: zkappPrivateKey });
+    zkapp.initState(serverPublicKey);
     zkapp.sign(zkappPrivateKey);
   });
 

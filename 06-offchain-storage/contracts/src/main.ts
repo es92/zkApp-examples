@@ -79,14 +79,13 @@ async function main() {
     await NumberTreeContract.compile();
   }
 
-  
-  NumberTreeContract.storageServerPublicKey = serverPublicKey;
   const zkapp = new NumberTreeContract(zkappPublicKey);
 
   if (useLocal) {
     const transaction = await Mina.transaction(feePayerKey, () => {
       AccountUpdate.fundNewAccount(feePayerKey);
       zkapp.deploy({ zkappKey: zkappPrivateKey });
+      zkapp.initState(serverPublicKey);
       zkapp.sign(zkappPrivateKey);
     });
 

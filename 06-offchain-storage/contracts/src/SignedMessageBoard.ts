@@ -24,16 +24,16 @@ export class SignedMessageBoard extends SmartContract {
   @state(Field) storageNumber = State<Field>();
   @state(Field) storageTreeRoot = State<Field>();
 
-  static storageServerPublicKey: PublicKey;
-
-
   deploy(args: DeployArgs) {
     super.deploy(args);
     this.setPermissions({
       ...Permissions.default(),
       editState: Permissions.proofOrSignature(),
     });
-    this.storageServerPublicKey.set(SignedMessageBoard.storageServerPublicKey);
+  }
+
+  @method initState(storageServerPublicKey: PublicKey) {
+    this.storageServerPublicKey.set(storageServerPublicKey);
     this.storageNumber.set(Field.zero);
 
     const emptyTreeRoot = new MerkleTree(8).getRoot();

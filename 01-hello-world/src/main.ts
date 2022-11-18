@@ -34,6 +34,7 @@ import {
     AccountUpdate.fundNewAccount(deployerAccount);
     zkAppInstance.deploy({ zkappKey: zkAppPrivateKey });
   });
+
   await deploy_txn.prove();
   deploy_txn.sign([zkAppPrivateKey]);
   await deploy_txn.send();
@@ -46,8 +47,9 @@ import {
 
   const txn1 = await Mina.transaction(deployerAccount, () => {
     zkAppInstance.update(Field(9));
-    zkAppInstance.sign(zkAppPrivateKey);
   });
+
+  await txn1.prove();
   await txn1.send();
 
   const num1 = zkAppInstance.num.get();

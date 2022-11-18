@@ -75,13 +75,9 @@ import {
 
   const txn3 = await Mina.transaction(deployerAccount, () => {
     zkAppInstance.update(Field(81));
-    if (!useProof) {
-      zkAppInstance.sign(zkAppPrivateKey);
-    }
   });
-  if (useProof) {
-    await txn3.prove();
-  }
+
+  await txn3.prove();
   await txn3.send();
 
   const num3 = zkAppInstance.num.get();

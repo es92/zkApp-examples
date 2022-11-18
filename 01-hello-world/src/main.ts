@@ -33,8 +33,9 @@ import {
   const deploy_txn = await Mina.transaction(deployerAccount, () => {
     AccountUpdate.fundNewAccount(deployerAccount);
     zkAppInstance.deploy({ zkappKey: zkAppPrivateKey });
-    zkAppInstance.sign(zkAppPrivateKey);
   });
+  await deploy_txn.prove();
+  deploy_txn.sign([zkAppPrivateKey]);
   await deploy_txn.send();
 
   // get the initial state of Square after deployment

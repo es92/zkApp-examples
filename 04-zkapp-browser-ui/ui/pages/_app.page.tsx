@@ -1,5 +1,5 @@
 import '../styles/globals.css'
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import './reactCOIServiceWorker';
 
 import ZkappWorkerClient from './zkappWorkerClient';
@@ -73,6 +73,7 @@ export default function App() {
         setState({ 
             ...state, 
             zkappWorkerClient, 
+            hasWallet: true,
             hasBeenSetup: true, 
             publicKey, 
             zkappPublicKey, 
@@ -118,9 +119,7 @@ export default function App() {
     await state.zkappWorkerClient!.proveUpdateTransaction();
 
     console.log('getting Transaction JSON...');
-
     const transactionJSON = await state.zkappWorkerClient!.getTransactionJSON()
-    console.log('tjson', transactionJSON);
 
     console.log('requesting send transaction...');
     const { hash } = await (window as any).mina.sendTransaction({

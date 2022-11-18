@@ -41,18 +41,17 @@ export default class ZkappWorkerClient {
     return Field.fromJSON(JSON.parse(result as string));
   }
 
-  createUpdateTransaction(feePayerPrivateKey: PrivateKey, transactionFee: number) {
-    const feePayerPrivateKey58 = feePayerPrivateKey.toBase58();
-    return this._call('createUpdateTransaction', { feePayerPrivateKey58, transactionFee });
+  createUpdateTransaction() {
+    return this._call('createUpdateTransaction', {});
   }
 
   proveUpdateTransaction() {
     return this._call('proveUpdateTransaction', {});
   }
 
-  async sendUpdateTransaction() {
-    const result = await this._call('sendUpdateTransaction', {});
-    return result as string;
+  async getTransactionJSON() {
+    const result = await this._call('getTransactionJSON', {});
+    return result;
   }
 
   // ---------------------------------------------------------------------------------------

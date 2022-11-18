@@ -10,16 +10,16 @@ import {
   Field,
 } from 'snarkyjs'
 
-let transactionFee = 100_000_000;
+let transactionFee = 0.1;
 
 export default function App() {
 
   let [state, setState] = useState({
     zkappWorkerClient: null as null | ZkappWorkerClient,
+    hasWallet: null as null | boolean,
     hasBeenSetup: false,
     accountExists: false,
     currentNum: null as null | Field,
-    privateKey: null as null | PrivateKey,
     publicKey: null as null | PublicKey,
     zkappPublicKey: null as null | PublicKey,
     creatingTransaction: false,
@@ -39,12 +39,15 @@ export default function App() {
 
         await zkappWorkerClient.setActiveInstanceToBerkeley();
 
-        if (localStorage.privateKey == null) {
-          localStorage.privateKey = PrivateKey.random().toBase58();
+        const mina = (window as any).mina;
+
+        if (mina == null) {
+          setState({ ...state, hasWallet: false });
+          return;
         }
 
-        let privateKey = PrivateKey.fromBase58(localStorage.privateKey);
-        let publicKey = privateKey.toPublicKey();
+        const publicKeyBase58 : string = (await mina.requestAccounts())[0];
+        const publicKey = PublicKey.fromBase58(publicKeyBase58);
 
         console.log('using key', publicKey.toBase58());
 
@@ -72,7 +75,6 @@ export default function App() {
             zkappWorkerClient, 
             hasBeenSetup: true, 
             publicKey, 
-            privateKey, 
             zkappPublicKey, 
             accountExists, 
             currentNum
@@ -110,15 +112,27 @@ export default function App() {
 
     await state.zkappWorkerClient!.fetchAccount({ publicKey: state.publicKey! });
 
-    await state.zkappWorkerClient!.createUpdateTransaction(state.privateKey!, transactionFee);
+    await state.zkappWorkerClient!.createUpdateTransaction();
 
     console.log('creating proof...');
     await state.zkappWorkerClient!.proveUpdateTransaction();
 
-    const transactionHash = await state.zkappWorkerClient!.sendUpdateTransaction();
+    console.log('getting Transaction JSON...');
+
+    const transactionJSON = await state.zkappWorkerClient!.getTransactionJSON()
+    console.log('tjson', transactionJSON);
+
+    console.log('requesting send transaction...');
+    const { hash } = await (window as any).mina.sendTransaction({
+      transaction: transactionJSON,
+      feePayer: {
+        fee: transactionFee,
+        memo: '',
+      },
+    });
 
     console.log(
-      'See transaction at https://berkeley.minaexplorer.com/transaction/' + transactionHash
+      'See transaction at https://berkeley.minaexplorer.com/transaction/' + hash
     );
 
     setState({ ...state, creatingTransaction: false });
@@ -139,8 +153,15 @@ export default function App() {
   // -------------------------------------------------------
   // Create UI elements
 
+  let hasWallet;
+  if (state.hasWallet != null && !state.hasWallet) {
+    const auroLink = 'https://www.aurowallet.com/';
+    const auroLinkElem = <a href={auroLink} target="_blank" rel="noreferrer"> [Link] </a>
+    hasWallet = <div> Could not find a wallet. Install Auro wallet here: { auroLinkElem }</div> 
+  }
+
   let setupText = state.hasBeenSetup ? 'SnarkyJS Ready' : 'Setting up SnarkyJS...';
-  let setup = <div> { setupText } </div>
+  let setup = <div> { setupText } { hasWallet }</div>
 
   let accountDoesNotExist;
   if (state.hasBeenSetup && !state.accountExists) {
@@ -166,4 +187,3 @@ export default function App() {
    { mainContent }
   </div>
 }
-

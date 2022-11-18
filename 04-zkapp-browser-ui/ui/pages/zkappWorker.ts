@@ -50,11 +50,8 @@ const functions = {
     const currentNum = await state.zkapp!.num.get();
     return JSON.stringify(currentNum.toJSON());
   },
-  createUpdateTransaction: async (args: { feePayerPrivateKey58: string, transactionFee: number }) => {
-    const feePayerKey = PrivateKey.fromBase58(args.feePayerPrivateKey58);
-    const transaction = await Mina.transaction(
-      { feePayerKey, fee: args.transactionFee },
-      () => {
+  createUpdateTransaction: async (args: {}) => {
+    const transaction = await Mina.transaction(() => {
         state.zkapp!.update();
       }
     );
@@ -63,10 +60,8 @@ const functions = {
   proveUpdateTransaction: async (args: {}) => {
     await state.transaction!.prove();
   },
-  sendUpdateTransaction: async (args: {}) => {
-    var txn_res = await state.transaction!.send();
-    const transactionHash = await txn_res!.hash();
-    return transactionHash;
+  getTransactionJSON: async (args: {}) => {
+    return state.transaction!.toJSON();
   },
 };
 

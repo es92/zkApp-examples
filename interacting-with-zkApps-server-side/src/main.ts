@@ -6,9 +6,9 @@ import {
   PrivateKey,
 } from 'snarkyjs';
 
-//import { deploy } from './deploy.js';
+import { deploy } from './deploy.js';
 import fs from 'fs';
-import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
+import { loopUntilAccountExists, makeAndSendTransaction, zkAppNeedsInitialization, accountExists } from './utils.js';
 
 (async function main() {
   await isReady;
@@ -37,7 +37,7 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
 
   const deployerPrivateKey = PrivateKey.fromBase58(deployerPrivateKeyBase58);
 
-  const zkAppPrivateKey = deployerPrivateKey;
+  const zkAppPrivateKey = PrivateKey.fromBase58('EKFYdbghRSksmLyr5SwtqqT6De2qAXbGJqH7KrKVgvVTcSQChNiL');
 
   // ----------------------------------------------------
 
@@ -66,12 +66,16 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
   const zkAppPublicKey = zkAppPrivateKey.toPublicKey();
   let zkapp = new Square(zkAppPublicKey);
 
-  // Programmatic deploy:
-  //   Besides the CLI, you can also create accounts programmatically. This is useful if you need
-  //   more custom account creation - say deploying a zkApp to a different key than the fee payer
-  //   key, programmatically parameterizing a zkApp before initializing it, or creating Smart
-  //   Contracts programmatically for users as part of an application.
-  //await deploy(deployerPrivateKey, zkAppPrivateKey, zkAppPublicKey, zkapp, verificationKey)
+  const accountExistsAlready = await accountExists(zkAppPublicKey);
+
+  if (!accountExistsAlready) {
+    // Programmatic deploy:
+    //   Besides the CLI, you can also create accounts programmatically. This is useful if you need
+    //   more custom account creation - say deploying a zkApp to a different key than the fee payer
+    //   key, programmatically parameterizing a zkApp before initializing it, or creating Smart
+    //   Contracts programmatically for users as part of an application.
+    await deploy(deployerPrivateKey, zkAppPrivateKey, zkAppPublicKey, zkapp, verificationKey)
+  }
 
   // ----------------------------------------------------
 
@@ -80,6 +84,23 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
     eachTimeNotExist: () => console.log('waiting for zkApp account to be deployed...'),
     isZkAppAccount: true
   });
+
+  const needsInitialization = await zkAppNeedsInitialization({ zkAppAccount });
+
+  if (needsInitialization) {
+    console.log('initializing smart contract');
+    await makeAndSendTransaction({
+      feePayerPrivateKey: deployerPrivateKey,
+      zkAppPublicKey: zkAppPublicKey,
+      mutateZkApp: () => zkapp.init(),
+      transactionFee: transactionFee,
+      getState: () => zkapp.num.get(),
+      statesEqual: (num1, num2) => num1.equals(num2).toBoolean()
+    });
+
+    console.log('updated state!', zkapp.num.get().toString());
+  }
+
 
   let num = (await zkapp.num.get())!;
   console.log('current value of num is', num.toString());
@@ -102,4 +123,4 @@ import { loopUntilAccountExists, makeAndSendTransaction } from './utils.js';
   console.log('Shutting down');
 
   await shutdown();
-})();
+})().catch((e) => console.log(e));

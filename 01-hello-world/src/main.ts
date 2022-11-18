@@ -13,13 +13,12 @@ import {
 
   console.log('SnarkyJS loaded');
 
-  const Local = Mina.LocalBlockchain();
+  const proofsEnabled = false;
+  const Local = Mina.LocalBlockchain({ proofsEnabled });
   Mina.setActiveInstance(Local);
   const deployerAccount = Local.testAccounts[0].privateKey;
 
-  const useProof = false;
-
-  if (useProof) {
+  if (proofsEnabled) {
     Square.compile();
   }
 

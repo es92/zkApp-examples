@@ -35,7 +35,8 @@ async function main() {
   const num2 = UInt64.from(40);
 
   const num1EqualsNum2: Bool = num1.toUInt64().equals(num2);
-
+  
+  console.log("// --------------------------------------");
   console.log(`num1 == num2: ${num1EqualsNum2.toString()}`);
   console.log(`Fields in num1: ${num1.toFields().length}`);
 
@@ -57,6 +58,7 @@ async function main() {
   console.log(`char1: ${char1.toString()}`);
   console.log(`char1 == char2: ${char1.equals(char2).toString()}`);
   console.log(`Fields in char1: ${char1.toFields().length}`);
+  console.log("// --------------------------------------");
 
   // --------------------------------------
 
@@ -86,6 +88,7 @@ async function main() {
   console.log(`signature verified for data2: ${verifiedData2.toString()}`);
 
   console.log(`Fields in signature: ${signature.toFields().length}`);
+  console.log("// --------------------------------------");
 
   // --------------------------------------
 
@@ -122,6 +125,7 @@ async function main() {
   const points8 = new Points8(pointsArray);
 
   console.log(`points8 Fields: ${JSON.stringify(points8)}`);
+  console.log("// --------------------------------------");
 
   // --------------------------------------
 
@@ -144,6 +148,7 @@ async function main() {
   const largest = Circuit.switch([ input1largest, input2largest, input3largest ], Int64, [ input1, input2, input3 ])
 
   console.log(`largest: ${largest.toString()}`);
+  console.log("// --------------------------------------");
 
   // --------------------------------------
 

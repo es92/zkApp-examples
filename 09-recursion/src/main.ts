@@ -40,11 +40,11 @@ async function main() {
 
   console.log('making proof 1')
 
-  const proof1 = await Add.addOne(Field(1), proof0);
+  const proof1 = await Add.addNumber(Field(4), proof0, Field(4));
 
   console.log('making proof 2')
 
-  const proof2 = await Add.add(Field(1), proof1, proof0);
+  const proof2 = await Add.add(Field(4), proof1, proof0);
 
   console.log('verifying proof 2');
   console.log(proof2.publicInput.toString(), proof2.publicInput.toString());
@@ -69,12 +69,12 @@ const Add = Experimental.ZkProgram({
       },
     },
 
-    addOne: {
-      privateInputs: [SelfProof, ],
+    addNumber: {
+      privateInputs: [SelfProof, Field ],
 
-      method(newState: Field, earlierProof: SelfProof<Field>) {
+      method(newState: Field, earlierProof: SelfProof<Field>, numberToAdd: Field) {
         earlierProof.verify();
-        newState.assertEquals(earlierProof.publicInput.add(Field(1)));
+        newState.assertEquals(earlierProof.publicInput.add(numberToAdd));
       },
     },
 

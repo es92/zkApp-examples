@@ -26,10 +26,6 @@ async function main() {
 
   console.log('SnarkyJS loaded');
 
-  const Local = Mina.LocalBlockchain();
-  Mina.setActiveInstance(Local);
-  const deployerAccount = Local.testAccounts[0].privateKey;
-
   console.log('compiling...');
 
   const { verificationKey } = await Add.compile();

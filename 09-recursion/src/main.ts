@@ -43,7 +43,7 @@ async function main() {
   const proof2 = await Add.add(Field(4), proof1, proof0);
 
   console.log('verifying proof 2');
-  console.log(proof2.publicInput.toString(), proof2.publicInput.toString());
+  console.log('proof 2 data', proof2.publicInput.toString());
 
   const ok = await verify(proof2.toJSON(), verificationKey);
   console.log('ok', ok);

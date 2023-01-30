@@ -77,20 +77,32 @@ async function main() {
 
   // These could all be done in parallel in a real rollup
   // If T is the time to make a proof this could take time T
-  const rollupProofs = rollupStepInfo.map(async ({ initialRoot, latestRoot, key, currentValue, increment, witness }) => {
+  // const rollupProofs = rollupStepInfo.map(async ({ initialRoot, latestRoot, key, currentValue, increment, witness }) => {
+  //   const rollup = RollupState.createOneStep(initialRoot, latestRoot, key, currentValue, increment, witness);
+  //   const proof = await Rollup.oneStep(rollup, initialRoot, latestRoot, key, currentValue, increment, witness);
+  //   return proof;
+  // });
+  const rollupProofs: Proof<RollupState>[] = [];
+  for (var { initialRoot, latestRoot, key, currentValue, increment, witness } of rollupStepInfo) {
     const rollup = RollupState.createOneStep(initialRoot, latestRoot, key, currentValue, increment, witness);
     const proof = await Rollup.oneStep(rollup, initialRoot, latestRoot, key, currentValue, increment, witness);
-    return proof;
-  });
+    rollupProofs.push(proof);
+  }
 
   console.log('merging proofs');
 
   // These could also all be done in parallel in a real rollup
   // If T is the time to make a proof this could take time log(n)*T
-  const proof = await rollupProofs.reduce(async (a, b) => {
-    const rollup = RollupState.createMerged((await a).publicInput, (await b).publicInput);
-    return await Rollup.merge(rollup, (await a), (await b));
-  });
+  // const proof = await rollupProofs.reduce(async (a, b) => {
+  //   const rollup = RollupState.createMerged((await a).publicInput, (await b).publicInput);
+  //   return await Rollup.merge(rollup, (await a), (await b));
+  // });
+  var proof: Proof<RollupState> = rollupProofs[0];
+  for (let i=1; i<rollupProofs.length; i++) {
+    const rollup = RollupState.createMerged(proof.publicInput, rollupProofs[i].publicInput);
+    let mergedProof = await Rollup.merge(rollup, proof, rollupProofs[i]);
+    proof = mergedProof;
+  }
 
   console.log('verifying rollup');
   console.log(proof.publicInput.latestRoot.toString());

@@ -64,9 +64,10 @@ async function main() {
     const witness = map.getWitness(key);
     const initialRoot = map.getRoot();
 
-    const currentValue = map.get(key).add(increment)
+    const currentValue = map.get(key);
+    const updatedValue = map.get(key).add(increment);
 
-    map.set(key, currentValue);
+    map.set(key, updatedValue);
     const latestRoot = map.getRoot();
 
     rollupStepInfo.push({ initialRoot, latestRoot, key, currentValue, increment, witness });
@@ -183,7 +184,7 @@ const Rollup = Experimental.ZkProgram({
         rollup1proof.verify();
         rollup2proof.verify();
 
-        rollup1proof.publicInput.initialRoot.assertEquals(rollup1proof.publicInput.latestRoot);
+        rollup2proof.publicInput.initialRoot.assertEquals(rollup1proof.publicInput.latestRoot);
         rollup1proof.publicInput.initialRoot.assertEquals(newState.initialRoot);
         rollup2proof.publicInput.latestRoot.assertEquals(newState.latestRoot);
       }

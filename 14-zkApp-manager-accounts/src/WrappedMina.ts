@@ -83,6 +83,7 @@ export class WrappedMina extends SmartContract {
 
     const newMina = amount.add(priorMina);
 
+    // TODO is there a way to directly get the balance change for this transaction?
     this.account.balance.assertBetween(newMina, UInt64.MAXINT());
 
     this.token.mint({ address: destination, amount });

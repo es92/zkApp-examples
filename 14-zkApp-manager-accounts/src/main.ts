@@ -85,10 +85,13 @@ import {
   //    3. Send WMINA to the "WrappedMina" contract and get back "MINA"
 
   const getWMinaTx = await Mina.transaction(feePayerAddress, () => {
+    let feePayerUpdate = AccountUpdate.fundNewAccount(feePayerAddress, 1);
+    feePayerUpdate.send({ to: wrappedMinaPublicKey, amount: accountFee });
+
     const amount = UInt64.from(10);
-    let feePayerUpdate = AccountUpdate.create(feePayerAddress);
-    feePayerUpdate.send({ to: wrappedMinaPublicKey, amount });
-    //wrappedMinaContract.mintWrappedMinaWithoutApprove(amount, feePayerAddress);
+    let minaDeposit = AccountUpdate.create(feePayerAddress);
+    minaDeposit.send({ to: wrappedMinaPublicKey, amount });
+    wrappedMinaContract.mintWrappedMinaWithoutApprove(amount, feePayerAddress);
   });
   await getWMinaTx.prove();
   getWMinaTx.sign([ feePayerKey ]);

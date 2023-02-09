@@ -78,10 +78,6 @@ export class WrappedMina extends SmartContract {
     amount: UInt64,
     destination: PublicKey
   ) {
-    //const MinaTokenId = Field(0)
-
-    //const minaAccount = AccountUpdate.create(this.address, MinaTokenId);
-
     const priorMina = this.priorMina.get();
     this.priorMina.assertEquals(this.priorMina.get());
 
@@ -89,7 +85,6 @@ export class WrappedMina extends SmartContract {
 
     this.account.balance.assertBetween(newMina, UInt64.MAXINT());
 
-    //minaAccount.send({ to: destination, amount });
     this.token.mint({ address: destination, amount });
 
     this.priorMina.set(newMina);

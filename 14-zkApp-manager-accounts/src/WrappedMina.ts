@@ -28,7 +28,6 @@ export class WrappedMina extends SmartContract {
     this.setPermissions({
       ...Permissions.default(),
       send: Permissions.proof(),
-      receive: Permissions.proof(),
     });
   }
 

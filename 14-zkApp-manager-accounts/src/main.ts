@@ -88,7 +88,7 @@ import {
     const amount = UInt64.from(10);
     let feePayerUpdate = AccountUpdate.create(feePayerAddress);
     feePayerUpdate.send({ to: wrappedMinaPublicKey, amount });
-    wrappedMinaContract.mintWrappedMinaWithoutApprove(amount, feePayerAddress);
+    //wrappedMinaContract.mintWrappedMinaWithoutApprove(amount, feePayerAddress);
   });
   await getWMinaTx.prove();
   getWMinaTx.sign([ feePayerKey ]);

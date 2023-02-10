@@ -103,10 +103,20 @@ export class WrappedMina extends SmartContract {
   // ----------------------------------------------------------------------
 
   @method redeemWrappedMinaWithoutApprove(
-    receiveMinaAccountUpdate: AccountUpdate,
-    destination: PublicKey
+    source: PublicKey,
+    destination: PublicKey,
+    amount: UInt64,
   ) {
-    // TODO
+    this.token.burn({ address: source, amount });
+
+    const priorMina = this.priorMina.get();
+    this.priorMina.assertEquals(this.priorMina.get());
+
+    const newMina = priorMina.sub(amount);
+
+    this.send({ to: destination, amount })
+
+    this.priorMina.set(newMina);
   }
 
   // ----------------------------------------------------------------------

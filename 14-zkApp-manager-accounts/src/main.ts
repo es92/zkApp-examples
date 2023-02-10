@@ -50,12 +50,14 @@ import {
         return null;
       }
     }
-    console.log('user MINA:',  tryGetTokenBalance(feePayerAddress));
-    console.log('user WMINA:', tryGetTokenBalance(feePayerAddress, wrappedMinaPublicKey));
+    console.log('\tuser MINA:',  tryGetTokenBalance(feePayerAddress));
+    console.log('\tuser WMINA:', tryGetTokenBalance(feePayerAddress, wrappedMinaPublicKey));
 
-    console.log('WMINA Manager MINA:',  tryGetTokenBalance(wrappedMinaPublicKey));
-    console.log('WMINA Manager WMINA:', tryGetTokenBalance(wrappedMinaPublicKey, wrappedMinaPublicKey));
+    console.log('\tWMINA Manager MINA:',  tryGetTokenBalance(wrappedMinaPublicKey));
+    console.log('\tWMINA Manager WMINA:', tryGetTokenBalance(wrappedMinaPublicKey, wrappedMinaPublicKey));
   }
+
+  console.log('initial state');
 
   printState();
 
@@ -100,6 +102,23 @@ import {
 
   printState();
 
+  // ------------------------------------------------------------------------
+  
+  const redeemWMinaTx = await Mina.transaction(feePayerAddress, () => {
+
+    // sending WMINA to the WMINA contract
+    const amount = UInt64.from(10);
+
+    // getting the WMINA back
+    wrappedMinaContract.redeemWrappedMinaWithoutApprove(feePayerAddress, feePayerAddress, amount);
+  });
+  await redeemWMinaTx.prove();
+  redeemWMinaTx.sign([ feePayerKey ]);
+  await redeemWMinaTx.send();
+
+  console.log('redeemed WMina');
+
+  printState();
 
   // ------------------------------------------------------------------------
 

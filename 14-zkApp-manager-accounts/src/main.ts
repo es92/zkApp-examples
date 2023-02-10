@@ -35,6 +35,8 @@ import {
   let tokenPoolPrivateKey = PrivateKey.random();
   let tokenPoolPublicKey = tokenPoolPrivateKey.toPublicKey();
 
+  TokenPool.wrappedMinaPublicKey = wrappedMinaPublicKey;
+
   let wrappedMinaContract = new WrappedMina(wrappedMinaPublicKey);
   let tokenPoolContract = new TokenPool(tokenPoolPublicKey);
 
@@ -55,6 +57,10 @@ import {
 
     console.log('\tWMINA Manager MINA:',  tryGetTokenBalance(wrappedMinaPublicKey));
     console.log('\tWMINA Manager WMINA:', tryGetTokenBalance(wrappedMinaPublicKey, wrappedMinaPublicKey));
+
+    console.log('\tTokenPool MINA:',  tryGetTokenBalance(tokenPoolPublicKey));
+    console.log('\tTokenPool WMINA:', tryGetTokenBalance(tokenPoolPublicKey, wrappedMinaPublicKey));
+
   }
 
   console.log('initial state');
@@ -98,7 +104,7 @@ import {
   getWMinaTx.sign([ feePayerKey ]);
   await getWMinaTx.send();
 
-  console.log('got WMina');
+  console.log('got WMINA');
 
   printState();
 
@@ -113,19 +119,58 @@ import {
   redeemWMinaTx.sign([ feePayerKey ]);
   await redeemWMinaTx.send();
 
-  console.log('redeemed WMina');
+  console.log('redeemed WMINA');
 
   printState();
 
   // ------------------------------------------------------------------------
 
+  const fundTokenPoolTx = await Mina.transaction(feePayerAddress, () => {
+    const amount = UInt64.from(10);
+    let minaDeposit = AccountUpdate.create(feePayerAddress);
+    minaDeposit.send({ to: wrappedMinaPublicKey, amount });
+  });
+  await fundTokenPoolTx.prove();
+  fundTokenPoolTx.sign([ feePayerKey ]);
+  await fundTokenPoolTx.send();
+
+  console.log('funded tokenPool');
+
+  printState();
+
+  // ------------------------------------------------------------------------
+
+  const tokenPoolExchangeWMinaTx = await Mina.transaction(feePayerAddress, () => {
+    // this is because the token pool doesn't have a WMINA address yet
+    let feePayerUpdate = AccountUpdate.fundNewAccount(feePayerAddress, 1);
+    feePayerUpdate.send({ to: tokenPoolPublicKey, amount: accountFee });
+
+    tokenPoolContract.moveMinaToWrappedMina(UInt64.from(50));
+  });
+  await tokenPoolExchangeWMinaTx.prove();
+  tokenPoolExchangeWMinaTx.sign([ feePayerKey ]);
+  await tokenPoolExchangeWMinaTx.send();
+
+  console.log('tokenPool exchanged MINA -> WMINA');
+
+  printState();
+
+  // ------------------------------------------------------------------------
+
+  const tokenPoolExchangeMinaTx = await Mina.transaction(feePayerAddress, () => {
+    tokenPoolContract.moveWrappedMinaToMina(UInt64.from(35));
+  });
+  await tokenPoolExchangeMinaTx.prove();
+  tokenPoolExchangeMinaTx.sign([ feePayerKey ]);
+  await tokenPoolExchangeMinaTx.send();
+
+  console.log('tokenPool exchanged WMINA -> MINA');
+
+  printState();
+
   // TODO
-  //    1. Send Mina to the "TokenPool" contract
-  //    2. Tell the TokenPool to exchange Mina for WrappedMina
-  //    3. Withdraw WrappedMina from the pool into the user account
-  //    4. Deposit WrappedMina into the pool from the user account
-  //    5. Tell the TokenPool to exchange WrappedMina for Mina
   //    6. Withdraw Mina from the TokenPool
+  //    7. Withdraw WrappedMina from the TokenPool
 
 
   // TODO

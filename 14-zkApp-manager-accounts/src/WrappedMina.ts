@@ -114,7 +114,7 @@ export class WrappedMina extends SmartContract {
 
     const newMina = priorMina.sub(amount);
 
-    this.send({ to: destination, amount })
+    this.send({ to: destination, amount });
 
     this.priorMina.set(newMina);
   }

@@ -22,14 +22,16 @@ import {
   UInt32,
 } from 'snarkyjs';
 
+import { WrappedMina } from './WrappedMina.js'
+
 export class TokenPool extends SmartContract {
+  static wrappedMinaPublicKey: PublicKey;
 
   deploy(args?: DeployArgs) {
     super.deploy(args);
     this.account.permissions.set({
       ...Permissions.default(),
-      send: Permissions.proof(),
-      receive: Permissions.proof(),
+      // send: Permissions.proof(),
     });
   }
 
@@ -44,17 +46,21 @@ export class TokenPool extends SmartContract {
   @method moveMinaToWrappedMina(
     amount: UInt64,
   ) {
+    this.send({ to: TokenPool.wrappedMinaPublicKey, amount });
 
-    
-    // TODO
+    const wrappedMinaContract = new WrappedMina(TokenPool.wrappedMinaPublicKey);
+    wrappedMinaContract.mintWrappedMinaWithoutApprove(amount, this.address);
   }
 
   // ----------------------------------------------------------------------
 
-  @method wrappedMinaToMina(
+  @method moveWrappedMinaToMina(
     amount: UInt64,
   ) {
-    // TODO
+    const wrappedMinaContract = new WrappedMina(TokenPool.wrappedMinaPublicKey);
+
+    // TODO this doesn't work - needs permission to burn?
+    wrappedMinaContract.redeemWrappedMinaWithoutApprove(this.address, this.address, amount);
   }
 
   // ----------------------------------------------------------------------

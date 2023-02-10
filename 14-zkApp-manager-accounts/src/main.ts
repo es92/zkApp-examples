@@ -105,11 +105,8 @@ import {
   // ------------------------------------------------------------------------
   
   const redeemWMinaTx = await Mina.transaction(feePayerAddress, () => {
-
-    // sending WMINA to the WMINA contract
-    const amount = UInt64.from(10);
-
-    // getting the WMINA back
+    // getting some WMINA back
+    const amount = UInt64.from(5);
     wrappedMinaContract.redeemWrappedMinaWithoutApprove(feePayerAddress, feePayerAddress, amount);
   });
   await redeemWMinaTx.prove();

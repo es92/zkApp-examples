@@ -53,8 +53,6 @@ export class TokenPool extends SmartContract {
   ) {
     const wrappedMinaContract = new WrappedMina(TokenPool.wrappedMinaPublicKey);
 
-  
-
     // TODO why not working yet? Do I need a "WMinaTokenHolder" contract?
     const burnWMINA = AccountUpdate.create(this.address, Token.getId(TokenPool.wrappedMinaPublicKey));
     burnWMINA.balance.subInPlace(amount);

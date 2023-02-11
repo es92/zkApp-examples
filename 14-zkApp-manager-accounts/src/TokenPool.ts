@@ -36,12 +36,6 @@ export class TokenPool extends SmartContract {
   }
 
   // ----------------------------------------------------------------------
-  
-  @method init() {
-    super.init();
-  }
-
-  // ----------------------------------------------------------------------
 
   @method moveMinaToWrappedMina(
     amount: UInt64,
@@ -49,7 +43,7 @@ export class TokenPool extends SmartContract {
     this.send({ to: TokenPool.wrappedMinaPublicKey, amount });
 
     const wrappedMinaContract = new WrappedMina(TokenPool.wrappedMinaPublicKey);
-    wrappedMinaContract.mintWrappedMinaWithoutApprove(amount, this.address);
+    wrappedMinaContract.mintWrappedMina(amount, this.address);
   }
 
   // ----------------------------------------------------------------------

@@ -98,7 +98,7 @@ import {
     minaDeposit.send({ to: wrappedMinaPublicKey, amount });
 
     // getting the WMINA back
-    wrappedMinaContract.mintWrappedMinaWithoutApprove(amount, feePayerAddress);
+    wrappedMinaContract.mintWrappedMina(amount, feePayerAddress);
   });
   await getWMinaTx.prove();
   getWMinaTx.sign([ feePayerKey ]);
@@ -113,6 +113,8 @@ import {
   const redeemWMinaTx = await Mina.transaction(feePayerAddress, () => {
     // getting some WMINA back
     const amount = UInt64.from(5);
+
+    // TODO why does this work here, but not when called from a zkApp
     wrappedMinaContract.redeemWrappedMinaWithoutApprove(feePayerAddress, feePayerAddress, amount);
   });
   await redeemWMinaTx.prove();

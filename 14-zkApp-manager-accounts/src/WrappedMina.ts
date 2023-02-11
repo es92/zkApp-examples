@@ -51,30 +51,7 @@ export class WrappedMina extends SmartContract {
 
   // ----------------------------------------------------------------------
 
-  @method mintWrappedMinaApprove(
-    receiveMinaAccountUpdate: AccountUpdate,
-    destination: PublicKey
-  ) {
-    // receive normal Mina (check receiveMinaAccountUpdate?)
-    // mint the token
-    // send the token to the caller
-
-    let amountSigned = Int64.fromObject(receiveMinaAccountUpdate.body.balanceChange);
-    let amount = amountSigned.magnitude;
-
-    amountSigned.isPositive().assertFalse();
-
-    let MinaTokenId = Field(0)
-    receiveMinaAccountUpdate.body.tokenId.assertEquals(MinaTokenId);
-    // TODO how know sending right place?
-    // TODO how know not making other changes to this token?
-
-    this.token.mint({ address: destination, amount });
-  }
-
-  // ----------------------------------------------------------------------
-
-  @method mintWrappedMinaWithoutApprove(
+  @method mintWrappedMina(
     amount: UInt64,
     destination: PublicKey
   ) {
@@ -140,10 +117,6 @@ export class WrappedMina extends SmartContract {
 
   @method transfer(from: PublicKey, to: PublicKey, value: UInt64) {
     this.token.send({ from, to, amount: value });
-  }
-
-  @method transferZkApp(from: PublicKey, to: PublicKey, value: UInt64) {
-    // TODO
   }
 
   // ----------------------------------------------------------------------

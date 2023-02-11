@@ -145,7 +145,9 @@ import {
   const tokenPoolExchangeWMinaTx = await Mina.transaction(feePayerAddress, () => {
     // this is because the token pool doesn't have a WMINA address yet
     let feePayerUpdate = AccountUpdate.fundNewAccount(feePayerAddress, 1);
-    feePayerUpdate.send({ to: tokenPoolPublicKey, amount: accountFee });
+
+    // TODO When would this be needed?
+    //feePayerUpdate.send({ to: tokenPoolPublicKey, amount: accountFee });
 
     tokenPoolContract.moveMinaToWrappedMina(UInt64.from(50));
   });

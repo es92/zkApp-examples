@@ -53,9 +53,25 @@ export class TokenPool extends SmartContract {
   ) {
     const wrappedMinaContract = new WrappedMina(TokenPool.wrappedMinaPublicKey);
 
-    // TODO this doesn't work - needs permission to burn?
-    wrappedMinaContract.redeemWrappedMinaWithoutApprove(this.address, this.address, amount);
+  
+
+    // TODO why not working yet? Do I need a "WMinaTokenHolder" contract?
+    const burnWMINA = AccountUpdate.create(this.address, Token.getId(TokenPool.wrappedMinaPublicKey));
+    burnWMINA.balance.subInPlace(amount);
+
+    // TODO tried this too (attempt to mirror DEXTokenHolder), but also didn't work
+    // const wminaContract = new WMinaTokenHolder(this.address, Token.getId(TokenPool.wrappedMinaPublicKey));
+    // wminaContract.burnWMINA(amount);
+    // const burnWMINA = wminaContract.self;
+
+    wrappedMinaContract.redeemWrappedMinaApprove(burnWMINA, amount, this.address);
   }
 
   // ----------------------------------------------------------------------
+}
+
+export class WMinaTokenHolder extends SmartContract {
+  @method burnWMINA(amount: UInt64) {
+    this.balance.subInPlace(amount);
+  }
 }

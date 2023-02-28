@@ -34,7 +34,7 @@ export class WrappedMina extends SmartContract {
   @state(UInt64) priorMina = State<UInt64>();
 
   // ----------------------------------------------------------------------
-  
+
   @method init() {
     super.init();
 
@@ -51,10 +51,7 @@ export class WrappedMina extends SmartContract {
 
   // ----------------------------------------------------------------------
 
-  @method mintWrappedMina(
-    amount: UInt64,
-    destination: PublicKey
-  ) {
+  @method mintWrappedMina(amount: UInt64, destination: PublicKey) {
     const priorMina = this.priorMina.get();
     this.priorMina.assertEquals(this.priorMina.get());
 
@@ -73,10 +70,10 @@ export class WrappedMina extends SmartContract {
   @method redeemWrappedMinaApprove(
     burnWMINA: AccountUpdate,
     amount: UInt64,
-    destination: PublicKey,
+    destination: PublicKey
   ) {
     // TODO check this accountUpdate is doing nothing except for burning its WMINA
-    this.approve(burnWMINA)
+    this.approve(burnWMINA);
 
     const priorMina = this.priorMina.get();
     this.priorMina.assertEquals(this.priorMina.get());
@@ -93,7 +90,7 @@ export class WrappedMina extends SmartContract {
   @method redeemWrappedMinaWithoutApprove(
     source: PublicKey,
     destination: PublicKey,
-    amount: UInt64,
+    amount: UInt64
   ) {
     this.token.burn({ address: source, amount });
 
@@ -126,6 +123,17 @@ export class WrappedMina extends SmartContract {
 
   // ----------------------------------------------------------------------
 
+  // let a zkapp do anything, provided the token supply stays constant
+  @method approveUpdate(zkappUpdate: AccountUpdate) {
+    this.approve(zkappUpdate); // TODO is this secretly approving other changes?
+
+    // see if balance change is zero
+    let balanceChange = Int64.fromObject(zkappUpdate.body.balanceChange);
+    balanceChange.assertEquals(Int64.from(0));
+  }
+
+  // ----------------------------------------------------------------------
+
   @method transfer(from: PublicKey, to: PublicKey, value: UInt64) {
     this.token.send({ from, to, amount: value });
   }
@@ -133,10 +141,7 @@ export class WrappedMina extends SmartContract {
   // ----------------------------------------------------------------------
 
   @method getBalance(publicKey: PublicKey): UInt64 {
-    let accountUpdate = AccountUpdate.create(
-      publicKey,
-      this.token.id
-    );
+    let accountUpdate = AccountUpdate.create(publicKey, this.token.id);
     let balance = accountUpdate.account.balance.get();
     accountUpdate.account.balance.assertEquals(
       accountUpdate.account.balance.get()

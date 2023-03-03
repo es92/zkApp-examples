@@ -22,7 +22,7 @@ import {
   UInt32,
 } from 'snarkyjs';
 
-import { WrappedMina } from './WrappedMina.js'
+import { WrappedMina } from './WrappedMina.js';
 
 export class TokenPool extends SmartContract {
   static wrappedMinaPublicKey: PublicKey;
@@ -37,9 +37,7 @@ export class TokenPool extends SmartContract {
 
   // ----------------------------------------------------------------------
 
-  @method moveMinaToWrappedMina(
-    amount: UInt64,
-  ) {
+  @method moveMinaToWrappedMina(amount: UInt64) {
     this.send({ to: TokenPool.wrappedMinaPublicKey, amount });
 
     const wrappedMinaContract = new WrappedMina(TokenPool.wrappedMinaPublicKey);
@@ -48,21 +46,27 @@ export class TokenPool extends SmartContract {
 
   // ----------------------------------------------------------------------
 
-  @method moveWrappedMinaToMina(
-    amount: UInt64,
-  ) {
+  @method moveWrappedMinaToMina(amount: UInt64) {
     const wrappedMinaContract = new WrappedMina(TokenPool.wrappedMinaPublicKey);
 
     // TODO why not working yet? Do I need a "WMinaTokenHolder" contract?
-    const burnWMINA = AccountUpdate.create(this.address, Token.getId(TokenPool.wrappedMinaPublicKey));
-    burnWMINA.balance.subInPlace(amount);
+    // const burnWMINA = AccountUpdate.create(this.address, Token.getId(TokenPool.wrappedMinaPublicKey));
+    // burnWMINA.balance.subInPlace(amount);
 
     // TODO tried this too (attempt to mirror DEXTokenHolder), but also didn't work
-    // const wminaContract = new WMinaTokenHolder(this.address, Token.getId(TokenPool.wrappedMinaPublicKey));
-    // wminaContract.burnWMINA(amount);
-    // const burnWMINA = wminaContract.self;
+    // wasn't working because WMinaTokenHolder wasn't deployed
+    const wminaContract = new WMinaTokenHolder(
+      this.address,
+      Token.getId(TokenPool.wrappedMinaPublicKey)
+    );
+    wminaContract.burnWMINA(amount);
+    const burnWMINA = wminaContract.self;
 
-    wrappedMinaContract.redeemWrappedMinaApprove(burnWMINA, amount, this.address);
+    wrappedMinaContract.redeemWrappedMinaApprove(
+      burnWMINA,
+      amount,
+      this.address
+    );
   }
 
   // ----------------------------------------------------------------------

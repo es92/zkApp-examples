@@ -11,6 +11,9 @@ import {
   PublicKey,
 } from 'snarkyjs';
 
+import util from 'util';
+import fs from 'fs';
+
 // DEX reference code
 // https://github.com/o1-labs/snarkyjs/blob/main/src/examples/zkapps/dex/dex.ts
 
@@ -44,6 +47,14 @@ import {
     wrappedMinaContract.token.id
   );
 
+  const legend: any = {};
+  legend[feePayerAddress.toBase58()] = 'feePayer';
+  legend[wrappedMinaPublicKey.toBase58()] = 'wrappedMinaZkApp';
+  legend[tokenPoolPublicKey.toBase58()] = 'tokenPoolZkApp';
+
+  fs.writeFileSync('transactions/legend.json', JSON.stringify(legend, null, 2))
+
+
   const printState = () => {
     const tryGetTokenBalance = (addr: PublicKey, tokenAddr?: PublicKey) => {
       try {
@@ -57,26 +68,22 @@ import {
       }
     };
     console.log('\tuser MINA:', tryGetTokenBalance(feePayerAddress));
-    console.log(
-      '\tuser WMINA:',
-      tryGetTokenBalance(feePayerAddress, wrappedMinaPublicKey)
-    );
+    console.log('\tuser WMINA:', tryGetTokenBalance(feePayerAddress, wrappedMinaPublicKey));
 
-    console.log(
-      '\tWMINA Manager MINA:',
-      tryGetTokenBalance(wrappedMinaPublicKey)
-    );
-    console.log(
-      '\tWMINA Manager WMINA:',
-      tryGetTokenBalance(wrappedMinaPublicKey, wrappedMinaPublicKey)
-    );
+    console.log('\tWMINA Manager MINA:', tryGetTokenBalance(wrappedMinaPublicKey));
+    console.log('\tWMINA Manager WMINA:', tryGetTokenBalance(wrappedMinaPublicKey, wrappedMinaPublicKey));
 
     console.log('\tTokenPool MINA:', tryGetTokenBalance(tokenPoolPublicKey));
-    console.log(
-      '\tTokenPool WMINA:',
-      tryGetTokenBalance(tokenPoolPublicKey, wrappedMinaPublicKey)
-    );
+    console.log('\tTokenPool WMINA:', tryGetTokenBalance(tokenPoolPublicKey, wrappedMinaPublicKey));
   };
+
+  let txnI = 0;
+
+  const printTxn = (txn: any, name: string) => {
+    const str = JSON.stringify(JSON.parse(txn.toJSON()), null, 2);
+    fs.writeFileSync('transactions/transaction-' + txnI + '-' + name + '.json', str)
+    txnI += 1;
+  }
 
   console.log('initial state');
 
@@ -97,6 +104,9 @@ import {
   });
   await deployTx.prove();
   deployTx.sign([feePayerKey, tokenPoolPrivateKey, wrappedMinaPrivateKey]);
+
+  printTxn(deployTx, 'deployTx');
+
   await deployTx.send();
 
   console.log('deployed');
@@ -120,6 +130,9 @@ import {
   });
   await getWMinaTx.prove();
   getWMinaTx.sign([feePayerKey]);
+
+  printTxn(getWMinaTx, 'getWMinaTx');
+
   await getWMinaTx.send();
 
   console.log('got WMINA');
@@ -141,6 +154,9 @@ import {
   });
   await redeemWMinaTx.prove();
   redeemWMinaTx.sign([feePayerKey]);
+
+  printTxn(redeemWMinaTx, 'redeemWMinaTx');
+
   await redeemWMinaTx.send();
 
   console.log('redeemed WMINA');
@@ -156,6 +172,9 @@ import {
   });
   await fundTokenPoolTx.prove();
   fundTokenPoolTx.sign([feePayerKey]);
+
+  printTxn(fundTokenPoolTx, 'fundTokenPoolTx');
+
   await fundTokenPoolTx.send();
 
   console.log('funded tokenPool');
@@ -172,6 +191,9 @@ import {
   );
   await tokenPoolExchangeWMinaTx.prove();
   tokenPoolExchangeWMinaTx.sign([feePayerKey]);
+
+  printTxn(tokenPoolExchangeWMinaTx, 'tokenPoolExchangeWMinaTx');
+
   await tokenPoolExchangeWMinaTx.send();
 
   console.log('tokenPool exchanged MINA -> WMINA');
@@ -188,6 +210,9 @@ import {
   );
   await tokenPoolExchangeMinaTx.prove();
   tokenPoolExchangeMinaTx.sign([feePayerKey]);
+
+  printTxn(tokenPoolExchangeMinaTx, 'tokenPoolExchangeMinaTx');
+
   await tokenPoolExchangeMinaTx.send();
 
   console.log('tokenPool exchanged WMINA -> MINA');

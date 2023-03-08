@@ -1,4 +1,6 @@
 
+// TODO add call stack computation
+
 import fs from 'fs';
 import util from 'util';
 

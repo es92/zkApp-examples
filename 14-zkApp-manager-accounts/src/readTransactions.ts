@@ -10,6 +10,7 @@ const dir = 'transactions';
 
 let txnFiles = fs.readdirSync(dir);
 txnFiles = txnFiles.filter((f) => f.indexOf('transaction') != -1);
+txnFiles = txnFiles.filter((f) => f.indexOf('.png') == -1);
 
 const txns = txnFiles.map((f) => ({ name: f.split('.')[0].split('-').slice(1).join('-'), 
                                     content: JSON.parse(fs.readFileSync(dir + '/' + f, 
@@ -145,7 +146,7 @@ function printTxn(txn: any) {
     parentStack.push(au);
   }
 
-  g.output( "png", txn.name + '.png');
+  g.output( "png", 'transactions/' + txn.name + '.png');
   //console.log(g.to_dot());
 }
 

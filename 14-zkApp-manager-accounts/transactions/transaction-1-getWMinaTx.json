@@ -1,0 +1,605 @@
+{
+  "feePayer": {
+    "body": {
+      "publicKey": "B62qp1Z3TRAe61oKerqzhdiZSN2HqZkn1t3fzTbarUuwE9sXo1sxBdE",
+      "fee": "0",
+      "validUntil": null,
+      "nonce": "1"
+    },
+    "authorization": "7mXG48aixfd5CnAVD9QZFAfoKwtDSqXZiZ3azxgezzNsqDLBW1H7Rd1yMGvfvCe8pZ6hrCXSNWAag5DBvTztoCNXDyBaJF1s"
+  },
+  "accountUpdates": [
+    {
+      "body": {
+        "publicKey": "B62qp1Z3TRAe61oKerqzhdiZSN2HqZkn1t3fzTbarUuwE9sXo1sxBdE",
+        "tokenId": "wSHV2S4qX9jFsLjQo8r1BsMLH2ZRKsZx6EJd1sbozGPieEC4Jf",
+        "update": {
+          "appState": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "delegate": null,
+          "verificationKey": null,
+          "permissions": null,
+          "zkappUri": null,
+          "tokenSymbol": null,
+          "timing": null,
+          "votingFor": null
+        },
+        "balanceChange": {
+          "magnitude": "2000000000",
+          "sgn": "Negative"
+        },
+        "incrementNonce": false,
+        "events": [],
+        "actions": [],
+        "callData": "0",
+        "callDepth": 0,
+        "preconditions": {
+          "network": {
+            "snarkedLedgerHash": null,
+            "blockchainLength": null,
+            "minWindowDensity": null,
+            "totalCurrency": null,
+            "globalSlotSinceGenesis": null,
+            "stakingEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            },
+            "nextEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            }
+          },
+          "account": {
+            "balance": null,
+            "nonce": null,
+            "receiptChainHash": null,
+            "delegate": null,
+            "state": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "sequenceState": null,
+            "provedState": null,
+            "isNew": null
+          },
+          "validWhile": null
+        },
+        "useFullCommitment": true,
+        "implicitAccountCreationFee": false,
+        "mayUseToken": {
+          "parentsOwnToken": false,
+          "inheritFromParent": false
+        },
+        "authorizationKind": {
+          "isSigned": true,
+          "isProved": false,
+          "verificationKeyHash": "0"
+        }
+      },
+      "authorization": {
+        "proof": null,
+        "signature": "7mXG48aixfd5CnAVD9QZFAfoKwtDSqXZiZ3azxgezzNsqDLBW1H7Rd1yMGvfvCe8pZ6hrCXSNWAag5DBvTztoCNXDyBaJF1s"
+      }
+    },
+    {
+      "body": {
+        "publicKey": "B62qoXjfJzGq2Tb2A6ZuDh8eLR8Bu5eZnk29eC3KUhHQds8D3eLdKL6",
+        "tokenId": "wSHV2S4qX9jFsLjQo8r1BsMLH2ZRKsZx6EJd1sbozGPieEC4Jf",
+        "update": {
+          "appState": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "delegate": null,
+          "verificationKey": null,
+          "permissions": null,
+          "zkappUri": null,
+          "tokenSymbol": null,
+          "timing": null,
+          "votingFor": null
+        },
+        "balanceChange": {
+          "magnitude": "1000000000",
+          "sgn": "Positive"
+        },
+        "incrementNonce": false,
+        "events": [],
+        "actions": [],
+        "callData": "0",
+        "callDepth": 1,
+        "preconditions": {
+          "network": {
+            "snarkedLedgerHash": null,
+            "blockchainLength": null,
+            "minWindowDensity": null,
+            "totalCurrency": null,
+            "globalSlotSinceGenesis": null,
+            "stakingEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            },
+            "nextEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            }
+          },
+          "account": {
+            "balance": null,
+            "nonce": null,
+            "receiptChainHash": null,
+            "delegate": null,
+            "state": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "sequenceState": null,
+            "provedState": null,
+            "isNew": null
+          },
+          "validWhile": null
+        },
+        "useFullCommitment": false,
+        "implicitAccountCreationFee": false,
+        "mayUseToken": {
+          "parentsOwnToken": false,
+          "inheritFromParent": false
+        },
+        "authorizationKind": {
+          "isSigned": false,
+          "isProved": false,
+          "verificationKeyHash": "0"
+        }
+      },
+      "authorization": {
+        "proof": null,
+        "signature": null
+      }
+    },
+    {
+      "body": {
+        "publicKey": "B62qp1Z3TRAe61oKerqzhdiZSN2HqZkn1t3fzTbarUuwE9sXo1sxBdE",
+        "tokenId": "wSHV2S4qX9jFsLjQo8r1BsMLH2ZRKsZx6EJd1sbozGPieEC4Jf",
+        "update": {
+          "appState": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "delegate": null,
+          "verificationKey": null,
+          "permissions": null,
+          "zkappUri": null,
+          "tokenSymbol": null,
+          "timing": null,
+          "votingFor": null
+        },
+        "balanceChange": {
+          "magnitude": "10",
+          "sgn": "Negative"
+        },
+        "incrementNonce": false,
+        "events": [],
+        "actions": [],
+        "callData": "0",
+        "callDepth": 0,
+        "preconditions": {
+          "network": {
+            "snarkedLedgerHash": null,
+            "blockchainLength": null,
+            "minWindowDensity": null,
+            "totalCurrency": null,
+            "globalSlotSinceGenesis": null,
+            "stakingEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            },
+            "nextEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            }
+          },
+          "account": {
+            "balance": null,
+            "nonce": null,
+            "receiptChainHash": null,
+            "delegate": null,
+            "state": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "sequenceState": null,
+            "provedState": null,
+            "isNew": null
+          },
+          "validWhile": null
+        },
+        "useFullCommitment": true,
+        "implicitAccountCreationFee": false,
+        "mayUseToken": {
+          "parentsOwnToken": false,
+          "inheritFromParent": false
+        },
+        "authorizationKind": {
+          "isSigned": true,
+          "isProved": false,
+          "verificationKeyHash": "0"
+        }
+      },
+      "authorization": {
+        "proof": null,
+        "signature": "7mXG48aixfd5CnAVD9QZFAfoKwtDSqXZiZ3azxgezzNsqDLBW1H7Rd1yMGvfvCe8pZ6hrCXSNWAag5DBvTztoCNXDyBaJF1s"
+      }
+    },
+    {
+      "body": {
+        "publicKey": "B62qoXjfJzGq2Tb2A6ZuDh8eLR8Bu5eZnk29eC3KUhHQds8D3eLdKL6",
+        "tokenId": "wSHV2S4qX9jFsLjQo8r1BsMLH2ZRKsZx6EJd1sbozGPieEC4Jf",
+        "update": {
+          "appState": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "delegate": null,
+          "verificationKey": null,
+          "permissions": null,
+          "zkappUri": null,
+          "tokenSymbol": null,
+          "timing": null,
+          "votingFor": null
+        },
+        "balanceChange": {
+          "magnitude": "10",
+          "sgn": "Positive"
+        },
+        "incrementNonce": false,
+        "events": [],
+        "actions": [],
+        "callData": "0",
+        "callDepth": 1,
+        "preconditions": {
+          "network": {
+            "snarkedLedgerHash": null,
+            "blockchainLength": null,
+            "minWindowDensity": null,
+            "totalCurrency": null,
+            "globalSlotSinceGenesis": null,
+            "stakingEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            },
+            "nextEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            }
+          },
+          "account": {
+            "balance": null,
+            "nonce": null,
+            "receiptChainHash": null,
+            "delegate": null,
+            "state": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "sequenceState": null,
+            "provedState": null,
+            "isNew": null
+          },
+          "validWhile": null
+        },
+        "useFullCommitment": false,
+        "implicitAccountCreationFee": false,
+        "mayUseToken": {
+          "parentsOwnToken": false,
+          "inheritFromParent": false
+        },
+        "authorizationKind": {
+          "isSigned": false,
+          "isProved": false,
+          "verificationKeyHash": "0"
+        }
+      },
+      "authorization": {
+        "proof": null,
+        "signature": null
+      }
+    },
+    {
+      "body": {
+        "publicKey": "B62qoXjfJzGq2Tb2A6ZuDh8eLR8Bu5eZnk29eC3KUhHQds8D3eLdKL6",
+        "tokenId": "wSHV2S4qX9jFsLjQo8r1BsMLH2ZRKsZx6EJd1sbozGPieEC4Jf",
+        "update": {
+          "appState": [
+            "10",
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "delegate": null,
+          "verificationKey": null,
+          "permissions": null,
+          "zkappUri": null,
+          "tokenSymbol": null,
+          "timing": null,
+          "votingFor": null
+        },
+        "balanceChange": {
+          "magnitude": "0",
+          "sgn": "Positive"
+        },
+        "incrementNonce": false,
+        "events": [],
+        "actions": [],
+        "callData": "16766198662423988581068001707930901042668719043848878173213883375422711161713",
+        "callDepth": 0,
+        "preconditions": {
+          "network": {
+            "snarkedLedgerHash": null,
+            "blockchainLength": null,
+            "minWindowDensity": null,
+            "totalCurrency": null,
+            "globalSlotSinceGenesis": null,
+            "stakingEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            },
+            "nextEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            }
+          },
+          "account": {
+            "balance": {
+              "lower": "10",
+              "upper": "18446744073709551615"
+            },
+            "nonce": null,
+            "receiptChainHash": null,
+            "delegate": null,
+            "state": [
+              "0",
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "sequenceState": null,
+            "provedState": null,
+            "isNew": null
+          },
+          "validWhile": null
+        },
+        "useFullCommitment": false,
+        "implicitAccountCreationFee": false,
+        "mayUseToken": {
+          "parentsOwnToken": false,
+          "inheritFromParent": false
+        },
+        "authorizationKind": {
+          "isSigned": false,
+          "isProved": true,
+          "verificationKeyHash": "3392518251768960475377392625298437850623664973002200885669375116181514017494"
+        }
+      },
+      "authorization": {
+        "proof": "KChzdGF0ZW1lbnQoKHByb29mX3N0YXRlKChkZWZlcnJlZF92YWx1ZXMoKHBsb25rKChhbHBoYSgoaW5uZXIoNGYzZjEwMWU1MmMyNGE2ZiA4YjM4ZDdiODE3OTU5NTJkKSkpKShiZXRhKGFkZGU4N2MxM2Y4OTU3YjkgZTY0OTgyYTRkZDVjNjgwYykpKGdhbW1hKDc1YzEyNzFjYjUyOWQ3NzkgZWRjYTA4ZWM1MGUyNDViMSkpKHpldGEoKGlubmVyKGE2YzFhZDk3NjM4ZWZiYTIgZDFhZTZmZWU0ZjMxOWEyOSkpKSkoam9pbnRfY29tYmluZXIoKSkoZmVhdHVyZV9mbGFncygocmFuZ2VfY2hlY2swIGZhbHNlKShyYW5nZV9jaGVjazEgZmFsc2UpKGZvcmVpZ25fZmllbGRfYWRkIGZhbHNlKShmb3JlaWduX2ZpZWxkX211bCBmYWxzZSkoeG9yIGZhbHNlKShyb3QgZmFsc2UpKGxvb2t1cCBmYWxzZSkocnVudGltZV90YWJsZXMgZmFsc2UpKSkpKShjb21iaW5lZF9pbm5lcl9wcm9kdWN0KFNoaWZ0ZWRfdmFsdWUgMHgwOEVCNTdFQzNEQ0YzN0E1QzI4QTExOTgyMEJGQTVCNUM2MzRGMERCM0QyMzk1ODE4RjI3RkU4ODc3MzY2Q0VCKSkoYihTaGlmdGVkX3ZhbHVlIDB4MTJDRTcxQThFOEM4NDVFM0FBNEY3QkYwOTgwMTkyRDNCRkY3MjU0NjY4MjM2QjA0RDNFM0NEMjY3NkM1MDNDQSkpKHhpKChpbm5lcig3NDJiYzNiZDYzNmQ4ZDA4IDIzOTg4YmIxYTYxNTIzOTIpKSkpKGJ1bGxldHByb29mX2NoYWxsZW5nZXMoKChwcmVjaGFsbGVuZ2UoKGlubmVyKGFkNzM3MGI0NTZhNzJhYjkgMzY0ZmY5MjNkNWYxOWVmYykpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDU5ODcxYzYyOGUyZjdjMDAgOWNjN2Y2NzNhMjI2Y2M4NykpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDIzNTQ4MjFkOWViNmYyYWYgZDViOTZiZDFmNjdkZjU3ZSkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDE0N2JmN2QwYTA5MDg2ZjYgNjI1ZTYyY2U0MDI0MmE2OCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGFmYzYxYjYzMzI1NmFkMGUgMDk4MDcyMTBhMTFmZTFmYikpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGY5NTgxZWJlY2FhYzQxOTEgNTcxZWQ1OTkzZWI3YzlhNikpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGFhNGU1MGEzY2Q2NGMzYmQgZDgxNGU3MGFjMWZlYzU2OCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGIyMWRhY2RmODI1ZWRlNmQgZmUwOGEyMTdjNWRiMDdhNSkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDgyNGUwZmQ2ZTllNmFhN2YgZmNmNjNhOTg0ZWI5N2YyYykpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGMzMzE4ODJiNzExYjA0Y2EgOTEzOWFjYzdiNmFlMjYyOSkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGRjMGY4ZjQ3ZmQ4MTUxZWYgMDBhOTdhNDNjNDNiOTU4NykpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDYwMzhkODFlZDE4NjMyYmYgZjliM2JjNzBhMmFhMDVhYikpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDk0NzVkMmUwZTVhZjQ3NWEgZDFjYmE3MDJhZWMzZDJmNikpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGJlNzgwZmY2ZjkyZDdjMDQgZTEzZDU4OTEzMmZiZTI1NCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGM2NzBiNzEyYjgzMTc1MTMgMTY3NWNjMzM5YTQ4M2UwOCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDQ4YzFiMGEyYjFjYWI4ZDEgMWI2NjA0ZTNjMDcxYjFjZSkpKSkpKSkoYnJhbmNoX2RhdGEoKHByb29mc192ZXJpZmllZCBOMikoZG9tYWluX2xvZzIiXDAxNSIpKSkpKShzcG9uZ2VfZGlnZXN0X2JlZm9yZV9ldmFsdWF0aW9ucygwMDAwMDAwMDAwMDAwMDAwIDAwMDAwMDAwMDAwMDAwMDAgMDAwMDAwMDAwMDAwMDAwMCAwMDAwMDAwMDAwMDAwMDAwKSkobWVzc2FnZXNfZm9yX25leHRfd3JhcF9wcm9vZigoY2hhbGxlbmdlX3BvbHlub21pYWxfY29tbWl0bWVudCgweDBGRDMzMkJDN0RGRDYxMzA1NjQxOUZEQjA1NTlCNDUzNDA0ODI1MkQ0NDExNzlDMUU3OUJGMDE1NDk1NDk5NjIgMHgxNjA1MDQ1MDVFQTVFQjA0MUQwMzM5MzZFN0IxQTY1NTNBMTYzQzdDRTJFNkIxQzc0RkEyQzFGNzg1NTJEN0FDKSkob2xkX2J1bGxldHByb29mX2NoYWxsZW5nZXMoKCgocHJlY2hhbGxlbmdlKChpbm5lcigzMzgyYjNjOWFjZTZiZjZmIDc5OTc0MzU4Zjk3NjE4NjMpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcihkZDNhMmIwNmU5ODg4Nzk3IGRkN2FlNjQwMjk0NGExYzcpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcihjNmU4ZTUzMGY0OWM5ZmNiIDA3ZGRiYjY1Y2RhMDljZGQpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig1MzJjNTlhMjg3NjkxYTEzIGE5MjFiY2IwMmE2NTZmN2IpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcihlMjljNzdiMThmMTAwNzhiIGY4NWM1ZjAwZGY2YjBjZWUpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcigxZGJkYTcyZDA3YjA5Yzg3IDRkMWI5N2UyZTk1ZjI2YTApKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig5Yzc1NzQ3YzU2ODA1ZjExIGExZmU2MzY5ZmFjZWYxZTgpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig1YzJiOGFkZmRiZTk2MDRkIDVhOGM3MThjZjIxMGY3OWIpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcigyMmMwYjM1YzUxZTA2YjQ4IGE2ODg4YjczNDBhOTZkZWQpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig5MDA3ZDdiNTVlNzY2NDZlIGMxYzY4YjM5ZGI0ZThlMTIpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig0NDQ1ZTM1ZTM3M2YyYmM5IDlkNDBjNzE1ZmM4Y2NkZTUpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig0Mjk4ODI4NDRiYmNhYTRlIDk3YTkyN2Q3ZDBhZmI3YmMpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig5OWNhM2Q1YmZmZmQ2ZTc3IGVmZTY2YTU1MTU1YzQyOTQpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig0YjdkYjI3MTIxOTc5OTU0IDk1MWZhMmUwNjE5M2M4NDApKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcigyY2QxY2NiZWIyMDc0N2IzIDViZDFkZTNjZjI2NDAyMWQpKSkpKSkoKChwcmVjaGFsbGVuZ2UoKGlubmVyKDMzODJiM2M5YWNlNmJmNmYgNzk5NzQzNThmOTc2MTg2MykpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGRkM2EyYjA2ZTk4ODg3OTcgZGQ3YWU2NDAyOTQ0YTFjNykpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGM2ZThlNTMwZjQ5YzlmY2IgMDdkZGJiNjVjZGEwOWNkZCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDUzMmM1OWEyODc2OTFhMTMgYTkyMWJjYjAyYTY1NmY3YikpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGUyOWM3N2IxOGYxMDA3OGIgZjg1YzVmMDBkZjZiMGNlZSkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDFkYmRhNzJkMDdiMDljODcgNGQxYjk3ZTJlOTVmMjZhMCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDljNzU3NDdjNTY4MDVmMTEgYTFmZTYzNjlmYWNlZjFlOCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDVjMmI4YWRmZGJlOTYwNGQgNWE4YzcxOGNmMjEwZjc5YikpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDIyYzBiMzVjNTFlMDZiNDggYTY4ODhiNzM0MGE5NmRlZCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDkwMDdkN2I1NWU3NjY0NmUgYzFjNjhiMzlkYjRlOGUxMikpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDQ0NDVlMzVlMzczZjJiYzkgOWQ0MGM3MTVmYzhjY2RlNSkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDQyOTg4Mjg0NGJiY2FhNGUgOTdhOTI3ZDdkMGFmYjdiYykpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDk5Y2EzZDViZmZmZDZlNzcgZWZlNjZhNTUxNTVjNDI5NCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDRiN2RiMjcxMjE5Nzk5NTQgOTUxZmEyZTA2MTkzYzg0MCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDJjZDFjY2JlYjIwNzQ3YjMgNWJkMWRlM2NmMjY0MDIxZCkpKSkpKSkpKSkpKShtZXNzYWdlc19mb3JfbmV4dF9zdGVwX3Byb29mKChhcHBfc3RhdGUoKSkoY2hhbGxlbmdlX3BvbHlub21pYWxfY29tbWl0bWVudHMoKDB4MTFEM0RGREU0ODY0QzI5REE1NUNGMENFNEI3MEExM0M5REJEOTFGNUZERkZGRDRGNUZBNTU0NDZFODM2QjU0OCAweDA1RjUwNzIyNEQ4NDhBRDdERTE0MTdFNTdBMUIwRTQyQjhBQkYzQzMxOUVGNTU1OUNEQzcyMURENDQyQzFBNkIpKDB4MTFEM0RGREU0ODY0QzI5REE1NUNGMENFNEI3MEExM0M5REJEOTFGNUZERkZGRDRGNUZBNTU0NDZFODM2QjU0OCAweDA1RjUwNzIyNEQ4NDhBRDdERTE0MTdFNTdBMUIwRTQyQjhBQkYzQzMxOUVGNTU1OUNEQzcyMURENDQyQzFBNkIpKSkob2xkX2J1bGxldHByb29mX2NoYWxsZW5nZXMoKCgocHJlY2hhbGxlbmdlKChpbm5lcihhZDczNzBiNDU2YTcyYWI5IDM2NGZmOTIzZDVmMTllZmMpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig1OTg3MWM2MjhlMmY3YzAwIDljYzdmNjczYTIyNmNjODcpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcigyMzU0ODIxZDllYjZmMmFmIGQ1Yjk2YmQxZjY3ZGY1N2UpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcigxNDdiZjdkMGEwOTA4NmY2IDYyNWU2MmNlNDAyNDJhNjgpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcihhZmM2MWI2MzMyNTZhZDBlIDA5ODA3MjEwYTExZmUxZmIpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcihmOTU4MWViZWNhYWM0MTkxIDU3MWVkNTk5M2ViN2M5YTYpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcihhYTRlNTBhM2NkNjRjM2JkIGQ4MTRlNzBhYzFmZWM1NjgpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcihiMjFkYWNkZjgyNWVkZTZkIGZlMDhhMjE3YzVkYjA3YTUpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig4MjRlMGZkNmU5ZTZhYTdmIGZjZjYzYTk4NGViOTdmMmMpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcihjMzMxODgyYjcxMWIwNGNhIDkxMzlhY2M3YjZhZTI2MjkpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcihkYzBmOGY0N2ZkODE1MWVmIDAwYTk3YTQzYzQzYjk1ODcpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig2MDM4ZDgxZWQxODYzMmJmIGY5YjNiYzcwYTJhYTA1YWIpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig5NDc1ZDJlMGU1YWY0NzVhIGQxY2JhNzAyYWVjM2QyZjYpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcihiZTc4MGZmNmY5MmQ3YzA0IGUxM2Q1ODkxMzJmYmUyNTQpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcihjNjcwYjcxMmI4MzE3NTEzIDE2NzVjYzMzOWE0ODNlMDgpKSkpKSgocHJlY2hhbGxlbmdlKChpbm5lcig0OGMxYjBhMmIxY2FiOGQxIDFiNjYwNGUzYzA3MWIxY2UpKSkpKSkoKChwcmVjaGFsbGVuZ2UoKGlubmVyKGFkNzM3MGI0NTZhNzJhYjkgMzY0ZmY5MjNkNWYxOWVmYykpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDU5ODcxYzYyOGUyZjdjMDAgOWNjN2Y2NzNhMjI2Y2M4NykpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDIzNTQ4MjFkOWViNmYyYWYgZDViOTZiZDFmNjdkZjU3ZSkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDE0N2JmN2QwYTA5MDg2ZjYgNjI1ZTYyY2U0MDI0MmE2OCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGFmYzYxYjYzMzI1NmFkMGUgMDk4MDcyMTBhMTFmZTFmYikpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGY5NTgxZWJlY2FhYzQxOTEgNTcxZWQ1OTkzZWI3YzlhNikpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGFhNGU1MGEzY2Q2NGMzYmQgZDgxNGU3MGFjMWZlYzU2OCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGIyMWRhY2RmODI1ZWRlNmQgZmUwOGEyMTdjNWRiMDdhNSkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDgyNGUwZmQ2ZTllNmFhN2YgZmNmNjNhOTg0ZWI5N2YyYykpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGMzMzE4ODJiNzExYjA0Y2EgOTEzOWFjYzdiNmFlMjYyOSkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGRjMGY4ZjQ3ZmQ4MTUxZWYgMDBhOTdhNDNjNDNiOTU4NykpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDYwMzhkODFlZDE4NjMyYmYgZjliM2JjNzBhMmFhMDVhYikpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDk0NzVkMmUwZTVhZjQ3NWEgZDFjYmE3MDJhZWMzZDJmNikpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGJlNzgwZmY2ZjkyZDdjMDQgZTEzZDU4OTEzMmZiZTI1NCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKGM2NzBiNzEyYjgzMTc1MTMgMTY3NWNjMzM5YTQ4M2UwOCkpKSkpKChwcmVjaGFsbGVuZ2UoKGlubmVyKDQ4YzFiMGEyYjFjYWI4ZDEgMWI2NjA0ZTNjMDcxYjFjZSkpKSkpKSkpKSkpKShwcmV2X2V2YWxzKChldmFscygocHVibGljX2lucHV0KDB4MUM2NDk4NTU4OTRBRkFBQjM4NDBGODY2NkU5NDU5MzZBRjYwRkE1MjFBRURCNDBDNDdBM0RBOUM3Q0Y0MjMwRSAweDMwRjVCOUE2MEZEQ0ZBNjhEQjM0RTlBREUyMEM2QTVCRUUwNzMxRjcxNENBQzFGQzc2OUZGMEE1ODk1QTRGN0UpKShldmFscygodygoKDB4MkNFOUY2ODdGM0NBNzJDQzQ4NUEyOURFM0MwRjdGQkM0MUJGRTEyOUREOUE3OTE1MTk1REQ2ODE1NzFCMjFFRCkoMHgyQjFDMDE5OTVDQzIxNjAzOEQ1OEVENjEzNzA4RUU2RjhCQTIxMDk4QjVCMEMyQTc1MzA4MUY3RDJGOTBFQTIyKSkoKDB4MTdCODQ0MzJBQ0U4QzNERURBRTQ0MDJDNTBBNDQwNDdBN0MwOEM3RDk4MjMzRUVFOTU0QUMzNDExOTZFRUIxQSkoMHgzM0MyMTE5NTE1NTdCNjBDNkM5NkZFOTcwRDYyNDFERDQ2NUJGM0Y3NEY5MUE0NTUxODA5Mzg3RDkwMUU2QkVCKSkoKDB4MzFEQURDMkU1NUFFRTA3QTg3NEFDNUEyRTJFOEExODQ2RkU4MUQxNzc3QzFERTJGMzZCMUQwRjVDMUI3REYxNSkoMHgyNzI2ODhCMUVCRjlDNzlEODhDNTYyQTlEQjI0RUYzNzBBNkY5MTIxMDdBQTdENDhCQzE2Mjc5RTA1QzA4OTJBKSkoKDB4Mjc3MjNFQkJDQUFFOUZFMERDNUZGNjg1NzY5RUI0MkJBOTU5RDZEQkI3NEM3QUVFMDFBREQ4NTA5MTU4QUQ0NSkoMHgwMDBENUE4MUExQUJGQ0JERjQxMkI3RUZGOTNENjhGREFCQUU0MzA5Rjk2NDYyMTFBMDg4M0U5OEZFRkM4Q0Y0KSkoKDB4MjEwMDQyNTY1NEE2RDM3MzdENDM3MkQ2NzQ4NDU0REYyMEQ1NjY3OTdGOERGQTA1RjhDMDRDQUYyRTBENDMyMikoMHgwM0U4RkVFOTFDQjc5MTExNzc1NjZCRDJBQjAxQkZDN0FDQ0FGNTVCMzVGQUU2RjI5ODhBRUI4OTFBMTUyRUIwKSkoKDB4MThEMUY1QjJFOTBDQUE0NTlBMjVBQjcwN0JGRUJCMDc1NUQyRjc2MTA3MkY2ODY1NDYxRENCMUQ4MjJCMkIwNikoMHgxQzQ3Njk3QzlCQUFCMkVFN0YyMjcxMjFFQzYyMzgwRTI5QkY0MzFDQzI2Qjc3OTY1ODlCNERGMTQ5NDdDRUQxKSkoKDB4MUU2RUJGOEZEREZGMzcwQTRDMzM4OTI4NTQ5RjFDNjJEMEUwNkQyMTUwNDNEOTFBMzBDNDYwOEJFQTAwRTk0MSkoMHgwN0YxQTZBMTc1ODVGMTJFM0Y2QUE3MjQ1NjhENjlCRjNEQ0JFNTVEMDczN0Y5Qzc0OEJCNjEzNTVCNEEyNTIwKSkoKDB4MDNBN0I5RjVFNTZFMUMwRUUyMjA4N0Q5NjI2QUVDRTg3MzA2RjQyRTA2M0M1MDI3NjlDOEJENjZEM0M1RkMyOCkoMHgxMzJCNTkzRjhFODM1Nzk5NkQ1QzIxMjI2ODZGNjc0MzVEQ0Q1Qjk2NjZFQjk0REY3RDk0MzJDMkE0MjY5Q0QxKSkoKDB4Mzg5NTcxNzg5MjdBMDBCRDAzRUYyQTc5MjJFMTRDOTEwQkI2QzE3OTBERUE2OTVENUEzRDk5NDE5NDAxOTlENSkoMHgzQjYxQzc2MjkwQjdDMUFDQjAyMjk2NTZDQzFCODA5ODBGQkU4NEMwRTVERjgyRkMzQjY4QjU4Qjk4OTA4MDM5KSkoKDB4MUU5OEIzM0MwOTBDNDJBMjAwMEE1OTg3NDI1QzE5NkU2OUZBRjQxNkM0RjI5MUUxRDM5MUNGMzIyNDEzQUFBNCkoMHgxODY5Nzk2QzAyMEM5QzI3NkQ2Q0I5MEM5NEZBNUJCOTA0MTZCMkExODE2RUExRDk3MjNCMjZFOUVBNzREQkEzKSkoKDB4MDQ4OUNDRjZDOTZENEE4NDBBQ0IxOEFENjlBNkFENjYxODIwODIzOTM0QjY5NTNCMzNDOUIyNDkzMTNGNEYwRikoMHgzM0NBM0M3Njc2QkM3MEFFMTZFMEFBM0YwQjJGQTcwMkYzNEE2OUI1MjQ5RkFFNzREOTY1QjhDQTNBOTMzODc5KSkoKDB4MUNCODE2MTAxMjFDNDlEOTkyQjZDNjYzNDZGM0I2QjY2QkQyRjI0NDQwM0U3QkIxODI5MDczRTVCNjA1ODEyQSkoMHgyMzk2Q0YzQTE4Mzk2Q0Q2NzMzMjMyNkE0ODdGRTlBM0U2NDlGM0REMzQyMzFCOUUzRkQ1NkFDM0I1MTg2OUMxKSkoKDB4MzMwMDA1Njc5MkRBMDRFQTA1MkUyMkM0NTM3OUIyMDU2NzAxMTM3NUFENDBBNTA4OTc5OTVERUFFMkE5RTY4NikoMHgzNTdFQTE0MkI5OTJDODhFMjQ0MURBNDg0QkQwMEZCMzFFMERFRDIwMjU0NUI4N0IyQTUxNzkwRjQzRUQ4MEM4KSkoKDB4MkQ4QjQxRENCMzYwNDY2NzMyOTNERTc1RTVDM0U0RjJGNDQ5NTA4RDFGMUM2RTkzRDcxREFERjgwMzkxRUYzOCkoMHgzQkMzOERBRUY1MzQ1QUE1RkUzRTIwRjYyQzNFNERENjMyQkE2OTU0NUZCQTc4MjM3MURGREIzNzQ4ODFBODBDKSkoKDB4MUI5NThFMTJERDU4N0VEQzhGNTAxMDhEODlBRjc3RkZGQUUwNjQ4NDMxRjNFNEFGRENFQzZFQzE4NjUxODk0RikoMHgwNUVCMjIxQUQ5NURGN0I2OUZGMkQ0Q0RDMUIzQjUzQkIxQ0I0OTFBRDI2MDQxMUEyRUEyMzVCN0RGQkQxNEVDKSkpKShjb2VmZmljaWVudHMoKCgweDI2NDEyOEQwRjQ5QkJBMDcwRkJFQkVDOEYzMTE4NTNFNzQ3N0M5NTIwMkEzOUY4MzE5MjZCRjZEMTQwRjQ4MzcpKDB4M0RGQzdCMEVFMUY2NkUwQjcyNjM1MDlDOEQ2ODIyQjYxRUZFMTNEMTgwNkY4ODc5ODZFMDYxMjEwRUU2Mjg1MykpKCgweDA2NkY4M0YxM0ExOTA3MzQ1QzUzMUE4QUM4QzQ5RTY3NTM2MTIwOTJCMzI4NzMwMDhEREVCNEQ2NjAzODFCNjkpKDB4M0ExM0NBM0E4NkY3MkY0OEQ4MEQ5QzRCNjE3Q0UxQTYyM0RGMkEzM0Y4REMyNTNEOEJEMzcwOEU3MkNCQkVGRikpKCgweDAxNDg1REE4MTQyRTBEQTJDNjQzRkQwNDhERjk4Q0M5MkYwNkRDNDBFRUVDNEIwMjc3RkNCRUZGRDBFMjk1NTQpKDB4MDNGOTMyNDVBNUVFNEE4MzM4MDJCQkNGMDQ4RkI1QzhCQjM1MTQ1OUNDQTAxNTc1Nzc2NDZGMDAxNjk2MUEyNCkpKCgweDI2MjM5QjM1QUMxQURDRThDNzE2NTZFNzQ1OUFBOUQyNjU5N0U5QUNBQTg0M0UxQjFFQzIxNEY4RUQ3RjNERDQpKDB4M0I2NzBGRjdFRkJFQTA2QTkwQ0MwMEFERUEyMUMxNjJGOTlEQzg0QTVFNjBDNTVBNjI3NDVBNDA5MUYwODJGRSkpKCgweDEyRjYzOURBOUUyQUZFRTE1NDY0QkMwQzNGODhFNDA4REREMTJFRTg4ODg2Rjk1QjNCRUNFM0UwQ0IyQ0MyNzIpKDB4MjQyODRFQzlBNDQ2QkUyQjQ5NzEzNkM4QjNFQjM0NTMwMTI4Nzg3Rjc0Q0U2QzU1RjRENkEzQ0Y2OUU1NzkwMSkpKCgweDMwMTk3QTVDOTUxNjgwQjI3ODNBNEI2MzVBNTY2NkNCRjhFQTQ0QzAyMkMwQkUyQTRGN0VBN0Q3OUQ4MjY0QTYpKDB4Mjg2NjU4Q0M0RkFCRDhCNTUzQTk0OEM0RkYzQ0Y3REU5NkYzNjNGNEVFMDdBMzc3RDcwMjJBRUI5NThCNkE2NykpKCgweDI0NTM2NjA5MjgxM0M2QjIyNzAyQzJFMERGNkI1QURBNDdCMzVDNzI4NEM5NDg0NzYxOTY2RDRBMjdFQjg4N0MpKDB4MEY2Mjk4MjFCNUMyNDA1MUZBM0U2MDlDNEM2MTY1QzdCMjIwMERGQzg5MERCM0EyODY0REM5Q0Q4REE0RDEwRikpKCgweDMyOEI3ODUyNzQzNEUxRjJBRkMxNUVGRTA3ODlBOEQ4MDI3MDQ2MTU2Nzk5OTA2NjIwRjJENDcyMTlGRDgzRTkpKDB4MTMxQkQ2QUZBRThEMjRERUQ1QUFCMEYzRTU4NTM3OUQxRDUwREYwRDVGQUUwQzE4MDlDMDJEMEEzNDlDNEEyMCkpKCgweDMwN0MxRDdDQTQ1OTczNzlEODlCQ0IzQkNCNDdERjY1MEI2RTJBNzM4OTg5MTA5N0I4QTZGODVFQzZGNjBFMDUpKDB4MzcxQTI4RDM3NDJFODE4NTZERjhENDMyMDBBRTkwNzM5OEFDMTE0N0M1N0QyMDlENzVBOTBGNTZGRDcxMzlBNSkpKCgweDMzN0YwOUIwNTFGRTUwMEI2M0E2NTcyQzkwODk0RUUyMTdGQTBCNTE2MjM3RDU0REI2MTlDNDFEQTg2QjUwNzQpKDB4MzIxODdBNkVDM0Y2NjM0ODJGRTA2RjIzQTZBMTFBNERENDUyRkQ3QkJBODkxOUFGNzQ3REUyNThGNjBFNzY3RikpKCgweDI2RERBN0EzMEJGNjdBNjI1RUM3MEVGOEQxOTc4REREODY1M0I0NjA4OTZDRDAxOEVBNDhEMkE0REM0NkI0OUEpKDB4MkU1RDYxQ0I4MEI1RTM0QzI1QTMxQjU5ODI3RDZGNjFGMTU5Q0EzNDVCMkE4Q0IyRUNGRDAzNzJEODY0REY2NikpKCgweDA3QzQ1REQ3NzY4NEQ2OEJEOEVFMEE0RkUzQjJFNjcxOTIyQzU1MjY3RjJFNTAwRjUwRDk1QzAwOTA4Mjk1NTApKDB4M0Q0QUQ0MDEwMjAwMEQyRTA2ODc0NzdDODYyQUEyQkNBMkVDN0U4RTc3RTlFOEEzQzE3QjM4NkU0NjZDMEMzRikpKCgweDBCRDUyOERDNDI3MTJFMzM0RDlDRDc5OUQ5ODEwQjk4ODAyMDNDRjkwRThEMjcyQjQ3MEM3NDUyNjVCQjg0MzEpKDB4MTFBRjBBODRDREYwOUMyOENCQjkzMTJGOEY1NTlBMDg5RkFBQzI5Rjc0RkYyRjgwMTYzMjNGNUUwRTBEMDYxNykpKCgweDA1M0M2RjNEMUQ0OTQyNzlGMTUyNTZERDVCRDdGRTQyRjlCOTVDMjVGQ0Q1MkE0REY5RDIwREI1ODM3QjMyNUEpKDB4MzUyNDNDRjI2RDI1MjlFRjQyQzQ0QTNCQTRFMjNCNTY3OTkyQzZBMEVFOTY1OUNGQzA1M0U4MkRBMEI1N0RDMSkpKCgweDAzQUZGMTVFOEVGOTIzQzEyMUE2RTcyRkUyRkEwNjYzQjc1QUQ3RThFQUY5Q0M0M0JGRjFENDA4REU5NjM0MTQpKDB4MDQ4MzQ1OEFFOTRDNDgyMjgxOTFBQ0ZCMkZFMjBDNTVCNkI0NzYwODk1OTZBODQ0OTgyQkM4MzcxNDhFOUJBNSkpKSkoeigoMHgyMTQ0MkRERUU1NEE3ODdDQ0E1QkQ4OTc4QTQxNjgzRjdBMEQwOTg5NEE1RjhERjFDQjY2N0RFMUZBMUQ5RDMwKSgweDI2NzIxMEM1MjM4ODE4MkFCMkQyNkVGRDIzQ0NFMENGMEY2MkRFMDJCNEFGOTY3NzM5RjJDMkNCNDFERDQ2MjIpKSkocygoKDB4M0RGMkIyM0EyREY0NjQ4NUQ4Q0UwQ0U3OTVCQjMwQkQ5NTZDMzYyM0JENEMyQTFGOTNEMDU3QjEzQUYyNTgxNykoMHgzQzczQTQ3Nzk1QjBGNkZCQTU1RTU2NzdCM0E1RDhBNTM1M0QyOUUwQjgxRjZCNTg0MTY0RDYyMUIyQjVDMzQxKSkoKDB4MDc1REU5NzRENDFBNkFDQkU4Mjg2REVBREFDNzJGQUVCMUY1NzhBRkJFNjJBRkE1QjQ3MUQ2MDZFRTlCMEU0RSkoMHgzQTlGQkEzOUIyNDgxMjBFNTU3MEQxQzMxMDQxNjdBRDNDQUQ0NjA4Nzc4NjIwMkVCOUUxMzA2QzVEOEM2MUNBKSkoKDB4MkNDMDBBQ0E0QjNFNzZFRjJDQzFBMjYzNEVCQkYyOEFFNzlGRjg0NDg4NkQxMDQ2ODFDRDJENDE5MjgyNUZGQSkoMHgxQzIxM0RFNzdFNTJGRUU2NzY5REYyMEFGMUMyOTE0MTJFODFFNDg2OTk1MzZCMzFGNDhGRjdCRDdBQjIyQjAxKSkoKDB4MDcwOTQxNUQ4N0EyOEYyOUQwMUQ0MkIyNDMzMDEwNzM3QTVDMDc1OEVGMjM4MzdGRkJBODk2RjJDNkQ0NkM3OSkoMHgwN0IzQzJGNDg3QkRFNzFFQ0QzRkJERTg3NzE2MDI2ODEzRTYyODc0RjQ1QkE1Nzg5QjAwNkNBRkY2NERFQ0U4KSkoKDB4MTUyQjdDRDlEMjYxNUE3ODkzMDQ2QzAzRDY5M0U2Q0RBMDI2QTE4REQ4MDNERTM3M0Y5NjE5QTlBOUJDN0ZBQikoMHgxMzMyMTI3N0QxNkUxNjQyRUJCRTdBNTA1RDU1MzQ3RjVFNkQ4M0I5QTBBMTI4Q0UzNzAxNTlCRkIyMjc4NkU2KSkoKDB4MkUyMTFDRDkzMDk3MzlCMERFREMzRkY1MzI4NTk5RjNGRjMzQzQ0QjZDQjA2MTEzREI0NTg2NjQ3NDg4RkZDQSkoMHgwN0ZFMDA4OTBGMjg1MzIzRkM1RDREODMwOERGMkRGRkQ2MjUwNjhCQzM4Q0JCRDYwODI5MkZGRjk3NTZGQTFGKSkpKShnZW5lcmljX3NlbGVjdG9yKCgweDI0OUVBREU4M0ZDRjI4MEM0RDY2NzQxNDYxOUQ4N0IxNzA0NkNFRjI5MTBFNUUxQkFCNjdDOTVEOUZDMEUyN0MpKDB4MjIzMkFCQzcwMTBBOEFDNjUxNURGRDQzMkQyOTQ5Q0Q5NjU0NkEzMzU1RTYxNjBDNjk4RTU1OEY3QTI1N0NFRikpKShwb3NlaWRvbl9zZWxlY3RvcigoMHgyNDI3NzI0ODIwM0Q5Q0I5OTIxMzE5NjA4NzYwMUZFMUFGQjgxRkIwODcxMDQyN0Y3QTk0RURDNDU5RUEyQUY1KSgweDJGQ0I3M0I4NTdBMTkxRjgwMzU2MkVCNTk0NzhENDAzRTFBRjZBNDk0Q0U5RjgxOUMyNkU1NDNGODRENUY1RkMpKSkobG9va3VwKCkpKSkpKShmdF9ldmFsMSAweDNFOEVDNkNFREM1RjQyN0M0OTc1RERFMzJFRDNDNjcwMkYwQTAzODdEOUQ5ODQ2QUM1MUJFM0MwMzA3NkVENUQpKSkocHJvb2YoKG1lc3NhZ2VzKCh3X2NvbW0oKCgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSkoKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKSgoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikpKCgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSkoKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKSgoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikpKCgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSkoKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKSgoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikpKCgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSkoKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKSgoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikpKCgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSkoKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKSgoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikpKSkoel9jb21tKCgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSkpKHRfY29tbSgoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikpKShsb29rdXAoKSkpKShvcGVuaW5ncygocHJvb2YoKGxyKCgoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikpKCgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSkoKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKSgoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikpKCgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSkoKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKSgoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikpKCgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSkoKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKSgoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikpKCgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSkoKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKSgoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikoMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAxIDB4MUI3NEI1QTMwQTEyOTM3QzUzREZBOUYwNjM3OEVFNTQ4RjY1NUJENDMzM0Q0NzcxMTlDRjdBMjNDQUVEMkFCQikpKCgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSgweDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDEgMHgxQjc0QjVBMzBBMTI5MzdDNTNERkE5RjA2Mzc4RUU1NDhGNjU1QkQ0MzMzRDQ3NzExOUNGN0EyM0NBRUQyQUJCKSkoKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKSkpKHpfMSAweDJDMTlDODcwODQ5M0NEQTVGMDdGNjY2NTYzRkQ3OEJGQTU4OTY2NDAwM0NEQ0U0RjVDODRENzZBMjMyMEMzMDApKHpfMiAweDA4MzA0NkVCMDlCMTk0RDQ3QUJFOTQ0NzcyMUJFNDQzNzBGOTMzNjM0MUYxQTU5MjFDOUI4ODI4OTA2NkVENUYpKGRlbHRhKDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKShjaGFsbGVuZ2VfcG9seW5vbWlhbF9jb21taXRtZW50KDB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMSAweDFCNzRCNUEzMEExMjkzN0M1M0RGQTlGMDYzNzhFRTU0OEY2NTVCRDQzMzNENDc3MTE5Q0Y3QTIzQ0FFRDJBQkIpKSkpKGV2YWxzKCh3KCgoMHgwRTg3NkExMkUxNTI0MDg1QTBFRjI3RUYzQ0QzNENBRjZEMUM4Q0I2NDdCOEZBNDE4OTA3NEUzNjM5MjI0QkQ0KSgweDAxMDE2ODAyMEMwMjI5NDEzQzZDMDY5QzRFRTgzNzRBRTI0QUM3NjhGMDEzNUY5ODU0ODU3ODZFQTQzNkZCMDMpKSgoMHgwNzUwM0QxMzAyODQ2NUMyNDg0MUYzRUIxRTFGMDY5NkUxMzlEMkFBMzUwMDIxRDczRTMyRkYwODExN0ZDQjc4KSgweDFFQ0VFNUEyRUJDMDZENDc0NUJCQjQ5RkJFM0EyNzQxRjlGRjk3MDFFMDJBMzRGQjcxQkEzMkRBOEE2NjM3MTApKSgoMHgzNDQzRTNCM0YzNEJDNEREOTgwN0QyNDhGOEFCN0ZCNjhCREQ3RTFFOUFBQ0I5QkU2MkQ1NjAwMkQwOTlEQkZEKSgweDBCQjg0NTY1MzY0NzlBQUVFRTZGOTg1MjFGNzAxRDFBREI4MUMyRDEzMDg1NTJDMUFCQUMzN0QyRkE2MDgwQ0IpKSgoMHgzOTE4NjQ4MkVCRjc1QjE3NjM3RkY5QUE3Nzk0QjQ1OUNBNUU4RTY1NEZFRDY5MEI5NjE1QzEzNEFEMjUzQ0Q5KSgweDJCMjI2MDdBRTM2OTdGQjNGNTIzNTNDMDBFMkQzRjhBQjE4OThBNkFERkE4NkY2Mjk5N0JBRjIzMjY2NEQ2QTYpKSgoMHgwNkU2QkY3QzgxNzg5NzU1RUMwOTU2MTEyNTVBM0EzOTE0RDQwRDA1Q0ZGOTlBNjVCN0M0NzAwOTg1MkE2RDM5KSgweDFDRkRFM0E2MEYyMzA2NDA3MEQxQjUzOTJCMjQxNkIxRDc5NjkzRkQyRUQ5NjU5QzlFQUY3MDAzNDk0NThENUYpKSgoMHgyN0UwRTlBQzRBNDQzRjI4N0FFNDE0QTc5N0RDOTk2QTFCNDhGOUVFNEQ1RThEM0YxM0Y3RDFGNkYyRDkzRTE2KSgweDI5NEM2NjNGRjY4Mzg5MUJEN0Q2QTVFNkNEMjc0NkFERDNERjRBQjY2NDNBMjNGNkZERTQ1NEQ2MTIzODM3RDMpKSgoMHgzMjA1MDA1MkY4QjcwMUE1RjkyNEExQzkwNTE1QjYyMzU0RjkwQkNGN0M2NDlCRDhDRjk1QzVFODMxNEJDNTRDKSgweDFBM0QxQ0Q2MjA3NERCMDU5QTE2RUI4NTBDN0RBOTZCNEIxMzM4RjQ2Rjc3NUNBRTI5NjhFM0Q1MTk2QTA5Q0MpKSgoMHgwRDdGNTE0NzY4QjlDRUMzOTI3MUNCODkxQTIzOEYwOEI2M0IxNDk3NENCOTI0M0YzMDVGMjA2Nzg0RkU3Qjg2KSgweDAwQjFCOEUxRjREOTFBMjJDOEYyNjc3NDkxMDEyRDlBMDQwNTJGREJGNDUwMjdENjhGMUIxMTkxODM0QkNDOEIpKSgoMHgwMzNDQzc0ODY3QTEwQjEzNjc4OUZERTZGRjFDRjRFNjdBMzYwNUNFQjkxRjlFNzc2RDQ0N0EwNjNCRjY0RjdDKSgweDMyRUY5OEE2OTE1MkY3RjQ3ODA2QkUzM0U4RDA4OENBMDNEMTY3NkU5MjJCMjBFMDJFRjNBRjZBNEY3M0ZDNjkpKSgoMHgzMDcxRENDRkM2ODcwOUI5NDI5MzY5OTU3QjhGQkFCQzIwRTc1NjA5QzQyMkVFQ0Q3NkY0RTBFNzBCQ0MyRkUyKSgweDBFRDM1MzkxODA1RTI5NjlDMDUwRUFBMTlGQkUzNkY3MTg1OTgwNDcwREU3MTAxQjUyN0UxM0ZBNjIyNkVBMjEpKSgoMHgzN0Q0MEE1M0Q5Q0YzODE5MDQxNzY3QjZGOTU2N0E5MTBEODQ2ODc3RjlBNjUxMzQ4MUVENDI0NzBBMEE1RjM1KSgweDJBQzlBRTJBQUY0NUFFQTNGMUYwRThCMUExRDg1RUI0NEREMTdFREEzOEUxODk4MDdBNTEyMUVDMDYxNTZFNjUpKSgoMHgzQTFDM0FDRDkzNTlCRkJEOThFNjE5MTI0OUIyRjU0MjBEREE1MzMyQ0JFRDczNjhBODAzNzQ3MDMyN0M5Njg0KSgweDBEQ0JGQTY5NzUxRjg3QUZFMUEzMjgxRjJFQjQ2QjMxNTA2RTk4OUM4REEzRjZDRTI5MTZDMjZDRkM5NjUzMjUpKSgoMHgwMDBERkM1MERENDBFRDIzQThCMEU3RjRBNkYyMjU4NTZBRERCQzk5NEM1NTYwRENEQkFBM0ZENTc1RUJDRjQ2KSgweDI0MEQ2Qjk4MkYxREUwNkUxMzlCOTUzRDA5M0JBMUNDQTlFRkRFRDY5QjU2M0ZGQkVENzAyMTRCRDk5ODBBNjkpKSgoMHgyODI1MUI1QUM5NjQ0Q0ZBNTdENkMwQzM0NUU4RDAzMEVBMEI2ODA2NzVGN0FDRkQzRDRBNTFEQkYzODY4RTZFKSgweDFFNzNDQTY3NjQ1MkY2QTQ4M0I0OEM4RDBGRDg3Q0ZFRDc5REM3MTA5ODUxRTYzMzE1QzU5QkY5ODdBOEY2MTIpKSgoMHgxODZCODJFNjAwRkU0NEM0RUIwODkzMzVDQ0RGMzZDMUE3QkMwNjAwNjQzRkE4QTVENkE4ODcwMDY2NzdENzNCKSgweDI5RERDNUM5RjIxNUI4QzE4RkFFQjU1OERENjNGMjk4Q0RDQTE4NzJEOUY4MDJDQjQwNUFDM0M0QkI2QjE3NzMpKSkpKGNvZWZmaWNpZW50cygoKDB4MDY0QzY5QjkzQjQ4QkMzMDIzNDgzOUE1NjIxREFGOTQwNzc2OTU5Rjk1ODFCMzZGMTI2MTlCM0FFQ0FBNjEzQykoMHgxRTdBMzEyQkE5RkZCMTI3NjM3QThFNjNCQ0FCOEU2NTYzRkE1RkFEOEIzQjYyNTNERUM1QUFGMTUwMzE5NEI1KSkoKDB4MDI0NjdCMEMxN0YxMDI3RDYwOTlFOEJCODc4ODI0NUIwNkU5NjU4QTE0RTBDNEM1RjFFQkZGNzFCQ0IwNzNCMikoMHgyNzg0NzAwREYzN0M5MjUxOUI3RjUzREI5NDA5RDhCNkZCNzFGQTZERDZFNzE3NzU4MUM2Qjk2Q0EzQjk0OUU1KSkoKDB4MkMyMjUzQjNFMDkyMjdFNEZCM0M1MjFCMTJCQ0EyNkMxNDU2NjJCRjE5N0Q1NkI4MkY3QTNEQUFCRkRFMzM3NSkoMHgzMkRFNDhBMzRDQTdCQTRCMEM3MzEwNzc0NEUwOEJBMTg2MTEyMjMxRjEwNDE1MzE4QTBEQkU3MUI2OUZGQTU3KSkoKDB4MzU0Q0Q0MkI4MzE1ODUwRUU3QTlDOTI0NTY2RjkwRTQwOTdDMDEyMkZENDEyREREQTU5NjdFMzA4N0YwRDFGNCkoMHgxNjg5QzdEQzA4ODFEOEM1Rjc4QTIwMzE0REJCNzk5QzI0NTJGQzQwOTQwODRFNkVCRTFDMDA5MDU3RUY4NTAxKSkoKDB4MTVCMEZDM0FGRjdBREZGRDMzODhDQzg2MTkzNTgzRkI1NDg4Q0I2MEY5MzU1MDYwNzAxM0U4QTJDNzNGM0VEQykoMHgwNDQxOTQyNTkxMThBQzg4ODMwRkJGMzMxQTNFQ0E5QkQ3NzFFMzdCOTVFRDkyQzAxOENERTM5MTUwQUY0OTUzKSkoKDB4MkE1QTk4QzdGQTU5QkNDMjFDMDBCNkNBQzQzNEU0NDY1NURDMDQ0Njg5MERBNTNCNDhDMTRGMzgwQkJGMjJFNykoMHgzNjUxMTYyNDAxNDJEMTQxQTVFNzIxNkJCOTA5NzE5Mzk5OUZGMUNEMEQ0Q0NBQjVGMjE1NUY1NkE3ODQ0QTdBKSkoKDB4MENENjNBQjdFMjMzMDgyRDZCQTYzMUVBQTdGNTYzODUzM0RCRTg2QUE4QzJENUZFMDA1NDhFQzQ1NjNGMDlFOCkoMHgxRENDRjQwNEY3MUE0MDkzOERFNTAzQjFFRkZFQkY0MjQ4N0Q3Q0I2REIzODAxQTVDMzFFOTdENDNFNjM2MUE2KSkoKDB4MEIwODkxQUUxQTNCNTA0QTE4MzdDNkI3MTBDRkMzM0UxOEYxNUU5NDgwQ0IxRDY2QUFGQjIxRjE3MTNFODFGNikoMHgyMDU0OTg1QzI1NDBDNTFEOTYwMTBGRjhENjkyM0FCNUY2OUZCODNCRjA2RDUwOUQ5MTExQkJGMEYwOUJCRTUyKSkoKDB4MTU3NjM5NUQwMDQyQTU4RDRENkFFQzFBODRBRjY2NjU5OEJCNUM0QkE2MDUxMjZFQjFFRjI5RDI0RkIyNTg3RSkoMHgzOUU1NERFNzc5NkJBQzdEOTNDN0QxMTRFNEUxNjA0MzdCRDczNENGMzgxMkY0OTUyN0U5Q0MwQjI2Rjg5QTk3KSkoKDB4MTY3Njk1NkZCRTE5QzRGM0VDMTYyRURDMjdFOUY4NThBN0E2RkUxMTgwNkY0QjFCNjgwOUUxODAxNjhENzJGMykoMHgzOTc5RDg2NDQ5ODNDRjk0Nzc5OTE2QUYzNzJCNzNGMEQyMTU4Njc3N0YxODNGNzI3QjIwNkE5RDM1RkY2NDc4KSkoKDB4MjY4QUFBNDUyMDI2Njc2NkFDRjNGMkZEMTlBODE4RjM3NEU4MDI1NDE4M0RENTIxODlCOTE2M0MzRTc1QTYyNykoMHgwNjI4RkU2RUQwNzQ2QkRBMTFDOUNCMTg5MzU0NzE2Q0QwRDU2QTgyOEI1MDY5RjA1MUYxOTNGRUE2N0M0RTY2KSkoKDB4MjdBQTU5OUMzMjBDRDRGRTM5QjM4Rjc1OUQ1ODMzRURBOThEREQ2QTc2RTk0NUE3RkVENzFBODA1QjYwNTMyRSkoMHgwMzBGMUE0NTVGREMwMjBDQ0UyNDYxMDk3QjNBMzAwRDNEQ0E1Qzc1MTgxNkM2QzlEMTdDN0ZCMDg4ODc3QUI3KSkoKDB4MUUyRTBDREU0QTA2Q0VFN0MzMjA1OTM2OUUxRTlBMkQ1MkM2N0U3NzIzODgwMzIwNDdCODAwMUQ3MzY4MUUyRSkoMHgzN0Q5QkEwMzY5QUM3NDEyOTJBMUNERUQzNkEyNjQzRDMzODlCMEI0OUU5MTRDQTREMzQ5MEE0QUU1NjI2REQ5KSkoKDB4MjgwRkU5MzRFRjQ3NUE3M0U3NjY2Q0Q3ODdCOTJEMzNGRDZEOThDQzY3OTRFODUzOEMyRDI0RkE4REE3RTNDQykoMHgyRUFFMzE3QzQ0NjFGOTYwRTExQUNFQjlFNDY5NUEwQ0NEMjM0MzVDNUVCODZCMjQ5QUFBNzM4NDJDNjk3REMzKSkoKDB4MjYwRUI2QTFEODkwQjcxQjhBQjE2OUEwMzVBMEMyNUEyQTVCNkExOERGN0UxNTE3RTNCRDQyNzg3MTM4MkREOCkoMHgwRjE3MDFBOUU4MDVDMjc4OTQxQkNCNzZBNEY2OEE0Qzc5QTJBQ0ZBRUJBRjE4QzQ1N0E1ODRGMjcwRTI5NDY5KSkpKSh6KCgweDE1MUVFOTdDQThEMkEyQzlBOUU5NTQyQkM4MkMwRDA2MTgyNTI5QzAyRUJFQkE4ODRGQzgxMzk3RTUxNTcxNzEpKDB4MUYyMjMxQUU2Rjc3NkRCOUM5MzVGNjg2ODRERUQ5MDRDRDJGNDdGMjYwNDlBMzBGRTNDRTNGMkM5QjNDRDk1RCkpKShzKCgoMHgyNEU3QUI5NTQ2MkNBMzdGQjVGQTc5MjE3OTNFQjk4QzhBQzVFMjJBQjk0OTcwQjlFMDRCRDZENkEwOTQ0RkE4KSgweDE3ODIwMUE4QUE5OTExNzE3NjkyM0IzNUM5MTkyMkIyRUJCOEVFN0U1QUU4QUM4RUFBNDEzQjEyQTU2QTdDMkMpKSgoMHgzRDVGMDU0MTIyMzU4RTUxMDczQzZFMUE1MzNEOTM3NjQ1NUMzRjI5Rjk5RUUyNDJDNEVBOUZEQUVCQTJFQjE2KSgweDA1MTY2MTEyMDEwMUI4NkRFQzE5QUE3MTIyM0YxNzZFNkNGQkEwQUQ3NjBFNDI5QzM2Qjg1MzI0RTFCMkY1REMpKSgoMHgzQzE2MTZBQTk5QTE5Q0M5M0M4OUFGNzIzMTI0ODQwNDMwNDFGQ0I4RTAzRDNDRTU5OEM1MjA2Rjk4MkQzNjM1KSgweDJFMTU1REEwMTBCMkI5RjE3NzlDQjYwQThCOTM5OTdBODA1NDlFRThGMDJDNUU4QkVBQjQ1RjM4NkExRTk1RjApKSgoMHgwOUFCQ0NGMTM2RDY0NzA4NzhEQjgzOUFBREEwMjY1NDE3MkM5MTE2NTM3RjNGOEJGQjI4QzY4MDlERkFCRTM3KSgweDFDRkJCRDU1NTAwMjUyNjI5QTU0MjlGRTQ0NTYyMTg1MjAwNjJBMEE2QzA0ODQzMUMyNzY2MDJCQ0MzNjBERTApKSgoMHgxQzQ5MkRFQjVGNzU0RTQ4NkE3N0EyQUQyMjcyMDk3RkRENDEwQzkzQUQwNkM2MTk1MzkxN0FDMDBFMjNERjZCKSgweDI0MzZCQURGQzhCMDdBMjI5NzIxRDlEQjVEQTZDQTcwQjY3NjdFOUQ2ODk4OTZCNkYzQkFEREY0RUEyQjgwRUUpKSgoMHgxMEQzNDA4QUZDNUI0MjE0RERFQTNDREU3QkQyNzk1MDAyODNGRjBEOTI4OTBENjBENUFBMUU4ODNBOERDOUI1KSgweDFBQUQ3NTJCQTc2QTZEQzgyRkRFMEM2MUQxRTc3NEIxNkJDNTRENDMwNzAxRUY2RkQ3MTkyNTAxMjgxNjQ0QzApKSkpKGdlbmVyaWNfc2VsZWN0b3IoKDB4MEFCMjY0QUJDRjVENjc2OEZBMEE0ODYyOTIyQjNFMzE5QUZCNDE3OUNFM0ZFOEU1RjIxOUE3RTFBRkM4NzFDRCkoMHgwODlBRjE3QTAzM0M0NzJGRUQzQ0Q1M0VERkM4QTE1QkJENjkwNkU0M0MzMTRCNjhGNjA2MDQyNDNEMDk4MEU1KSkpKHBvc2VpZG9uX3NlbGVjdG9yKCgweDM5QTBBNzBBREU4QjVBQjRDRUZFNDhERDVCMkY4RkJCMTk0NUY1MkJEODIzQTM2NkRGQkRFN0MzRDk5NENDOUEpKDB4MTc3NTZFRTZBOTE0N0QyQzQ5RTVGQUU4OUNBRTUyRDVFODI0MDc3NTc4NTgyNjREQzMyQkI1MTE0MjA2QTE5NikpKShsb29rdXAoKSkpKShmdF9ldmFsMSAweDIwNTYyMDVGOTAwRjc1MDQ3NzY2RUUxREQxQTJBQTZCQjUwMjQ5MjhENUE0REJENUVDNzVFMTgzMjgzQTBBQTkpKSkpKSk=",
+        "signature": null
+      }
+    },
+    {
+      "body": {
+        "publicKey": "B62qp1Z3TRAe61oKerqzhdiZSN2HqZkn1t3fzTbarUuwE9sXo1sxBdE",
+        "tokenId": "xnCDrtVmdH3tpZH9aomJZ79nhLqqCHAuBFGRHwrkZu7GMjDnoX",
+        "update": {
+          "appState": [
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "delegate": null,
+          "verificationKey": null,
+          "permissions": null,
+          "zkappUri": null,
+          "tokenSymbol": null,
+          "timing": null,
+          "votingFor": null
+        },
+        "balanceChange": {
+          "magnitude": "10",
+          "sgn": "Positive"
+        },
+        "incrementNonce": false,
+        "events": [],
+        "actions": [],
+        "callData": "0",
+        "callDepth": 1,
+        "preconditions": {
+          "network": {
+            "snarkedLedgerHash": null,
+            "blockchainLength": null,
+            "minWindowDensity": null,
+            "totalCurrency": null,
+            "globalSlotSinceGenesis": null,
+            "stakingEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            },
+            "nextEpochData": {
+              "ledger": {
+                "hash": null,
+                "totalCurrency": null
+              },
+              "seed": null,
+              "startCheckpoint": null,
+              "lockCheckpoint": null,
+              "epochLength": null
+            }
+          },
+          "account": {
+            "balance": null,
+            "nonce": null,
+            "receiptChainHash": null,
+            "delegate": null,
+            "state": [
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null,
+              null
+            ],
+            "sequenceState": null,
+            "provedState": null,
+            "isNew": null
+          },
+          "validWhile": null
+        },
+        "useFullCommitment": false,
+        "implicitAccountCreationFee": false,
+        "mayUseToken": {
+          "parentsOwnToken": true,
+          "inheritFromParent": false
+        },
+        "authorizationKind": {
+          "isSigned": false,
+          "isProved": false,
+          "verificationKeyHash": "0"
+        }
+      },
+      "authorization": {
+        "proof": null,
+        "signature": null
+      }
+    }
+  ],
+  "memo": "E4YM2vTHhWEg66xpj52JErHUBU4pZ1yageL4TVDDpTTSsv8mK6YaH"
+}

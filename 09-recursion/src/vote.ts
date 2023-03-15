@@ -68,7 +68,7 @@ async function main() {
   console.log('verifying proof 2');
   console.log(proof2.publicInput.voteFor.toString(), proof2.publicInput.voteAgainst.toString());
 
-  const ok = await verify(proof2.toJSON(), verificationKey);
+  const ok = await Vote.verify(proof2);
   console.log('ok', ok);
 
   console.log('Shutting down');

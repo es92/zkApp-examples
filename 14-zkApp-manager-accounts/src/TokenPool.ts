@@ -1,25 +1,12 @@
 import {
-  Account,
-  Bool,
-  Circuit,
   DeployArgs,
-  Field,
-  Int64,
-  isReady,
   method,
-  Mina,
   AccountUpdate,
   Permissions,
-  PrivateKey,
   PublicKey,
   SmartContract,
   Token,
   UInt64,
-  VerificationKey,
-  Struct,
-  State,
-  state,
-  UInt32,
 } from 'snarkyjs';
 
 import { WrappedMina } from './WrappedMina.js';
@@ -27,6 +14,7 @@ import { WrappedMina } from './WrappedMina.js';
 export class TokenPool extends SmartContract {
   static wrappedMinaPublicKey: PublicKey;
 
+  // TODO: this deploy() does nothing, can be removed
   deploy(args?: DeployArgs) {
     super.deploy(args);
     this.account.permissions.set({
@@ -48,26 +36,26 @@ export class TokenPool extends SmartContract {
 
   @method moveWrappedMinaToMina(amount: UInt64) {
     const wrappedMinaContract = new WrappedMina(TokenPool.wrappedMinaPublicKey);
-
-    const wminaContract = new WMinaTokenHolder(
+    const wminaContract = new TokenPoolWMinaHolder(
       this.address,
-      Token.getId(TokenPool.wrappedMinaPublicKey)
+      wrappedMinaContract.token.id
     );
     wminaContract.burnWMINA(amount);
     const burnWMINA = wminaContract.self;
 
-    wrappedMinaContract.redeemWrappedMinaApprove(
-      burnWMINA,
-      amount,
-      this.address
-    );
+    wrappedMinaContract.redeemWrappedMinaApprove(burnWMINA, amount);
   }
 
   // ----------------------------------------------------------------------
 }
 
-export class WMinaTokenHolder extends SmartContract {
+export class TokenPoolWMinaHolder extends SmartContract {
   @method burnWMINA(amount: UInt64) {
+    // burn WMINA
     this.balance.subInPlace(amount);
+
+    // in return for burnt WMINA, add MINA to TokenPool (only works in transactions that subtract MINA from another account)
+    let tokenPool = AccountUpdate.create(this.address);
+    tokenPool.balance.addInPlace(amount);
   }
 }

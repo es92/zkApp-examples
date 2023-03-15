@@ -67,21 +67,26 @@ export class WrappedMina extends SmartContract {
 
   // ----------------------------------------------------------------------
 
-  @method redeemWrappedMinaApprove(
-    burnWMINA: AccountUpdate,
-    amount: UInt64,
-    destination: PublicKey
-  ) {
-    // TODO check this accountUpdate is doing nothing except for burning its WMINA
-    this.approve(burnWMINA);
+  @method redeemWrappedMinaApprove(burnWMINA: AccountUpdate, amount: UInt64) {
+    let { StaticChildren, NoDelegation } = AccountUpdate.Layout;
 
+    // check that the burn account update has our token id
+    burnWMINA.body.tokenId.assertEquals(this.token.id);
+
+    // approve burn with at most 2 child account updates, which don't get token permissions
+    this.approve(burnWMINA, StaticChildren(NoDelegation, NoDelegation));
+
+    // check that the account update burns the specified amount
+    let balanceChange = Int64.fromObject(burnWMINA.body.balanceChange);
+    balanceChange.assertEquals(Int64.from(amount).neg());
+
+    // in return for burn, decrease our MINA balance (can be picked up as balance increase anywhere it suits the caller)
+    this.balance.subInPlace(amount);
+
+    // update priorMina
     const priorMina = this.priorMina.get();
     this.priorMina.assertEquals(this.priorMina.get());
-
     const newMina = priorMina.sub(amount);
-
-    this.send({ to: destination, amount });
-
     this.priorMina.set(newMina);
   }
 

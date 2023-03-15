@@ -1,5 +1,5 @@
 import { WrappedMina } from './WrappedMina.js';
-import { TokenPool, WMinaTokenHolder } from './TokenPool.js';
+import { TokenPool, TokenPoolWMinaHolder } from './TokenPool.js';
 import {
   Mina,
   PrivateKey,
@@ -42,7 +42,7 @@ import fs from 'fs';
 
   let wrappedMinaContract = new WrappedMina(wrappedMinaPublicKey);
   let tokenPoolContract = new TokenPool(tokenPoolPublicKey);
-  let wrappedMinaTokenHolder = new WMinaTokenHolder(
+  let wrappedMinaTokenHolder = new TokenPoolWMinaHolder(
     tokenPoolPublicKey,
     wrappedMinaContract.token.id
   );

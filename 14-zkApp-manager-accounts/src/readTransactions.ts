@@ -79,6 +79,9 @@ function printTxn(txn: any) {
       } else {
         au.body.update.appState = JSON.stringify(au.body.update.appState.map((u: any, i: any) => [ i, u ])
                                                   .filter((x: any) => x[1] != null));
+        if (au.body.update.appState == '[]') {
+          delete au.body.update.appState;
+        }
       }
     }
     au.idx = idx;
@@ -86,6 +89,10 @@ function printTxn(txn: any) {
     au.body.preconditions = removeNull(au.body.preconditions)
     au.body.publicKey = au.body.publicKey.slice(-6);
     au.body.tokenId = au.body.tokenId.slice(-6);
+
+    if (!au.body.mayUseToken.parentsOwnToken && !au.body.mayUseToken.inheritFromParent) {
+      delete au.body.mayUseToken;
+    }
 
     if (au.body.events.length == 0) {
       delete au.body.events;
@@ -112,7 +119,8 @@ function printTxn(txn: any) {
       idx: au.idx,
       publicKey: au.body.publicKey.slice(-6),
       tokenId: au.body.tokenId.slice(-6),
-      callDepth: au.body.callDepth,
+      //callDepth: au.body.callDepth,
+      mayUseToken: au.body.mayUseToken,
       callData: au.body.callData.slice(-6),
       balanceChange: (au.body.balanceChange.sgn == 'Positive' ? '+' : '-') + (au.body.balanceChange.magnitude/1e9),
       update: au.body.update,     

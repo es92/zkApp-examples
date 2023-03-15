@@ -19,11 +19,15 @@ export class SecondaryZkApp extends SmartContract {
   }
 
   @method init() {
+    this.account.provedState.assertEquals(this.account.provedState.get());
+    this.account.provedState.get().assertFalse();
+
     super.init();
     this.num.set(Field(12));
   }
 
   @method add(incrementBy: Field) {
+    this.account.provedState.assertEquals(this.account.provedState.get());
     this.account.provedState.get().assertTrue();
 
     const num = this.num.get();

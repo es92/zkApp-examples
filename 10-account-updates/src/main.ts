@@ -69,7 +69,7 @@ import { showTxn, saveTxn, printTxn } from 'mina-transaction-visualizer';
   await txn1.prove();
 
   await showTxn(txn1, 'txn1', legend);
-  await saveTxn(deploy_txn, 'deploy_txn', legend, './txn1.png');
+  await saveTxn(txn1, 'txn1', legend, './txn1.png');
 
   await txn1.send();
 
@@ -82,7 +82,7 @@ import { showTxn, saveTxn, printTxn } from 'mina-transaction-visualizer';
   await txn2.prove();
 
   await showTxn(txn2, 'txn2', legend);
-  await saveTxn(deploy_txn, 'deploy_txn', legend, './txn2.png');
+  await saveTxn(txn2, 'txn2', legend, './txn2.png');
 
   await txn2.send();
 

@@ -31,6 +31,9 @@ export class ProofsOnlyZkApp extends SmartContract {
   }
 
   @method init() {
+    this.account.provedState.assertEquals(this.account.provedState.get());
+    this.account.provedState.get().assertFalse();
+
     super.init();
     this.num.set(Field(1));
     this.calls.set(Field(0));

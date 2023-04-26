@@ -11,7 +11,3 @@ coverage
 
 # Never commit keys to Git!
 keys
-
-*.swp
-
-old/

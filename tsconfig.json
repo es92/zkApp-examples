@@ -19,5 +19,5 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./src"]
+  "include": ["./01-hello-world"]
 }

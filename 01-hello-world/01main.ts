@@ -1,4 +1,4 @@
-import { Square } from './Square.js';
+import { Square } from './01Square.js';
 import {
   isReady,
   shutdown,
@@ -16,8 +16,10 @@ const useProof = false;
 
 const Local = Mina.LocalBlockchain({ proofsEnabled: useProof });
 Mina.setActiveInstance(Local);
-const { privateKey: deployerKey, publicKey: deployerAccount } = Local.testAccounts[0];
-const { privateKey: senderKey, publicKey: senderAccount } = Local.testAccounts[1];
+const { privateKey: deployerKey, publicKey: deployerAccount } =
+  Local.testAccounts[0];
+const { privateKey: senderKey, publicKey: senderAccount } =
+  Local.testAccounts[1];
 
 // ----------------------------------------------------
 

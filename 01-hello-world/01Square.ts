@@ -1,10 +1,4 @@
-import { 
-  Field, 
-  SmartContract, 
-  state, 
-  State, 
-  method 
-} from 'snarkyjs';
+import { Field, SmartContract, state, State, method } from 'snarkyjs';
 
 export class Square extends SmartContract {
   @state(Field) num = State<Field>();

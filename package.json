@@ -1,14 +1,15 @@
 {
-  "name": "package-name",
+  "name": "zkAppExamples",
   "version": "0.1.0",
   "description": "",
-  "author": "",
+  "author": "rhvall, fork from 'es92/zkApp-examples' & 'o1-labs/docs2' ",
   "license": "Apache-2.0",
   "keywords": [
     "mina-zkapp",
     "mina-zk-app",
     "mina-dapp",
-    "zkapp"
+    "zkapp",
+    "examples"
   ],
   "type": "module",
   "main": "build/src/index.js",
@@ -21,7 +22,8 @@
     "prepare": "husky install",
     "test": "node --experimental-vm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js",
     "testw": "node --experimental-vm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js --watch",
-    "lint": "npx eslint src/* --fix"
+    "lint": "npx eslint src/* --fix",
+    "main01": "node --experimental-vm-modules --experimental-wasm-threads build/01-hello-world/01main.js"
   },
   "lint-staged": {
     "**/*": [

@@ -31,7 +31,7 @@ import {
   const deploy_txn = await Mina.transaction(deployerAccount, () => {
     AccountUpdate.fundNewAccount(deployerAccount);
     zkAppInstance.deploy({ zkappKey: zkAppPrivateKey });
-    zkAppInstance.initState(salt, Field(750))
+    zkAppInstance.initState(salt, Field(750));
     zkAppInstance.sign(zkAppPrivateKey);
   });
   await deploy_txn.send();

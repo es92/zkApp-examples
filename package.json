@@ -24,11 +24,12 @@
     "testw": "node --experimental-vm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js --watch",
     "lint": "npx eslint src/* --fix",
     "main01": "node --experimental-vm-modules --experimental-wasm-threads build/01-hello-world/main.js",
-    "main02": "node --experimental-vm-modules --experimental-wasm-threads build/02-private-inputs/main.js"
+    "main02": "node --experimental-vm-modules --experimental-wasm-threads build/02-private-inputs/main.js",
+    "main05": "node --experimental-vm-modules --experimental-wasm-threads build/05-common-types/main.js"
   },
   "lint-staged": {
     "**/*": [
-      "eslint 01-hello-world/* 02-private-inputs/* --fix",
+      "eslint 01-hello-world/* 02-private-inputs/* 05-common-types/* --fix",
       "prettier --write --ignore-unknown"
     ]
   },

@@ -19,5 +19,5 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["./01-hello-world", "./02-private-inputs"]
+  "include": ["./01-hello-world", "./02-private-inputs", "05-common-types"]
 }

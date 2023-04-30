@@ -27,6 +27,7 @@
     "main02": "node --experimental-vm-modules --experimental-wasm-threads build/02-private-inputs/main.js",
     "main03": "node --experimental-vm-modules --experimental-wasm-threads build/03-deploy/main.js berkeley",
     "main05": "node --experimental-vm-modules --experimental-wasm-threads build/05-common-types/main.js",
+    "main06": "node --experimental-vm-modules --experimental-wasm-threads build/06-offchain-storage/main.js",
     "main08": "node --experimental-vm-modules --experimental-wasm-threads build/08-custom-tokens/main.js",
     "main09": "node --experimental-vm-modules --experimental-wasm-threads build/09-recursion/main.js",
     "main09b": "node --experimental-vm-modules --experimental-wasm-threads build/09-recursion/rollup.js",
@@ -61,6 +62,7 @@
     "@types/node": "18.11.7"
   },
   "peerDependencies": {
-    "snarkyjs": "0.9.*"
+    "snarkyjs": "0.9.8",
+    "xmlhttprequest-ts": "^1.0.1"
   }
 }

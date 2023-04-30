@@ -13,7 +13,11 @@ import {
   Bool,
 } from 'snarkyjs';
 
-import { OffChainStorage, Update, MerkleWitness8 } from './OffChainStorage.js';
+import {
+  OffChainStorage,
+  Update,
+  MerkleWitness8,
+} from './lib/OffChainStorage.js';
 
 export class SignedMessageBoard extends SmartContract {
   @state(PublicKey) storageServerPublicKey = State<PublicKey>();

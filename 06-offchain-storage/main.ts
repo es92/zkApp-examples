@@ -1,5 +1,5 @@
 import { NumberTreeContract } from './NumberTreeContract.js';
-import { OffChainStorage, MerkleWitness8 } from './OffChainStorage.js';
+import { OffChainStorage, MerkleWitness8 } from './lib/OffChainStorage.js';
 import fs from 'fs';
 
 import {

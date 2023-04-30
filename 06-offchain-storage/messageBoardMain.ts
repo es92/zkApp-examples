@@ -1,5 +1,5 @@
 import { SignedMessageBoard } from './SignedMessageBoard.js';
-import { OffChainStorage, MerkleWitness8 } from './OffChainStorage.js';
+import { OffChainStorage, MerkleWitness8 } from './lib/OffChainStorage.js';
 
 import {
   Mina,

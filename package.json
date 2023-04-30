@@ -30,7 +30,7 @@
     "main09": "node --experimental-vm-modules --experimental-wasm-threads build/09-recursion/main.js",
     "main09b": "node --experimental-vm-modules --experimental-wasm-threads build/09-recursion/rollup.js",
     "main11": "node --experimental-vm-modules --experimental-wasm-threads build/11-anonymous/main.js",
-    "main12": "node --experimental-vm-modules --experimental-wasm-threads build/12-server-side/main.js"
+    "main12": "node --experimental-vm-modules --experimental-wasm-threads build/12-server-side/main.js berkeley"
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [

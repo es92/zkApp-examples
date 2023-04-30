@@ -22,14 +22,14 @@
     "prepare": "husky install",
     "test": "node --experimental-vm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js",
     "testw": "node --experimental-vm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js --watch",
-    "lint": "npx eslint src/* --fix",
+    "lint": "npx eslint --fix",
     "main01": "node --experimental-vm-modules --experimental-wasm-threads build/01-hello-world/main.js",
     "main02": "node --experimental-vm-modules --experimental-wasm-threads build/02-private-inputs/main.js",
     "main05": "node --experimental-vm-modules --experimental-wasm-threads build/05-common-types/main.js"
   },
   "lint-staged": {
-    "**/*": [
-      "eslint 01-hello-world/* 02-private-inputs/* 05-common-types/* --fix",
+    "**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
       "prettier --write --ignore-unknown"
     ]
   },
@@ -39,14 +39,20 @@
     "@types/jest": "^27.0.3",
     "@typescript-eslint/eslint-plugin": "^5.5.0",
     "@typescript-eslint/parser": "^5.5.0",
-    "eslint": "^8.7.0",
+    "eslint": "^8.26.0",
     "eslint-plugin-snarkyjs": "^0.1.0",
+    "eslint-config-next": "13.0.0",
     "husky": "^7.0.1",
     "jest": "^27.3.1",
     "lint-staged": "^11.0.1",
     "prettier": "^2.3.2",
     "ts-jest": "^27.0.7",
-    "typescript": "^4.7.2"
+    "typescript": "^4.8.4",
+    "coi-serviceworker": "^0.1.6",
+    "next": "13.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@types/node": "18.11.7"
   },
   "peerDependencies": {
     "snarkyjs": "0.9.*"

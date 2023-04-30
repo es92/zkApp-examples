@@ -28,6 +28,7 @@
     "main05": "node --experimental-vm-modules --experimental-wasm-threads build/05-common-types/main.js",
     "main08": "node --experimental-vm-modules --experimental-wasm-threads build/08-custom-tokens/main.js",
     "main09": "node --experimental-vm-modules --experimental-wasm-threads build/09-recursion/main.js",
+    "main09b": "node --experimental-vm-modules --experimental-wasm-threads build/09-recursion/rollup.js",
     "main11": "node --experimental-vm-modules --experimental-wasm-threads build/11-anonymous/main.js",
     "main12": "node --experimental-vm-modules --experimental-wasm-threads build/12-server-side/main.js"
   },

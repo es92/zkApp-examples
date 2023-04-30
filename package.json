@@ -25,7 +25,11 @@
     "lint": "npx eslint --fix",
     "main01": "node --experimental-vm-modules --experimental-wasm-threads build/01-hello-world/main.js",
     "main02": "node --experimental-vm-modules --experimental-wasm-threads build/02-private-inputs/main.js",
-    "main05": "node --experimental-vm-modules --experimental-wasm-threads build/05-common-types/main.js"
+    "main05": "node --experimental-vm-modules --experimental-wasm-threads build/05-common-types/main.js",
+    "main08": "node --experimental-vm-modules --experimental-wasm-threads build/08-custom-tokens/main.js",
+    "main09": "node --experimental-vm-modules --experimental-wasm-threads build/09-recursion/main.js",
+    "main11": "node --experimental-vm-modules --experimental-wasm-threads build/11-anonymous/main.js",
+    "main12": "node --experimental-vm-modules --experimental-wasm-threads build/12-server-side/main.js"
   },
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [

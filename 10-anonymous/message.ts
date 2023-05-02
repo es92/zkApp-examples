@@ -59,10 +59,13 @@ export class MessageBoard extends SmartContract {
     // Compute signerPublicKey from signerPrivateKey argument
     const signerPublicKey = signerPrivateKey.toPublicKey();
 
-    // Get approved public keys
+    // // Get approved public keys
     const user1 = this.user1.get();
+    this.user1.assertEquals(user1);
     const user2 = this.user2.get();
+    this.user2.assertEquals(user2);
     const user3 = this.user3.get();
+    this.user3.assertEquals(user3);
 
     // Assert that signerPublicKey is one of the approved public keys
     signerPublicKey
@@ -75,6 +78,7 @@ export class MessageBoard extends SmartContract {
 
     // Compute new messageHistoryHash
     const oldHash = this.messageHistoryHash.get();
+    this.messageHistoryHash.assertEquals(oldHash);
     const newHash = Poseidon.hash([message, oldHash]);
 
     // Update on-chain state

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "es2022",
+    "lib": ["dom", "esnext"],
+    "outDir": "./build",
+    "rootDir": ".",
+    "strict": true,
+    "strictPropertyInitialization": false, // to enable generic constructors, e.g. on CircuitValue
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowJs": true,
+    "declaration": true,
+    "sourceMap": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["01-hello-world", "02-private-inputs", "03-deploy",
+    "05-common-types", "06-offchain-storage", "07-oracle", 
+    "08-custom-tokens", "09-recursion", "10-anonymous", "11-server-side"]
+}

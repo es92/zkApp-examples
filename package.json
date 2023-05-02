@@ -1,0 +1,73 @@
+{
+  "name": "zkAppExamples",
+  "version": "0.1.0",
+  "description": "",
+  "author": "rhvall, fork from 'es92/zkApp-examples' & 'o1-labs/docs2' ",
+  "license": "Apache-2.0",
+  "keywords": [
+    "mina-zkapp",
+    "mina-zk-app",
+    "mina-dapp",
+    "zkapp",
+    "examples"
+  ],
+  "type": "module",
+  "main": "build/src/index.js",
+  "types": "build/src/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "buildw": "tsc --watch",
+    "coverage": "node --experimental-vm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js --coverage",
+    "format": "prettier --write --ignore-unknown **/*",
+    "prepare": "husky install",
+    "test": "node --experimental-vm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js",
+    "testw": "node --experimental-vm-modules --experimental-wasm-threads node_modules/jest/bin/jest.js --watch",
+    "lint": "npx eslint --fix",
+    "main01": "node --experimental-vm-modules --experimental-wasm-threads build/01-hello-world/main.js",
+    "main02": "node --experimental-vm-modules --experimental-wasm-threads build/02-private-inputs/main.js",
+    "main03": "node --experimental-vm-modules --experimental-wasm-threads build/03-deploy/main.js berkeley",
+    "main05": "node --experimental-vm-modules --experimental-wasm-threads build/05-common-types/main.js",
+    "main06": "node --experimental-vm-modules --experimental-wasm-threads build/06-offchain-storage/main.js",
+    "main07": "node --experimental-vm-modules --experimental-wasm-threads build/07-oracle/main.js",
+    "main08": "node --experimental-vm-modules --experimental-wasm-threads build/08-custom-tokens/main.js",
+    "main09": "node --experimental-vm-modules --experimental-wasm-threads build/09-recursion/main.js",
+    "main09b": "node --experimental-vm-modules --experimental-wasm-threads build/09-recursion/rollup.js",
+    "main10": "node --experimental-vm-modules --experimental-wasm-threads build/10-anonymous/main.js",
+    "main11": "node --experimental-vm-modules --experimental-wasm-threads build/11-server-side/main.js berkeley"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-typescript": "^7.16.0",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.14",
+    "@types/jest": "^27.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.5.0",
+    "@typescript-eslint/parser": "^5.5.0",
+    "eslint": "^8.26.0",
+    "eslint-plugin-snarkyjs": "^0.1.0",
+    "eslint-config-next": "13.0.0",
+    "husky": "^7.0.1",
+    "jest": "^27.3.1",
+    "lint-staged": "^11.0.1",
+    "prettier": "^2.3.2",
+    "ts-jest": "^27.0.7",
+    "typescript": "^4.8.4",
+    "coi-serviceworker": "^0.1.6",
+    "next": "13.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "@types/node": "18.11.7"
+  },
+  "peerDependencies": {
+    "snarkyjs": "0.9.8",
+    "xmlhttprequest-ts": "^1.0.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2"
+  }
+}

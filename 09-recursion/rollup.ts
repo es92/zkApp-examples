@@ -80,7 +80,7 @@ async function main() {
   //   const proof = await Rollup.oneStep(rollup, initialRoot, latestRoot, key, currentValue, increment, witness);
   //   return proof;
   // });
-  const rollupProofs: Proof<RollupState>[] = [];
+  const rollupProofs: Proof<RollupState, void>[] = [];
   for (let {
     initialRoot,
     latestRoot,
@@ -117,7 +117,7 @@ async function main() {
   //   const rollup = RollupState.createMerged((await a).publicInput, (await b).publicInput);
   //   return await Rollup.merge(rollup, (await a), (await b));
   // });
-  let proof: Proof<RollupState> = rollupProofs[0];
+  let proof: Proof<RollupState, void> = rollupProofs[0];
   for (let i = 1; i < rollupProofs.length; i++) {
     const rollup = RollupState.createMerged(
       proof.publicInput,
@@ -215,8 +215,8 @@ const Rollup = Experimental.ZkProgram({
 
       method(
         newState: RollupState,
-        rollup1proof: SelfProof<RollupState>,
-        rollup2proof: SelfProof<RollupState>
+        rollup1proof: SelfProof<RollupState, void>,
+        rollup2proof: SelfProof<RollupState, void>
       ) {
         rollup1proof.verify();
         rollup2proof.verify();

@@ -1,14 +1,5 @@
 import { Square } from './Square.js';
-import {
-  isReady,
-  shutdown,
-  Field,
-  Mina,
-  PrivateKey,
-  AccountUpdate,
-} from 'snarkyjs';
-
-await isReady;
+import { Field, Mina, PrivateKey, AccountUpdate } from 'snarkyjs';
 
 console.log('SnarkyJS loaded');
 
@@ -77,6 +68,4 @@ console.log('state after txn3:', num3.toString());
 
 // ----------------------------------------------------
 
-console.log('Shutting down');
-
-await shutdown();
+console.log('Main01 Finished');

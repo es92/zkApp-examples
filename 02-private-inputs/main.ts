@@ -1,18 +1,7 @@
 import { IncrementSecret } from './IncrementSecret.js';
-import {
-  isReady,
-  shutdown,
-  Field,
-  Mina,
-  PrivateKey,
-  PublicKey,
-  AccountUpdate,
-  Poseidon,
-} from 'snarkyjs';
+import { Field, Mina, PrivateKey, AccountUpdate } from 'snarkyjs';
 
 (async function main() {
-  await isReady;
-
   console.log('SnarkyJS loaded');
 
   const Local = Mina.LocalBlockchain();
@@ -26,7 +15,7 @@ import {
   // create a destination we will deploy the smart contract to
   const zkAppPrivateKey = PrivateKey.random();
   const zkAppAddress = zkAppPrivateKey.toPublicKey();
-
+  await IncrementSecret.compile();
   const zkAppInstance = new IncrementSecret(zkAppAddress);
   const deploy_txn = await Mina.transaction(deployerAccount, () => {
     AccountUpdate.fundNewAccount(deployerAccount);
@@ -53,7 +42,5 @@ import {
 
   // ----------------------------------------------------
 
-  console.log('Shutting down');
-
-  await shutdown();
+  console.log('Main02 Finished');
 })();

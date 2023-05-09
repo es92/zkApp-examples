@@ -1,6 +1,6 @@
 {
   "name": "zkAppExamples",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "author": "rhvall, fork from 'es92/zkApp-examples' & 'o1-labs/docs2' ",
   "license": "Apache-2.0",
@@ -65,7 +65,7 @@
     "@types/node": "18.11.7"
   },
   "peerDependencies": {
-    "snarkyjs": "0.9.8",
+    "snarkyjs": "0.10.1",
     "xmlhttprequest-ts": "^1.0.1",
     "cors": "^2.8.5",
     "express": "^4.18.2"

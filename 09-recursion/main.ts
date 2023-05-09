@@ -69,7 +69,7 @@ const Add = Experimental.ZkProgram({
 
       method(
         newState: Field,
-        earlierProof: SelfProof<Field>,
+        earlierProof: SelfProof<Field, Field>,
         numberToAdd: Field
       ) {
         earlierProof.verify();
@@ -82,8 +82,8 @@ const Add = Experimental.ZkProgram({
 
       method(
         newState: Field,
-        earlierProof1: SelfProof<Field>,
-        earlierProof2: SelfProof<Field>
+        earlierProof1: SelfProof<Field, Field>,
+        earlierProof2: SelfProof<Field, Field>
       ) {
         earlierProof1.verify();
         earlierProof2.verify();

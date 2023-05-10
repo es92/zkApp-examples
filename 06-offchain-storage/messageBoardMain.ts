@@ -149,4 +149,4 @@ console.log('root updated to', zkapp.storageTreeRoot.get().toString());
 
 // ----------------------------------------------------
 
-console.log('Main06a Message board Finished');
+console.log('Main06b Message board Finished');

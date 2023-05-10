@@ -1,21 +1,26 @@
+// https://github.com/rhvall/MinaDevContainer
+// Based on code from https://github.com/o1-labs/docs2
+// May 2023
+// Licensed to the Apache Software Foundation (ASF) under one
+// or more contributor license agreements.  See the NOTICE file
+// distributed with this work for additional information
+// regarding copyright ownership.  The ASF licenses this file
+// to you under the Apache License, Version 2.0 (the
+// "License"); you may not use this file except in compliance
+// with the License.  You may obtain a copy of the License at
+//   http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
 import { NumberTreeContract } from './NumberTreeContract.js';
 import { OffChainStorage, MerkleWitness8 } from './lib/OffChainStorage.js';
 import fs from 'fs';
 
-import {
-  Mina,
-  isReady,
-  PublicKey,
-  PrivateKey,
-  AccountUpdate,
-  Group,
-  Character,
-  CircuitString,
-  Signature,
-  Field,
-  Bool,
-  shutdown,
-} from 'snarkyjs';
+import { Mina, PrivateKey, AccountUpdate, Field, Bool } from 'snarkyjs';
 
 import { makeAndSendTransaction, loopUntilAccountExists } from './utils.js';
 
@@ -25,22 +30,20 @@ const NodeXMLHttpRequest =
 
 const useLocal = true;
 
-await isReady;
-
-// ----------------------------------------
-
+// ----------------------------------------------------
+// Load a local or berkeley instance of the Mina blockchain
 const transactionFee = 100_000_000;
 
 const treeHeight = 8;
 
-let feePayerKey: PrivateKey;
-let zkappPrivateKey: PrivateKey;
+let deployerKey: PrivateKey;
+let zkAppPrivateKey: PrivateKey;
 if (useLocal) {
   const Local = Mina.LocalBlockchain();
   Mina.setActiveInstance(Local);
 
-  feePayerKey = Local.testAccounts[0].privateKey;
-  zkappPrivateKey = PrivateKey.random();
+  deployerKey = Local.testAccounts[0].privateKey;
+  zkAppPrivateKey = PrivateKey.random();
 } else {
   const Berkeley = Mina.Network(
     'https://proxy.berkeley.minaexplorer.com/graphql'
@@ -58,49 +61,53 @@ if (useLocal) {
     deployerKeysFileContents
   ).privateKey;
 
-  feePayerKey = PrivateKey.fromBase58(deployerPrivateKeyBase58);
-  zkappPrivateKey = feePayerKey;
+  deployerKey = PrivateKey.fromBase58(deployerPrivateKeyBase58);
+  zkAppPrivateKey = deployerKey;
 }
 
-const zkappPublicKey = zkappPrivateKey.toPublicKey();
+const deployerAccount = deployerKey.toPublicKey();
+const zkAppAddress = zkAppPrivateKey.toPublicKey();
+
+console.log('Using deployer account: ', deployerAccount.toBase58());
+console.log('Using zkApp account: ', zkAppAddress.toBase58());
 
 // ----------------------------------------
-// setup the zkapp
-
+// Stablish connection to the OffChainStorage
 const storageServerAddress = 'http://localhost:3001';
 const serverPublicKey = await OffChainStorage.getPublicKey(
   storageServerAddress,
   NodeXMLHttpRequest
 );
 
+// ----------------------------------------------------
+// Create an instance of NumberTreeContract zkApp contract - and deploy it to zkAppAddress
 if (!useLocal) {
   console.log('Compiling smart contract...');
   await NumberTreeContract.compile();
 }
 
-const zkapp = new NumberTreeContract(zkappPublicKey);
+const zkapp = new NumberTreeContract(zkAppAddress);
 
 if (useLocal) {
-  const transaction = await Mina.transaction(feePayerKey.toPublicKey(), () => {
-    AccountUpdate.fundNewAccount(feePayerKey.toPublicKey());
-    zkapp.deploy({ zkappKey: zkappPrivateKey });
+  const transaction = await Mina.transaction(deployerKey.toPublicKey(), () => {
+    AccountUpdate.fundNewAccount(deployerKey.toPublicKey());
+    zkapp.deploy({ zkappKey: zkAppPrivateKey });
     zkapp.initState(serverPublicKey);
   });
-  transaction.sign([zkappPrivateKey, feePayerKey]);
+  transaction.sign([zkAppPrivateKey, deployerKey]);
   await transaction.prove();
   await transaction.send();
 } else {
   let zkAppAccount = await loopUntilAccountExists({
-    account: zkappPrivateKey.toPublicKey(),
+    account: zkAppPrivateKey.toPublicKey(),
     eachTimeNotExist: () =>
       console.log('waiting for zkApp account to be deployed...'),
     isZkAppAccount: true,
   });
 }
 
-// ----------------------------------------
-// update the smart contract
-
+// ----------------------------------------------------
+// Perform serveral updates to the zkApp state
 const height = 8;
 
 async function updateTree() {
@@ -110,7 +117,7 @@ async function updateTree() {
   const treeRoot = await zkapp.storageTreeRoot.get();
   const idx2fields = await OffChainStorage.get(
     storageServerAddress,
-    zkappPublicKey,
+    zkAppAddress,
     treeHeight,
     treeRoot,
     NodeXMLHttpRequest
@@ -137,7 +144,7 @@ async function updateTree() {
   const [storedNewStorageNumber, storedNewStorageSignature] =
     await OffChainStorage.requestStore(
       storageServerAddress,
-      zkappPublicKey,
+      zkAppAddress,
       treeHeight,
       idx2fields,
       NodeXMLHttpRequest
@@ -167,19 +174,19 @@ async function updateTree() {
 
   if (useLocal) {
     const updateTransaction = await Mina.transaction(
-      { sender: feePayerKey.toPublicKey(), fee: transactionFee },
+      { sender: deployerKey.toPublicKey(), fee: transactionFee },
       () => {
         doUpdate();
       }
     );
 
-    updateTransaction.sign([zkappPrivateKey, feePayerKey]);
+    updateTransaction.sign([zkAppPrivateKey, deployerKey]);
     await updateTransaction.prove();
     await updateTransaction.send();
   } else {
     await makeAndSendTransaction({
-      feePayerPrivateKey: feePayerKey,
-      zkAppPublicKey: zkappPublicKey,
+      feePayerPrivateKey: deployerKey,
+      zkAppPublicKey: zkAppAddress,
       mutateZkApp: () => doUpdate(),
       transactionFee: transactionFee,
       getState: () => zkapp.storageTreeRoot.get(),
@@ -194,6 +201,6 @@ for (;;) {
   await updateTree();
 }
 
-//---------------------------
+// ----------------------------------------------------
 
-await shutdown();
+console.log('Main06 Finished');

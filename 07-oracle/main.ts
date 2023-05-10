@@ -1,8 +1,23 @@
-import { exit } from 'process';
+// https://github.com/rhvall/MinaDevContainer
+// Based on code from https://github.com/o1-labs/docs2
+// May 2023
+// Licensed to the Apache Software Foundation (ASF) under one
+// or more contributor license agreements.  See the NOTICE file
+// distributed with this work for additional information
+// regarding copyright ownership.  The ASF licenses this file
+// to you under the Apache License, Version 2.0 (the
+// "License"); you may not use this file except in compliance
+// with the License.  You may obtain a copy of the License at
+//   http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
 import { OracleExample } from './CreditScoreOracle.js';
 import {
-  isReady,
-  shutdown,
   Field,
   Mina,
   PrivateKey,
@@ -11,7 +26,6 @@ import {
   Signature,
 } from 'snarkyjs';
 
-await isReady;
 // The public key of our trusted data provider
 const ORACLE_PUBLIC_KEY =
   'B62qoAE4rBRuTgC42vqvEyUqCGhaZsW58SKVW4Ht8aYqP9UTvxFWBgy';
@@ -74,8 +88,3 @@ const events = await zkAppInstance.fetchEvents();
 const verifiedEventValue = events[0].event.data.toFields(null)[0];
 
 console.log('Event received: ', verifiedEventValue);
-
-// `shutdown()` internally calls `process.exit()` which will exit the running Jest process early.
-// Specifying a timeout of 0 is a workaround to defer `shutdown()` until Jest is done running all tests.
-// This should be fixed with https://github.com/MinaProtocol/mina/issues/10943
-setTimeout(shutdown, 0);

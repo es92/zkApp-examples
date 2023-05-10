@@ -88,3 +88,7 @@ const events = await zkAppInstance.fetchEvents();
 const verifiedEventValue = events[0].event.data.toFields(null)[0];
 
 console.log('Event received: ', verifiedEventValue);
+
+// ----------------------------------------------------
+
+console.log('Main07 Finished');

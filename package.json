@@ -1,6 +1,6 @@
 {
   "name": "zkAppExamples",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "author": "rhvall, fork from 'es92/zkApp-examples' & 'o1-labs/docs2' ",
   "license": "Apache-2.0",
@@ -28,6 +28,7 @@
     "main03": "node --experimental-vm-modules --experimental-wasm-threads build/03-deploy/main.js berkeley",
     "main05": "node --experimental-vm-modules --experimental-wasm-threads build/05-common-types/main.js",
     "main06": "node --experimental-vm-modules --experimental-wasm-threads build/06-offchain-storage/main.js",
+    "main06b": "node --experimental-vm-modules --experimental-wasm-threads build/06-offchain-storage/messageBoardMain.js",
     "main07": "node --experimental-vm-modules --experimental-wasm-threads build/07-oracle/main.js",
     "main08": "node --experimental-vm-modules --experimental-wasm-threads build/08-custom-tokens/main.js",
     "main09": "node --experimental-vm-modules --experimental-wasm-threads build/09-recursion/main.js",
@@ -65,7 +66,7 @@
     "@types/node": "18.11.7"
   },
   "peerDependencies": {
-    "snarkyjs": "0.9.8",
+    "snarkyjs": "0.10.1",
     "xmlhttprequest-ts": "^1.0.1",
     "cors": "^2.8.5",
     "express": "^4.18.2"

@@ -1,18 +1,27 @@
+// https://github.com/rhvall/MinaDevContainer
+// Based on code from https://github.com/o1-labs/docs2
+// May 2023
+// Licensed to the Apache Software Foundation (ASF) under one
+// or more contributor license agreements.  See the NOTICE file
+// distributed with this work for additional information
+// regarding copyright ownership.  The ASF licenses this file
+// to you under the Apache License, Version 2.0 (the
+// "License"); you may not use this file except in compliance
+// with the License.  You may obtain a copy of the License at
+//   http://www.apache.org/licenses/LICENSE-2.0
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
 import {
-  isReady,
-  shutdown,
   Field,
-  Mina,
-  PrivateKey,
-  AccountUpdate,
   SelfProof,
   Experimental,
   Struct,
-  Bool,
-  Circuit,
-  Poseidon,
   MerkleMap,
-  MerkleTree,
   MerkleWitness,
   MerkleMapWitness,
   verify,
@@ -30,8 +39,6 @@ class MerkleWitness20 extends MerkleWitness(20) {}
 // ===============================================================
 
 async function main() {
-  await isReady;
-
   console.log('SnarkyJS loaded');
 
   console.log('compiling...');
@@ -80,7 +87,7 @@ async function main() {
   //   const proof = await Rollup.oneStep(rollup, initialRoot, latestRoot, key, currentValue, increment, witness);
   //   return proof;
   // });
-  const rollupProofs: Proof<RollupState>[] = [];
+  const rollupProofs: Proof<RollupState, void>[] = [];
   for (let {
     initialRoot,
     latestRoot,
@@ -117,7 +124,7 @@ async function main() {
   //   const rollup = RollupState.createMerged((await a).publicInput, (await b).publicInput);
   //   return await Rollup.merge(rollup, (await a), (await b));
   // });
-  let proof: Proof<RollupState> = rollupProofs[0];
+  let proof: Proof<RollupState, void> = rollupProofs[0];
   for (let i = 1; i < rollupProofs.length; i++) {
     const rollup = RollupState.createMerged(
       proof.publicInput,
@@ -133,9 +140,8 @@ async function main() {
   const ok = await verify(proof.toJSON(), verificationKey);
   console.log('ok', ok);
 
-  console.log('Shutting down');
-
-  await shutdown();
+  // ----------------------------------------------------
+  console.log('Main09b Finished');
 }
 
 // ===============================================================
@@ -215,8 +221,8 @@ const Rollup = Experimental.ZkProgram({
 
       method(
         newState: RollupState,
-        rollup1proof: SelfProof<RollupState>,
-        rollup2proof: SelfProof<RollupState>
+        rollup1proof: SelfProof<RollupState, void>,
+        rollup2proof: SelfProof<RollupState, void>
       ) {
         rollup1proof.verify();
         rollup2proof.verify();

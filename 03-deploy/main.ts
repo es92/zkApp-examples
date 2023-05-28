@@ -60,6 +60,9 @@ if (accountExists == false) {
   exit(2);
 }
 
+console.log('Compiling Square zkApp');
+await Square.compile()
+
 console.log('Deployer public key:', deployerPublicKey.toBase58());
 console.log('Deployer balance:', response.account?.balance.toString());
 
@@ -76,7 +79,7 @@ let transaction = await Mina.transaction(
   () => {
     AccountUpdate.fundNewAccount(deployerPublicKey);
     // NOTE: this calls `init()` if this is the first deploy
-    zkAppInstance.deploy({});
+    zkAppInstance.deploy({ zkappKey: zkAppPrivateKey});
   }
 );
 await transaction.prove();

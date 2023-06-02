@@ -19,7 +19,7 @@
     "noFallthroughCasesInSwitch": true,
     "allowSyntheticDefaultImports": true
   },
-  "include": ["01-hello-world", "02-private-inputs", "03-deploy",
+  "include": ["01-hello-world", "02-private-inputs", "03-deploy", "04-zkapp-ui/contracts",
     "05-common-types", "06-offchain-storage", "07-oracle", 
     "08-custom-tokens", "09-recursion", "10-anonymous", "11-server-side"]
 }

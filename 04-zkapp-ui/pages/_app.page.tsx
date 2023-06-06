@@ -20,7 +20,9 @@
 import '../styles/globals.css';
 import { useEffect, useState } from 'react';
 import './reactCOIServiceWorker';
+
 import ZkappWorkerClient from './zkappWorkerClient';
+
 import { PublicKey, Field } from 'snarkyjs';
 
 let transactionFee = 0.1;
@@ -39,40 +41,53 @@ export default function App() {
 
   // -------------------------------------------------------
   // Do Setup
+
   useEffect(() => {
     (async () => {
       if (!state.hasBeenSetup) {
         const zkappWorkerClient = new ZkappWorkerClient();
+
         console.log('Loading SnarkyJS...');
+        await zkappWorkerClient.loadSnarkyJS();
+        console.log('done');
 
         await zkappWorkerClient.setActiveInstanceToBerkeley();
+
         const mina = (window as any).mina;
+
         if (mina == null) {
           setState({ ...state, hasWallet: false });
           return;
         }
+
         const publicKeyBase58: string = (await mina.requestAccounts())[0];
         const publicKey = PublicKey.fromBase58(publicKeyBase58);
+
         console.log('using key', publicKey.toBase58());
+
         console.log('checking if account exists...');
         const res = await zkappWorkerClient.fetchAccount({
           publicKey: publicKey!,
         });
-
         const accountExists = res.error == null;
+
         await zkappWorkerClient.loadContract();
+
         console.log('compiling zkApp');
         await zkappWorkerClient.compileContract();
         console.log('zkApp compiled');
+
         const zkappPublicKey = PublicKey.fromBase58(
-          'B62qjKyN7CuXqCn9EHBxL71aZ5KspzZRRJe4gaGo3PYwyw5EKbMoEaA'
+          'B62qohp4zipB5jHp2r8tZyCX1j65H37aQjn4vh9uyHskn3jfnSxbeRu'
         );
+
         await zkappWorkerClient.initZkappInstance(zkappPublicKey);
+
         console.log('getting zkApp state...');
         await zkappWorkerClient.fetchAccount({ publicKey: zkappPublicKey });
         const currentNum = await zkappWorkerClient.getNum();
-
         console.log('current state:', currentNum.toString());
+
         setState({
           ...state,
           zkappWorkerClient,
@@ -86,10 +101,10 @@ export default function App() {
       }
     })();
   }, []);
-  // -------------------------------------------------------
 
   // -------------------------------------------------------
   // Wait for account to exist, if it didn't
+
   useEffect(() => {
     (async () => {
       if (state.hasBeenSetup && !state.accountExists) {
@@ -108,21 +123,26 @@ export default function App() {
       }
     })();
   }, [state.hasBeenSetup]);
-  // -------------------------------------------------------
 
   // -------------------------------------------------------
   // Send a transaction
+
   const onSendTransaction = async () => {
     setState({ ...state, creatingTransaction: true });
     console.log('sending a transaction...');
+
     await state.zkappWorkerClient!.fetchAccount({
       publicKey: state.publicKey!,
     });
+
     await state.zkappWorkerClient!.createUpdateTransaction();
+
     console.log('creating proof...');
     await state.zkappWorkerClient!.proveUpdateTransaction();
+
     console.log('getting Transaction JSON...');
     const transactionJSON = await state.zkappWorkerClient!.getTransactionJSON();
+
     console.log('requesting send transaction...');
     const { hash } = await (window as any).mina.sendTransaction({
       transaction: transactionJSON,
@@ -131,14 +151,17 @@ export default function App() {
         memo: '',
       },
     });
+
     console.log(
       'See transaction at https://berkeley.minaexplorer.com/transaction/' + hash
     );
+
     setState({ ...state, creatingTransaction: false });
   };
 
   // -------------------------------------------------------
   // Refresh the current state
+
   const onRefreshCurrentNum = async () => {
     console.log('getting zkApp state...');
     await state.zkappWorkerClient!.fetchAccount({
@@ -146,11 +169,13 @@ export default function App() {
     });
     const currentNum = await state.zkappWorkerClient!.getNum();
     console.log('current state:', currentNum.toString());
+
     setState({ ...state, currentNum });
   };
-  // -------------------------------------------------------
 
+  // -------------------------------------------------------
   // Create UI elements
+
   let hasWallet;
   if (state.hasWallet != null && !state.hasWallet) {
     const auroLink = 'https://www.aurowallet.com/';
@@ -167,6 +192,7 @@ export default function App() {
       </div>
     );
   }
+
   let setupText = state.hasBeenSetup
     ? 'SnarkyJS Ready'
     : 'Setting up SnarkyJS...';
@@ -176,6 +202,7 @@ export default function App() {
       {setupText} {hasWallet}
     </div>
   );
+
   let accountDoesNotExist;
   if (state.hasBeenSetup && !state.accountExists) {
     const faucetLink =
@@ -190,6 +217,7 @@ export default function App() {
       </div>
     );
   }
+
   let mainContent;
   if (state.hasBeenSetup && state.accountExists) {
     mainContent = (
@@ -206,6 +234,7 @@ export default function App() {
       </div>
     );
   }
+
   return (
     <div>
       {setup}

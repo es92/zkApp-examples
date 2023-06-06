@@ -17,13 +17,13 @@
 // specific language governing permissions and limitations
 // under the License.
 
-import { Mina, PublicKey, fetchAccount } from 'snarkyjs';
+import { Mina, isReady, PublicKey, fetchAccount } from 'snarkyjs';
 
 type Transaction = Awaited<ReturnType<typeof Mina.transaction>>;
 
 // ---------------------------------------------------------------------------------------
 
-import type { Add } from '../../contracts/Add';
+import type { Add } from '../contracts/Add';
 
 const state = {
   Add: null as null | typeof Add,
@@ -34,17 +34,20 @@ const state = {
 // ---------------------------------------------------------------------------------------
 
 const functions = {
-  setActiveInstanceToBerkeley: async () => {
+  loadSnarkyJS: async (args: {}) => {
+    await isReady;
+  },
+  setActiveInstanceToBerkeley: async (args: {}) => {
     const Berkeley = Mina.Network(
       'https://proxy.berkeley.minaexplorer.com/graphql'
     );
     Mina.setActiveInstance(Berkeley);
   },
-  loadContract: async () => {
-    const { Add } = await import('../../../build/04-zkapp-ui/contracts/Add.js');
+  loadContract: async (args: {}) => {
+    const { Add } = await import('../contracts/Add.c.js');
     state.Add = Add;
   },
-  compileContract: async () => {
+  compileContract: async (args: {}) => {
     await state.Add!.compile();
   },
   fetchAccount: async (args: { publicKey58: string }) => {
@@ -55,20 +58,20 @@ const functions = {
     const publicKey = PublicKey.fromBase58(args.publicKey58);
     state.zkapp = new state.Add!(publicKey);
   },
-  getNum: async () => {
+  getNum: async (args: {}) => {
     const currentNum = await state.zkapp!.num.get();
     return JSON.stringify(currentNum.toJSON());
   },
-  createUpdateTransaction: async () => {
+  createUpdateTransaction: async (args: {}) => {
     const transaction = await Mina.transaction(() => {
       state.zkapp!.update();
     });
     state.transaction = transaction;
   },
-  proveUpdateTransaction: async () => {
+  proveUpdateTransaction: async (args: {}) => {
     await state.transaction!.prove();
   },
-  getTransactionJSON: async () => {
+  getTransactionJSON: async (args: {}) => {
     return state.transaction!.toJSON();
   },
 };

@@ -29,7 +29,6 @@ import {
   CircuitString,
   Signature,
   Bool,
-  shutdown,
 } from 'snarkyjs';
 
 import XMLHttpRequestTs from 'xmlhttprequest-ts';
@@ -60,6 +59,9 @@ const serverPublicKey = await OffChainStorage.getPublicKey(
   NodeXMLHttpRequest
 );
 
+console.log('Compiling smart contract...');
+await SignedMessageBoard.compile();
+
 const zkapp = new SignedMessageBoard(zkAppAddress);
 
 const deployTxn = await Mina.transaction(deployerAccount, () => {
@@ -68,7 +70,7 @@ const deployTxn = await Mina.transaction(deployerAccount, () => {
   zkapp.initState(serverPublicKey);
 });
 await deployTxn.prove();
-await deployTxn.sign([deployerKey]).send();
+await deployTxn.sign([deployerKey, zkappPrivateKey]).send();
 
 // ----------------------------------------------------
 // Perform serveral updates to the zkApp state
@@ -139,11 +141,11 @@ const updateTransaction = await Mina.transaction(
       storedNewStorageNumber,
       storedNewStorageSignature
     );
-    zkapp.sign(zkappPrivateKey);
+    zkapp.requireSignature();
   }
 );
 
-await updateTransaction.send();
+await updateTransaction.sign([deployerKey, zkappPrivateKey]).send();
 
 console.log('root updated to', zkapp.storageTreeRoot.get().toString());
 

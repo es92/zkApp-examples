@@ -81,10 +81,8 @@ const serverPublicKey = await OffChainStorage.getPublicKey(
 
 // ----------------------------------------------------
 // Create an instance of NumberTreeContract zkApp contract - and deploy it to zkAppAddress
-if (!useLocal) {
-  console.log('Compiling smart contract...');
-  await NumberTreeContract.compile();
-}
+console.log('Compiling smart contract...');
+await NumberTreeContract.compile();
 
 const zkapp = new NumberTreeContract(zkAppAddress);
 
@@ -197,7 +195,7 @@ async function updateTree() {
   console.log('root updated to', zkapp.storageTreeRoot.get().toString());
 }
 
-for (;;) {
+for (let i = 0; i < 3; i++) {
   await updateTree();
 }
 

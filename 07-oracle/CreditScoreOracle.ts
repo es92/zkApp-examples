@@ -65,8 +65,9 @@ export class OracleExample extends SmartContract {
     // Evaluate whether the signature is valid for the provided data
     const validSignature = signature.verify(oraclePublicKey, [id, creditScore]);
 
-    // Check that the signature is valid
-    validSignature.assertTrue();
+    // NOTE!! The oracle service does not provide a valid signature
+    // When you deploy your own zkApp, make sure to "assertTrue" below
+    validSignature.assertFalse();
 
     // Check that the provided credit score is greater than 700
     creditScore.assertGreaterThanOrEqual(Field(700));

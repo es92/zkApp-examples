@@ -82,6 +82,7 @@ const txn = await Mina.transaction(deployerAcc, () => {
 });
 // await txn.prove();
 console.log('About to send');
+await txn.prove();
 await txn.sign([deployerKey]).send();
 
 const events = await zkAppInstance.fetchEvents();
